@@ -1,0 +1,104 @@
+%\documentclass[onecolumn, 12pt]{article}
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Plan de th\`ese}
+%\author{Jules \bsc{Verne}}
+\date{\oldstylenums{1875}} 
+
+
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Introduction G\'en\'erale}
+\chapter{Contexte de l'\'etude}
+	\section{Etat de l'art: reconstruction du graphe par les incidents}
+	Dans cette partie, nous utilisons le cas du r\'eseau \'electrique de ERDF, d\'ecouvert \`a partir des incidents. Nous d\'ecrivons les \'etapes pour parvenir \`a ce resultat. 
+	
+	\section{Probl\'ematique}
+	Nous definirons le probl\`eme proxi-line qui est la distance de Hamming minimale selon les conditions suivantes:
+	
+\chapter{Reseau de flots et Mesures }
+	
+	\section{Graphe de flots: R\'eseau \'electrique}
+		\subsection{Mod\'elisation du r\'eseau \'electrique}
+	\section{Grandeurs physiques et caracteristiques}
+	\section{Loi de conservation dans un r\'eseau \'electrique }
+	\section{Contraintes dans les r\'eseaux \'electriques}
+\chapter{Corr\'elation de mesures}
+	\section{Mesures: des s\'eries temporelles}
+		\subsection{S\'eries Temporelles: D\'efinitions et Propri\'et\'es}
+		\subsection{Particularit\'es des mesures}
+%		\subsection{}
+	\section{\'Etude de l'art sur la corr\'elation de s\'eries temporelles}
+		\subsection{Corr\'elation sur les s\'eries enti\`eres: \{W,D\}DTW, TWE, MSM, CID, DTDc, COTE}
+			\subsubsection{Dynamic Time Warping: weight WDTW, derivative DDTW }
+			\subsubsection{Time Warp Edit TWE}
+			\subsubsection{Move-split-merge MSM}
+			\subsubsection{Complexity invariant Distance CID}
+			\subsubsection{Derivative Transform Distance DTDc}
+			\subsubsection{Elastic Ensemble EE}
+			\subsubsection{Collective of Transform Ensembles COTE}
+			\subsubsection{}
+		\subsection{Corr\'elation par intervalles: TSF, TSBF, LPS}
+			\subsubsection{Time Series Forest TSF}
+			\subsubsection{Time Series Bag of Features TSBF}
+			\subsubsection{Learned Pattern Similarity LPS}
+		\subsection{Corr\'elation par parties significatives(shapelets): FS, ST, LS}
+			\subsubsection{Fast Shapelets FS}
+			\subsubsection{Shapelet Transform ST}
+			\subsubsection{Learned Shapelets LS}
+		\subsection{Corr\'elation par agr\'egation des features: BOP, SAXVSM, BOSS,  DTW$_{F}$}
+			\subsubsection{Bag of Pattern BOP}
+			\subsubsection{Symbolic Aggregate approXimation Vectr Space Model SAXVSM}
+			\subsubsection{Bag of Symbolic Fourier Approximation (SFA) symbols BOSS}
+			\subsubsection{Dynamic Time Warping Features DTW$_{F}$}
+	\section{Proposition d'une m\'ethode de corr\'elation de mesures \'electriques}
+	\section{Formalisation et calcul de la Matrice de corr\'elation}
+\chapter{Algorithmes de graphes}
+	\section{Matrice de Corr\'elation: un Line graph}
+		\subsection{Line graphs: D\'efinitions et Propri\'et\'es}
+		\subsection{Particularit\'es de la matrice de corr\'elation}
+	\section{\'Etude de l'art sur la d\'ecomposition d'un Line graph}
+	\section{Proposition d'algorithmes de resolution de line graph}
+		\subsection{Algorithme de couverture du Line graph}
+		\subsection{Algorithme de correction du Line graph}
+		\subsection{Application sur un graphe Iourte}
+		\subsection{Complexit\'e des algorithmes}
+	\section{Construction du r\'eseau \'electrique et Orientation des ar\^etes }
+\chapter{simulation avec des donn\'ees r\'eelles}
+	\section{R\'eseau \'electrique: datacenter d'un op\'erateur de t\'el\'ecommunications }
+	\section{Grandeurs et Mesures}
+	\section{Matrice de corr\'elation}
+	\section{Application des algorithmes de couverture et de correction}
+	\section{Discussion sur le r\'eseau propos\'e}
+\chapter{Conclusions}
+\chapter{Perpectives}
+\tableofcontents
+ \end{document}

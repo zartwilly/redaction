@@ -1,0 +1,275 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Plan de th\`ese}
+%\author{Jules \bsc{Verne}}
+\date{\oldstylenums{1875}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Simulation des algorithmes sur des r\'eseaux th\'eoriques}
+
+\section{Objectifs}
+Les travaux r\'ealis\'ees dans cette partie ont pour but de montrer que les algorithmes propos\'es (couverture et correction) fournissent un graphe non orient\'e de distance de Hamming minimale lorsque la matrice d'adjacence de ce graphe contient peu d'erreurs de correlations c'est-\`a-dire le nombre d'erreurs inf\'erieure \`a $6$. 
+Pour se faire, nous montrons que les sommets, n'appartenant \`a aucune couverture (labellis\'es \`a $-1$) doivent \^etre trait\'es avec la m\'ethode de correction de degr\'e minimum avec permutation afin d'avoir de meilleurs r\'esultats.
+
+\section{D\'efinitions}
+\begin{definition}
+Une {\em erreur de corr\'elation} est l'existence d'une corr\'elation entre deux ar\^etes (ajout de $1$ dans la matrice) lorsqu'il n'en existe pas. De m\^eme, l'absence de corr\'elation entre 2 ar\^etes (ajout de $0$ dans la matrice) lorsqu'il en existe  est aussi une erreur de corr\'elation.
+\end{definition}
+
+\begin{definition}{ m\'etrique: distance de Hamming} \newline
+La m\'etrique utilis\'ee pour diff\'erencier deux graphes est la {\em distance de Hamming}.
+La distance de Hamming est le rapport du nombre d'ar\^etes diff\'erentes dans le graphe produit (en comparaison avec le line graphe g\'en\'er\'e) sur le nombre total d'ar\^etes dans le line graphe g\'en\'er\'e.
+\end{definition}
+On consid\`ere deux types d'ar\^etes diff\'erentes:
+\begin{itemize}
+	\item Les ar\^etes inexistantes dans le line graphe g\'en\'er\'e. Elles correspondent \`a $1$ dans la matrice d'adjacence du line graphe produit et \`a $0$ dans celle du line graphe g\'en\'er\'e. 
+	\item Les ar\^etes inexistantes dans le line graphe produit. Elles correspondent \`a $1$ dans la matrice d'adjacence du line graphe g\'en\'er\'e et \`a $0$ dans celle du line graphe produit. 
+\end{itemize} 
+Ainsi, une distance de Hamming \'egale \`a $0$ signifie que le line graphe produit est le line graphe g\'en\'er\'e tandis que  une distance de Hamming sup\'erieure ou \'egale \`a $1$ signifie que les line graphes g\'en\'er\'e et produit ne sont pas isomorphes en ar\^etes. 
+
+\begin{definition}
+Un ordre de traitement de sommets est une permutation de l'ensemble des sommets
+\begin{example}
+Soit $E = (A, B, C, D, E)$ un ensemble de sommets. \newline
+Un ordre de traitement est $B, A, D, C, E$
+\end{example}
+\end{definition}
+
+\section{Donn\'ees: G\'en\'eration al\'eatoires de graphes} 
+\subsection{G\'eneration de r\'eseaux de flots}
+La structure de donn\'ees utilis\'ee, pour le graphe du r\'eseau de flots, est une {\em matrice d'adjacence}.
+Cette matrice d'adjacence est une matrice creuse carr\'ee de {\em n} sommets.
+On d\'efinit manuellement le nombre de sommets {\em n} et le degr\'e moyen  $\alpha$ du graphe. 
+La probabilit\'e d'existence d'une ar\^ete est de $prob = \frac{\alpha}{N}$.
+Toutefois, si le graphe obtenu par la matrice d'adjacence n'est pas connexe, on choisit al\'eatoirement un sommet de chaque composante connexe et on ajoute une ar\^ete entre ces sommets.
+\newline
+% orientation
+Pour orienter les ar\^etes, on choisit certains sommets comme \'etant des sources et on les marque puis on leur attribue un  num\'ero d'ordre qui est l'ordre de parcours des sommets (soit un parcours en largeur {\em Breath First Search BFS}).
+\`A partir des sommets sources, on consid\`ere les sommets adjacents non marqu\'es des sources qu'on ajoute dans une {\em file}. On ajoute des arcs entre les sources et ces sommets adjacents, ensuite on marque les sommets adjacents et enfin on leur ajoute un num\'ero d'ordre. On reprend l'\'etape pr\'ec\'edente \`a partir des sommets en t\^ete de file et on s'arr\^ete lorsque la file est vide.
+S'il existe des sommets adjacents marqu\'es n'ayant aucuns arcs entre eux, alors on ajoute un arc du sommet de num\'ero d'ordre minimal vers le sommet de num\'ero d'ordre maximal.
+Le graphe obtenu est alors orient\'e (un {\em Directed Acyclic Graph} $DAG$).
+\newline
+% ajout flots sur chaque arc
+L'ajout des flots sur chaque arc se fait par un parcours en largeur (BFS).
+On d\'efinit les valeurs minimales et maximales des grandeurs physiques, s\'electionn\'ees selon le r\'eseau \'energ\'etique \`a mod\'eliser. \`A titre d'exemple, les valeurs choisies pour des grandeurs \'electriques sont: les intensit\'es $I = [150, 200 ]$, les tensions $U = [220, 250]$, les puissances $P = [ 33000, 62500]$. \newline
+On d\'ebute par les sommets sources dont on g\'en\`ere une valeur al\'eatoire comprise dans l'un des intervalles de ces grandeurs. 
+Chaque arc sortant du sommet source re\c coit  un flot \'egal \`a la somme des valeurs al\'eatoires sur les arcs entrants du sommet source multipli\'ee par le facteur $\epsilon$ (d\'esignant les pertes joules) et divis\'ee par le degr\'e sortant de ce sommet si nous avons comme grandeurs les intensit\'es et les puissances.
+Dans le cas de grandeurs comme les tensions, le flot de chaque arc sortant est la valeur al\'eatoire multipli\'ee par le facteur $\epsilon$. 
+On propage les valeurs des grandeurs physiques jusqu'\`a ce qu'on arrive aux sommets puits.
+L'application de ces r\`egles de flots permettent de v\'erifier la {\em loi de conversation des noeuds}.
+
+\subsection{G\'en\'eration de line graphes non orient\'es sous jacent au r\'eseau de flots}
+% transformation arcs en aretes
+Nous consid\'erons le r\'eseau de flots g\'ener\'e comme un graphe non orient\'e parce que l'orientation des ar\^etes n'a aucune influence sur les noeuds en commun des arcs. \newline
+% nommage des aretes et kes ce que 2 aretes correles
+Nous nommons les ar\^etes du graphe et d\'esignons par {\em ar\^etes corr\'el\'ees}, des ar\^etes ayant un sommet commun. Si des ar\^etes sont correl\'ees alors nous leur attribuons $1$ comme valeur de corr\'elation. Dans le cas contraire, la valeur de corr\'elation vaut $0$. \newline
+La matrice binaire de corr\'elation est la {\em matrice d'adjacence du line graphe} non orient\'e de notre r\'eseau de flots g\'en\'er\'e. Cette matrice est not\'ee $matE$. \newline
+Rappelons qu'un line graphe admet une couverture en cliques c'est-\`a-dire que chaque sommet est contenu dans deux cliques au maximum et chaque ar\^ete est couverte par une seule clique.
+
+\subsection{Processus de simulations}
+On g\'en\`ere $500$ graphes de flots de $n = 30$ sommets ayant un degr\'e moyen $\bar d = 5$.
+On en d\'eduit \'egalement $500$ line graphes non orient\'es  de $150$ sommets.
+Soit la probabilit\'e $p$ suivant la loi normale $N(0,1)$ correspondant \`a la modification de la corr\'elation entre ar\^etes dans un line graphe.
+\begin{itemize}
+\item si $p=0$ $\rightarrow$ on supprime uniquement des ar\^etes dans le line graphe.
+\item si $p=0.5$ $\rightarrow$ on ajoute et supprime \'equiprobablement des ar\^etes.
+\item si $p=1.0$ $\rightarrow$ on ajoute uniquement des ar\^etes dans le line graphe.
+\end{itemize}
+Nous d\'ecidons de modifier $k = \{1,2,3,\cdots, 9\}$ corr\'elations dans la matrice $matE$ et nous appliquons les algorithmes de couverture et de correction.
+\`A la fin de l'algorithme de couverture, s'il existe des sommets du line graphe non couverts par {\em une ou deux cliques}, on les \'etiquette avec la valeur $-1$ et nous appliquons l'algorithme  de correction sur l'ensemble de sommets \`a $-1$, not\'e $sommets\_1$, selon les m\'ethodes suivantes:
+\begin{itemize}
+\item m\'ethode 1 : degr\'e minimum avec remise.\newline
+Elle consiste \`a s\'electionner le sommet de degr\'e minimum dans l'ensemble $sommets\_1$, \`a appliquer l'algorithme de correction afin de modifier $matE$ et enfin \`a re-ex\'ecuter les deux algorithmes sur la matrice $matE$ modifi\'ee.
+\item m\'ethode 2 : co\^ut minimum avec remise. \newline
+Elle consiste \`a s\'electionner le sommet de co\^ut minimum dans l'ensemble $sommets\_1$, \`a appliquer l'algorithme de correction afin de modifier $matE$ et enfin \`a re-ex\'ecuter les deux algorithmes sur la matrice $matE$ modifi\'ee.
+\item m\'ethode 3 : co\^ut minimum avec permutation des sommets de $sommets\_1$. \newline
+Elle consiste \`a choisir un nombre fini d'ordre de traitements de sommets \`a $-1$ puis de choisir l'ordre qui a le co\^ut de modification de la matrice $matE$ minimale.
+\item methode 4 :  degr\'e minimum avec  permutation des sommets de $sommets\_1$. \newline
+Elle consiste \`a choisir un nombre fini d'ordre de traitements de sommets \`a $-1$ puis de traiter chaque sommet en fonction de son degr\'e et enfin de choisir l'ordre qui a le co\^ut  de modification de la matrice $matE$ minimale.
+\end{itemize}
+
+  
+
+
+Sur chaque line graphe, on modifie $k = \{1,2,3,\cdots, 9\}$ corr\'elations d'ar\^etes $\alpha = \{1, \cdots, 5\}$ fois et on note la matrice obtenue $matE_{k, \alpha}$.
+On applique les algorithmes de couverture et de correction sur la matrice $matE_{k, \alpha}$ et on compare 
+\begin{enumerate}
+\item le line graphe g\'en\'er\'e dont le matrice est  $matE$ et le graphe produit (qui est aussi un line graph) dont la matrice $matE_{k, \alpha}$ a \'et\'e modifi\'ee par l'algorithme de correction si cette matrice n'\'etait pas un line graphe. On obtient la distance de Hamming (not\'ee $DH_{k,\alpha}$) entre $matE$ et $matE_{k, \alpha}$ qui est le nombre d'ar\^etes diff\'erentes entre ces deux line graphes.
+\item  le line graphe g\'en\'er\'e modifi\'e de $k$ corr\'elations dont le matrice est  $matE_k$ et le graphe produit dont la matrice $matE_{k, \alpha}$ a \'et\'e modifi\'ee par l'algorithme de correction si cette matrice n'\'etait pas un line graphe. On obtient la distance line (not\'ee $DL_{k,\alpha}$) entre $matE_k$ et $matE_{k, \alpha}$ qui est le nombre d'ar\^etes diff\'erentes entre ces deux line graphes.
+\end{enumerate}
+On d\'efinit par les variables $moy\_DH$ et $moy\_DL$, les moyennes respectives des distances de Hamming (not\'ee $DH_{k,\alpha}$) et des distances line (not\'ee $DL_{k,\alpha}$) pour une valeur donn\'ee de $k$ et pour tout $\alpha = \{1, \cdots, 5\}$.
+\begin{equation}
+moy\_DH_k = \sum_{\alpha = 1}^{5} DH_{k, \alpha} \hspace{2 em}
+moy\_DL_k = \sum_{\alpha = 1}^{5} DL_{k, \alpha}
+\end{equation}
+
+  
+\section{R\'esultats}
+% interpreter chaque m\'ethode
+% comparer les m\'ethodes par la figure comparaison moy_dh 
+Dans cette partie, nous pr\'esentons les distributions des distances line et de Hamming moyenn\'ees selon les m\'ethodes de degr\'e minimum avec remise et de co\^ut minimum avec permutation des sommets de $sommets\_1$ (sommets labellis\'es \`a $-1$) afin de comprendre les experimentations effectu\'ees. 
+Nous expliquons le choix de la m\'ethode de degr\'e minimum avec permutation et montrons que les algorithmes (couverture et correction) proposent de meilleurs r\'esultats lorsque la matrice de corr\'elation poss\`ede plus de corr\'elations {\em faux positives} que de corr\'elations {\em faux n\'egatives} c'est-\`a-dire peu d'erreurs de corr\'elations.   
+
+Rappelons que les tests sur les figures \ref{distLineHammingPermutCoutMinK09} et \ref{distLineHammingGreedyDegreMinK09} consid\`erent qu'on ajoute et supprime uniforment des ar\^etes c'est-\`a-dire que la probabilit\'e de modification des corr\'elations est \'egale \`a $p = 0.5$. 
+Nous ne decrirons que 2 m\'ethodes (degr\'e minimum avec remise et co\^ut minimum avec permutation) afin que le lecteur puisse comprendre les tests et courbes r\'ealis\'ees. \newline
+
+% m\'ethode degre min avec remise
+\begin{centering} 
+\begin{figure}[htb!] 
+\includegraphics[scale=0.10]{/home/willy/Documents/courbePython/courbe29_08_2017_greedy_degre_min_fct_cout_normal/courbes/distanceMoyenDLDH_k_0_10_greedy_degre_min_fct_cout_normal_p_05.jpeg}
+\caption{ M\'ethode co\^ut minimum avec remise : distribution des distances line $moy\_DL$ et de Hamming $moy\_DH$ pour $k \in [1, \cdots, 9]$ de corr\'elations alter\'ees}
+\label{distLineHammingGreedyDegreMinK09} 
+\end{figure}
+\end{centering} 
+
+\begin{centering} 
+\begin{figure}[htb!] 
+\includegraphics[scale=0.09]{/home/willy/Documents/courbePython/courbe29_08_2017_greedy_degre_min_fct_cout_normal/courbes/repartition_correlation_k_0_10_greedy_degre_min_fct_cout_normal_p_05_2D.jpeg}
+\caption{ M\'ethode co\^ut minimum avec remise : fonction de repartition cumul\'ee des distances line $moy\_DL$ et de Hamming $moy\_DH$ pour $k \in [1, \cdots, 9]$ de corr\'elations alter\'ees}
+\label{fctRepartitionCumuleDistLineHammingGreedyDegreMinK09} 
+\end{figure}
+\end{centering} 
+Commencons par la m\'ethode de degr\'e minimum avec remise.
+La figure \ref{distLineHammingGreedyDegreMinK09} repr\'esente les distributions des distances line $moy\_DL$ (\`a gauche) et de Hamming $moy\_DH$ (\`a droite) pour  $k = \{1,2,3,\cdots, 9\}$ corr\'elations modifi\'ees. 
+Chaque batonnet correspond au pourcentage de line graphes associ\'e \`a une distance line ou une distance de Hamming. \'A titre d'exemple, le pourcentage de line graphes propos\'es dont $moy\_DL = 2$ (not\'e $X_{moy\_DL==2}$) est \'egal \`a $43\%$ pour $k = 2$ corr\'elations modifi\'ees c'est-\`a-dire $X_{moy\_DL==2} = 43\%$ des line graphes propos\'es ont une ar\^ete diff\'erente. Alors que ce m\^eme pourcentage pour $k = 4$ est de $13\%$. 
+Les distributions de distances line et de Hamming sont respectivement asym\'etrique pour $k = 1,2,3$ corr\'elations modifi\'ees et sym\'etrique (gaussienne) pour $k > 3$ corr\'elations modifi\'ees.
+En effet, le pic de l'histogramme pour une distance line $moy\_DL$ est de $60\%$ pour $k=1$ corr\'elation modifi\'ee alors qu'il est de  $12\%$ dans la courbe de $k=5$ corr\'elations modifi\'ees (voir figure \ref{distLineHammingGreedyDegreMinK09}).
+Pour comprendre la diff\'erence de propriet\'e des histogrammes, nous allons \'etudier les corr\'elations entre les distances line $moy\_DL$ et de Hamming $moy\_DH$ en d\'efinissant la fonction $F$ comme ci dessous:
+\begin{equation}
+\label{formuleCorrelation}
+F_{k, \alpha} = \frac{ | moy\_DL_{k, \alpha} - moy\_DH_{k, \alpha} | }{ max(moy\_DL_{k, \alpha},  moy\_DH_{k, \alpha}) }
+\end{equation}
+La fonction de repartition cumul\'ee de $F$ est dans la figure \ref{fctRepartitionCumuleDistLineHammingGreedyDegreMinK09}.
+Si $F = 1$ alors les corr\'elations modifi\'ees correspondent aux ar\^etes diff\'erentes entre les deux line graphes ($moy\_DH = 0$ et $moy\_DL = k$). Par contre $F = 0$ signifie que l'algorithme de correction ajoute ou supprime des ar\^etes, diff\'erentes des corr\'elations modifi\'ees.  
+Par exemple dans la figure \ref{fctRepartitionCumuleDistLineHammingGreedyDegreMinK09}, les corr\'elations entre $moy\_DL$ et $moy\_DH$ sont proches de $0$ ($F \approx 0$) pour $k < 3$. Cela signifie que la courbe est  en escalier avec une grosse marche.
+Cependant, pour $k>2$, la courbe tend vers une fonction racine carr\'ee traduisant que les corr\'elations sont dans le m\^eme ordre. 
+\newline
+% m\'ethode co\^ut min
+%%% ce qu'il faut mettre
+%%%  - decrire ce que represente les courbes de gauche et droite
+%%%  -  -- kel forme ont ces courbes: histogramme
+%%%  -  -- ke signifie chaque batonnet de lhistogramme: nbre de graphes par moy_dl, moy_dh
+%%%  -  -- kes ce qu'on constate sur les courbes pour chaque k: asymetrique pour k = 1,2 et gaussienne pour k > 2; 
+%%%  -  -- quel sont les caracteristiques de chaque courbe: gaussienne avec estimateurs
+%%%  -  -- -- qu'est ce kon remarque: 
+%%%  -  -- -- -- -- estimateurs proche de k?
+%%%  -  -- -- -- -- pour asymetrique, le peak se situe pour moy_dl = 0
+%%%  -  -- -- -- -- pour gaussienne, le peak est autour le moyenne
+%%%  -  -- comment se comporte les moy_dl en fct de moy_DH: correlation entre dh et dl
+%%%  -  -- -- interpreter les fonctions de repartition cumule  F
+%%%  -  -- 
+%%%  - 
+%%%  - 
+%Les histogrammes avec la m\'ethode du co\^ut minimum avec permutation des sommets \`a $-1$ sont repr\'esent\'es dans la figure \ref{}.
+\begin{centering} 
+\begin{figure}[htb!] 
+\includegraphics[scale=0.10]{/home/willy/Documents/courbePython/courbe29_08_2017_permut_cout_min_fct_cout_normal/courbes/distanceMoyenDLDH_k_0_10_permut_cout_min_fct_cout_normal_p_05.jpeg}
+\caption{ M\'ethode degr\'e minimum avec permutation : distribution des distances line $moy\_DL$ et de Hamming $moy\_DH$ selon le nombre $k \in [1, \cdots, 9]$ de corr\'elations alter\'ees}
+\label{distLineHammingPermutCoutMinK09} 
+\end{figure}
+\end{centering} 
+\begin{centering} 
+\begin{figure}[htb!]
+% mettre chemin relatif 
+\includegraphics[scale=0.10]{/home/willy/Documents/courbePython/courbe29_08_2017_permut_cout_min_fct_cout_normal/courbes/repartition_correlation_k_0_10_permut_cout_min_fct_cout_normal_p_05_2D.jpeg}
+\caption{ M\'ethode degr\'e minimum avec permutation : fonction de r\'epartition cumul\'ee des distances line $moy\_DL$ et de Hamming $moy\_DH$ selon le nombre $k \in [1, \cdots, 9]$ de corr\'elations alter\'ees}
+\label{fctRepartitionCumuleDistLineHammingPermutCoutMinK09} 
+\end{figure}
+\end{centering} 
+Quant \`a la m\'ethode du co\^ut minimum avec permutation des sommets de $sommets\_1$, nous affichons les histogrammes de deux cat\'egories de distances. \`A gauche, nous avons la distribution des distances lines et \`a droite celle des distances de Hamming (fig \ref{distLineHammingPermutCoutMinK09}). Chaque batonnet correspond au pourcentage de line graphes associ\'e \`a une distance line ou une distance de Hamming. \`A titre d'exemple, le pic de l'histogramme pour une distance line $moy\_DL$ est de $75\%$ pour $k=1$ corr\'elation modifi\'ee tandis que celui pour  $k=5$ corr\'elations modifi\'ees est de $12.5\%$ (voir figure \ref{distLineHammingPermutCoutMinK09}).
+Les distributions de distances line et de Hamming sont respectivement asym\'etrique pour $k = 1,2,3$ corr\'elations modifi\'ees et sym\'etrique (gaussienne) pour $k > 3$ corr\'elations modifi\'ees.
+En effet, dans la distribution asym\'etrique, le pic est assimil\'e au pourcentage de line graphes propos\'es dont la distance line est \'egale au nombre de corr\'elations modifi\'ees $moy\_DL = k$. Cela se v\'erifie dans la courbe des distances de Hamming (figure \`a droite) en ce sens que le pic pour la repr\'esentation de distance de Hamming correspond \`a $moy\_DH = 0$ et le pourcentage $X_{moy\_DH=0}$ de line graphes propos\'es dont $moy\_DH = 0$ est identique au pourcentage $X_{moy\_DL=k}$ (pourcentage de line graphes dont $moy\_DL = k$). 
+Cela s'explique par le faite que l'algorithme de correction retrouve les corr\'elations modif\'ees dans la matrice $matE_{k}$.
+Dans la distribution gaussienne, le pic est au alentours de la moyenne des distances line. Le pic est environ trois fois le nombre $k>3$ de corr\'elations modifi\'ees pour les distances $moy\_DH$ et $moy\_DL$. Nous cherchons \`a savoir l'\'evolution de la distance line $moy\_DL$ par rapport \`a celle de Hamming $moy\_DH$. Pour cela, on calcule leur corr\'elation par la fonction $F$ d\'efinie en \ref{formuleCorrelation} et dont la fonction de r\'epartition cumul\'ee est dans la figure \ref{fctRepartitionCumuleDistLineHammingPermutCoutMinK09}.
+%\begin{equation}
+%\label{formuleCorrelation}
+%F_{k, \alpha} = \frac{ | moy\_DL_{k, \alpha} - moy\_DH_{k, \alpha} | }{ max(moy\_DL_{k, \alpha},  moy\_DH_{k, \alpha}) }
+%\end{equation}
+Si $moy\_DL$ et $moy\_DH$ \'evoluent de mani\`ere oppos\'e (l'un est sup\'erieur \`a $0$, l'autre est \'egal \`a $0$), la fonction $F$ est \'egale \`a $1$. Par contre, s'ils sont tr\`es corr\'el\'es (i.e \'evoluent identiquement) alors $F = 0$.
+Ainsi lorsqu'elles \'evoluent dans le m\^eme ordre, on obtient la courbe racine carr\'ee. Tel est le cas dans la figure \ref{fctRepartitionCumuleDistLineHammingPermutCoutMinK09} pour $k > 3$. 
+Les courbes tendent vers la fonction exponentielle quand $k$ devient grand. 
+Par ailleurs $F \approx 0$ quand $k$ est tr\`es petit (fig \ref{fctRepartitionCumuleDistLineHammingPermutCoutMinK09}, $k<3$).
+\newline
+
+% comparaison 
+%%%  - plot des mu moy_dl ou mu moy_dh en fonction de p selon permut et degre
+%%%  -  faire un tableau recap avec des valeurs de 1 a 4
+%%%  - en deduire le meilleur  choix
+
+Nous recherchons la meilleure m\'ethode de correction parmi quatre m\'ethodes qui sont : degr\'e minimum avec remise, co\^ut minimum avec remise, degr\'e minimum avec permutation et co\^ut minimum avec permutation.  
+Notre objectif \'etant de trouver le line graphe le plus proche du line graphe initial, nous allons utiliser la moyenne des distributions de Hamming pour comparer les m\'ethodes parce que le calcul de la distance line se base sur la matrice $matE_k$ et cette matrice ne forme pas un line graphe apr\`es la suppression de $k$ ar\^etes. 
+La figure \ref{compareDifferentesMethodesCorrectionSommets} affiche les courbes des distances de Hamming moyenn\'ees pour chaque m\'ethode lorsqu'on modifie $k$ corr\'elations.
+Nous remarquons que la pire des m\'ethodes est celle de co\^ut minimum avec remise (couleur en rouge avec un rond) car elle est au dessus des autres et la meilleure est celle de {\em degr\'e minimum avec permutation} (couleur en rouge avec un carr\'e) car elle propose des line graphes ayant  le nombre minimum d'ar\^etes diff\'erentes pour $k > 5$.\newline
+\begin{centering} 
+\begin{figure}[htb!] 
+% a changer par des chemins relatifs
+\includegraphics[scale=0.25]{/home/willy/Documents/courbePython/comparaisonDifferentesMethodesDeCorrectionK09.jpeg}
+\caption{ Comparaison des diff\'erentes m\'ethodes de correction de sommets pour $k \in [1,\cdots,9]$ }
+\label{compareDifferentesMethodesCorrectionSommets} 
+\end{figure}
+\end{centering} 
+Nous retenons, pour la suite, la m\'ethode de degr\'e minimum avec permutation comme m\'ethode de correction des sommets n'appartenant \`a aucune couverture (sommets de $sommets\_1$).
+\newline
+
+% meilleur choix :
+%%%  - observation pour p = [0.0, ..., 1.0]
+%%%  - plot moy_dh selon p
+%%%  - en conclure 
+\begin{centering} 
+\begin{figure}[htb!] 
+% a changer par des chemins relatifs
+\includegraphics[scale=0.25]{/home/willy/Documents/courbePython/courbe16_08_2017_permut_degre_min_fct_cout_carre/courbes/comparaison_probabilities_p_00_10_moy_dh_permut_degre_min_fct_cout_carre_p_10.jpeg}
+\caption{ Impact des diff\'erentes probabilit\'es $p$ sur les distances de Hamming pour $k \in [1,\cdots,9]$ }
+\label{compareDifferentesMethodesCorrectionSommetsP01} 
+\end{figure}
+\end{centering} 
+
+Rappelons que la variable $p$ est la probabilit\'e de modification des corr\'elations dans la matrice $matE$.
+Faisons varier cette variable $p$ de $0$ \`a $1$ par pas de $0.1$ dans le but de visualiser l'impact de corr\'elations {\em fausses positives} et {\em fausses n\'egatives} dans l'ex\'ecution des algorithmes. 
+La figure \ref{compareDifferentesMethodesCorrectionSommetsP01} r\'esume l'\'evolution des distances de Hamming $moy\_DH$ en fonction de  $k \in \{1, \cdots, 9\}$ pour diff\'erentes valeurs de $p \in \{0,0.1,\cdots,1\}$.
+Nous constatons que les algorithmes donnent de meilleurs r\'esultats pour $p = 1$ et de mauvais r\'esultats pour $p = 0$. En d'autres termes, lorsqu'on ajoute que des ar\^etes (au nombre de $9$) i.e $p = 1$ dans le line graphe, Ces ar\^etes sont supprim\'ees  pour retrouver les line graphes g\'en\'er\'es. Cependant, le nombre de ar\^etes diff\'erentes est multipli\'e par $2$ lorsqu'on ne  supprime que des ar\^etes. Tel est le cas pour $k = 9$ ar\^etes supprim\'ees ($p = 0$) ou l'algorithme de correction ajoute environ $15$ ar\^etes de plus dans les line graphes. 
+Nous pensons que le meilleur compromis est la probabilit\'e $p = 0.8$ parce que pour peu de corr\'elations modifi\'ees ($k<5$) les lines graphes produits et g\'en\'er\'es sont diff\'erents de $k<5$ ar\^etes correspondant aux $k$ corr\'elations \'effectu\'ees  et au d\'ela $k>= 5$, le nombre d'ar\^etes diff\'erentes est fonction du nombre de corr\'elations faites multipl\'e par $1.5$.
+Cela signifie qu'il faut, dans la matrice de corr\'elation, $20\%$ de corr\'elations {\em fausses negatives} et $80\%$ de corr\'elation {\em fausses positives}. 
+
+
+\end{document}

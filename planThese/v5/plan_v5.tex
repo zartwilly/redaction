@@ -1,0 +1,129 @@
+%\documentclass[onecolumn, 12pt]{article}
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Plan de th\`ese}
+%\author{Jules \bsc{Verne}}
+\date{\oldstylenums{\today}} 
+
+%---insert paragraph (use 4) and subparagraph (use 5) to table of contents
+\setcounter{tocdepth}{4} 
+\setcounter{secnumdepth}{4}
+
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Introduction G\'en\'erale}
+\chapter{Contexte de l'\'etude}
+	\section{\'Etat de l'art: reconstruction du graphe par les incidents}
+	Dans cette partie, nous utilisons le cas du r\'eseau \'electrique de ERDF, d\'ecouvert \`a partir des incidents. Nous d\'ecrivons les \'etapes pour parvenir \`a ce resultat. 
+	
+	\section{Probl\'ematique}
+	Nous d\'efinirons le probl\`eme proxi-line qui est la distance de Hamming minimale selon certaines conditions.
+	
+\chapter{R\'eseau de flots et Mesures }
+	\section{R\'eseau \'electrique d'un datacenter: un graphe de flots}
+	Dans cette section, nous allons decrire un reseau de datacenter et faire le lien entre ce reseau et un graphe de flots.
+	\section{Mod\'elisation du r\'eseau \'electrique}
+	Nous allons decrire les grandeurs presentes dans le datacenter et leurs mesures associ\'ees. 
+	Les mesures des grandeurs physiques constituent le flot dans le graphe. 
+	Nous parlerons des contraintes li\'ees aux flots dans le reseau \'electriques. Ces contraintes ont le nom de loi de conservation ou de kirrchhoff( loi des noeuds(I,P) et des mailles (U)).
+		\subsection{Grandeurs physiques}
+		\subsection{Mesures physiques : des Series Temporelles}
+			nous definirons une serie temporelle, donnerons ses proprietes et ses avantages.
+		\subsection{Constraintes dans un reseau \'electrique : Loi de Kirchhoff}
+	
+\chapter{Corr\'elation de mesures}
+	\section{Analyse de s\'eries temporelles}
+	Ici nous parlerons des types d'analyses qu'on realise avec les series temporelles.
+	Nous indiquerons le type d'analyses que nous souhaiterons faire sur nos mesures et le domaine qui s'y rattache. 
+		\subsection{S\'eries Temporelles : domaines d'analyses}
+		\subsection{Pourquoi analyser nos mesures comme des series temporelles}
+	\section{\'Etude de l'art sur la corr\'elation de s\'eries temporelles}
+		\subsection{Corr\'elation sur les s\'eries enti\`eres: \{W,D\}DTW, TWE, MSM, CID, DTDc, COTE}
+			\subsubsection{Dynamic Time Warping: weight WDTW, derivative DDTW }
+			\subsubsection{Time Warp Edit TWE}
+			\subsubsection{Move-split-merge MSM}
+			\subsubsection{Complexity invariant Distance CID}
+			\subsubsection{Elastic Ensemble EE}
+			\subsubsection{Collective of Transform Ensembles COTE}
+			\subsubsection{}
+		\subsection{Corr\'elation par intervalles: TSF, TSBF, LPS}
+			\subsubsection{Time Series Forest TSF}
+			\subsubsection{Time Series Bag of Features TSBF}
+			\subsubsection{Learned Pattern Similarity LPS}
+		\subsection{Corr\'elation par parties significatives(shapelets): FS, ST, LS}
+			\subsubsection{Fast Shapelets FS}
+			\subsubsection{Shapelet Transform ST}
+			\subsubsection{Learned Shapelets LS}
+		\subsection{Corr\'elation par agr\'egation des features: BOP, SAXVSM, BOSS,  DTW$_{F}$}
+			\subsubsection{Bag of Pattern BOP}
+			\subsubsection{Symbolic Aggregate approXimation Vectr Space Model SAXVSM}
+			\subsubsection{Bag of Symbolic Fourier Approximation (SFA) symbols BOSS}
+			\subsubsection{Dynamic Time Warping Features DTW$_{F}$}
+	\section{Proposition d'une m\'ethode de corr\'elation de mesures \'electriques}
+	\section{Formalisation et calcul de la Matrice de corr\'elation}
+	\section{Cas des mesures du datacenter Champlan}
+		\subsection{Description du datacenter Champlan}
+		\subsection{Matrice de corr\'elation : corr\'elation fausses n\'egatives et fausses positives}
+	
+\chapter{D\'ecouverte de topologie par les corr\'elations }
+	\section{Description du probl\`eme }
+		\subsection{Propri\'et\'es de la matrice de corr\'elation}
+		\subsection{D\'efinition du probl\`eme }
+		\subsection{D\'efinition de la line-couverture }
+	\section{ Algorithmes de d\'ecouverte de topologie}
+		\subsection{Algorithme de couverture}
+		\subsection{Algorithme de correction}
+		\subsection{Complexit\'e des algorithmes}
+	\section{D\'etermination de la topologie du r\'eseau \'energetique}
+	\section{Correction particuli\`ere de Graphes : Graphes Iourtes }
+
+\chapter{Evaluation des algorithmes sur des donn\'ees theoriques et r\'eelles}
+	\section{Simulation des algorithmes sur des r\'eseaux th\'eoriques}
+		\subsection{Objectifs et d\'efinitions}
+		\subsection{Donn\'ees: G\'en\'eration al\'eatoires de graphes}
+		\subsection{G\'en\'eration de line graphes sous jacent aux r\'eseaus de flots non orient\'e}
+		\subsection{Prise en compte de l'erreur de corr\'elation dans la matrice $matE$}
+		\subsection{R\'esultats}
+			\subsubsection{Distribution de la m\'ethode de permutation al\'eatoire}
+			\subsubsection{Relation entre la distance-line et la distance de Hamming}
+			\subsubsection{Comparaison des m\'ethodes de correction}
+			\subsubsection{Influence des erreurs de corr\'elations sur les distributions}
+			\subsubsection{Impact de la fonction de co\^ut sur les distributions}
+%	\section{Simulation sur le datacenter Champlan}
+%		\subsection{Description du datacenter Champlan}
+%		\subsection{Matrice de corr\'elation : corr\'elation fausses n\'egatives et fausses positives}
+%		\subsection{Line-couverture et correction de la matrice de corr\'elation}
+%		\subsection{Discussion sur le r\'eseau propos\'e}
+	
+\chapter{Conclusions}
+\chapter{Perpectives}
+\tableofcontents
+ \end{document}

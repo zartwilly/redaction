@@ -1,0 +1,119 @@
+\documentclass[onecolumn, 12pt]{article}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[outdir=/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/]{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{amssymb} % used for not exists symbol ==> \nexists
+\usepackage{amsthm}
+ 
+\title{chapitre3: R\'eseau de flots et mesures physiques}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{\today}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{property}{Propri\'et\'e}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+%---insert paragraph (use 4) and subparagraph (use 5) to table of contents
+\setcounter{tocdepth}{4} 
+\setcounter{secnumdepth}{4}
+
+%---- path figures ----
+\graphicspath{{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_10_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/}
+{/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/}}
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{R\'eseau \'electrique d'un datacenter : un graphe de flots.}
+% infrastructure d'un datacenter
+Un Datacenter ou centre de donn\'ees est un site physique regroupant des installations informatiques (serveurs, r\'eseau informatique, syst\`eme de sauvegarde) et une infrastructure \'energetique ad\'equate (un syst\`eme de distribution \'electrique, un commutateur \'electrique, des r\'eserves d'\'energie, des g\'en\'erateurs d\'edi\'es au sauvegarde de donn\'ees, un syst\`eme de ventilation et de refroidissement).
+Pour  fonctionner correctement, le datacenter doit abriter un r\'eseau \'electrique qui alimente \`a la fois les infrastructutes informatique et \'energetique. 
+\newline
+% caracteristique du reseau electrique
+Le r\'eseau \'electrique se subdivise en trois parties
+\paragraph{Les sources}: 
+Ces \'equipements sont les points d'entr\'ee de l'\'electricit\'e dans le datacenter. 
+Ils sont directement rattach\'es au gestionnaire de r\'eseau r\'egional ou national et sont de deux types : 
+\begin{itemize}
+\item Ceux qui alimentent le reste du r\'eseau en cas de dysfonctionnement du gestionnaire de r\'eseau. Ce sont les accumulateurs, les groupes \'electrog\`enes.
+\item Ceux qui transforment la puissance re\c cue du gestionnaire pour les utiliser dans le datacenter. Ce sont les transformateurs basse tension communement appel\'es {\em Transformateur G\'en\'eral Basse Tension (TGBT)} 
+\end{itemize}
+\paragraph{Les tableaux}:
+Aussi appel\'e tableau de r\'epartition, ce sont des \'equipements passifs dont leur fonction est celle de communateur. 
+Ils repr\'esentent l'organe centrale de l'installation dans la mesure o\`u ils regroupent tous les circuits \'electriques et syst\`emes de protection vers les baies de serveurs. Chaque baie poss\`ede un disjoncteur sur ce tableau afin d'interrompre l'alimentation en cas de danger. 
+\paragraph{Les baies (ou racks) de serveurs}:
+Les baies distribuent la consommation de chaque serveur qui lui est rattach\'e. La baie a un r\^ole de multiprise pour tous les serveurs appartenant \`a cette derni\`ere. 
+Dans le syst\`eme de supervision \'electrique, les baies sont les consommateurs de l'\'electricit\'e.
+\newline
+% reseau de flots
+L'\'electricit\'e, achemin\'ee par le gestionnaire de r\'eseau, arrive aux transformateurs basse tensions qui g\'en\'eralement fonctionnent en mode triphas\'e.
+Chaque phase repartit cette \'energie aux divers tableaux. 
+Chaque tableau peut \^etre doublement rattach\'e \`a deux phases pour \'eviter les micro coupures d'\'electrict\'e. 
+Les tableaux sont rattach\'es aux phases et aux baies par des c\^ables \'electriques. 
+Les c\^ables sont unidirectionnels et aucun \'equipement ne s'alimente soit-m\^eme.
+L'\'electricit\'e suit un sens : des sources vers les baies et aucune baie n'alimente une autre baie et un tableau. \newline
+Notre r\'eseau \'electrique se  mod\'elise avec un r\'eseau de flots dont le graphe est un graphe acyclique {\em Directed Acyclic Graph (DAG)} puisque chaque \'equipement est repr\'esent\'e par un sommet, les c\^ables unidirectionnels r\'epresent\'es par des arcs et qu'aucun \'equipement ne s'alimente soi-m\^eme (absence de cycle dans le r\'eseau). 
+
+\subsection{Topologie du r\'eseau \'electrique}
+%  le graphe est un DAG
+Le r\'eseau \'electrique est repr\'esent\'e par un graphe acyclique dont chaque arc a un flot et il est not\'e $G = (V, E, CAP)$. \newline
+L'ensemble des sommets $V$ est compos\'e des \'equipements sources $V_S$, interm\'ediaires ou passifs $V_I$ et  charges ou serveurs $V_C$. L'ensemble des arcs $E$ se compose des c\^ables \'electriques reliant tous ses composants \'electriques. 
+La r\'esistance de chaque c\^able est consider\'e constance ($r_i = cte $).
+\newline
+L'ensemble des sommets $V$ de cardinalit\'e $n$ est une union disjointe de $V_C$, $V_I$ et $V_S$ dont 
+\begin{itemize}
+	\item $V_S$ : sommets de degr\'e entrant null $d^- = 0$.
+	\item $V_I$ : sommets de degr\'es entrant et sortant non nuls $d^- \ne 0, d^+ \ne 0$.  
+	\item $V_C$ : sommets de degr\'e sortant null  $d^+ = 0$.
+\end{itemize}
+$$ V = V_S \cup V_I \cup V_C \hspace{0.4 em} et \hspace{0.4 em} V_S \cap V_I \cap V_C = \emptyset $$
+L'ensemble des arcs $E$ de cardinalit\'e $m$ se d\'efinit ainsi :
+\begin{equation}
+ E = \{a_k = (v_i, v_j), \forall k \le m \} \hspace{0.4 em } avec \hspace{0.4 em} v_i \in V_i \subset V, v_j \in V_j =  V - V_i \hspace{0.4 em} et \hspace{0.4 em}  V_j \ne V_S 
+\end{equation}
+avec chaque arc ayant une r\'esistance constante. 
+\newline
+Chaque arc a une valeur maximale de flots pouvant le traverser. Cette valeur est la capacit\'e de l'arc.
+L'ensemble des capacit\'es de cardinalit\'e $n$ (identique avec $E$) 
+
+\subsubsection{Description du r\'eseau de flots}
+Le r\'eseau \'electrique est constitu\'e d'un graphe acyclique et d'un ensemble de capacit\'es de cardinalit\'e $n$ (identique avec $E$). La capacit\'e est la valeur maximale du flot pouvant circuler sur un arc. Il est alors un r\'eseau de flots  $G = ( G', CAP)$
+
+\subsection{Grandeurs physiques}
+%les câbles sont des systèmes à constantes
+%réparties, c'est à dire que ces grandeurs physiques sont réparties sur
+%toute la longueur de la ligne.
+\subsection{mesures physiques : TS}
+
+\subsection{Contraintes ou regles : loi de kirrchoff}
+
+\end{document}

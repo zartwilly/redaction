@@ -1,0 +1,58 @@
+% Type de document
+\documentclass [a4paper,10pt]{article}
+ 
+% Chargement des extensions
+\usepackage[latin1]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{graphics}
+
+
+
+\title{ compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee}
+\author{EHOUNOU Wilfried\\ doctorant informatique equipe MAGMAT }
+
+% Début du document
+\begin{document}
+
+	{\LARGE  Compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee} \\
+{ \bf ---------------------------------------------------------------------------------------------}
+	\section{Les objectifs fix\'es}
+		\paragraph{Pr\'esentation du sujet de th\`ese: }
+		
+L'univers du datacenter se r\'ev\`ele \^etre beaucoup plus complexe que l'on y pense. il regroupe plusieurs m\'etiers dont l'interaction devient difficile au vue des taches \`a accomplir compl\`etement diff\'erentes. Toutefois ces secteurs d'activit\'es partagent un objectif commun qui est l'accessibilit\'e et la disponibilit\'e des services IT h\'eberg\'es dans cette infrastructure. En effet au d\'ebut de leur apparition, l'int\'er\`et \'etait dirig\'e vers les donn\'ees contenues dans les serveurs afin qu'ils soient accessibles 24h/24 d\'elaissant au passage l'impact que ces b\^atiments avaient sur l'environnement. On peut citer la production de chaleur issues des \'equipements IT, la surconsommation d'\'electricit\'e pour \'eviter toute interruption d'intensit\'e et une utilisation d'eau assez importante afin de refroidir les serveurs.\newline
+Notre coeur de m\'etier est l'optimisation des \'energies (\'electrique, thermique) produites dans un souci de r\'eduire les couts d'exploitations et les impacts \'ecologiques de ces b\^atiments. Un des soucis rencontr\'es lors de la r\'ealisation de notre projet a \'et\'e l'absence de r\'ef\'erentielles correctes sur les \'equipements en fonctionnement. Par exemple certains appareils, remplac\'es par d'autres avec des caract\'eristiques diff\'erentes ne figurent nulle part dans la documentation, l'historique des maintenances est d\'ecousu avec beaucoup d'incompr\'ehension et l'organisation physique des appareils est modifi\'ee et pas mis \^a jour.\newline
+ Face \^a ces contraintes, notre pr\'eoccupation est de savoir comment trouver l'architecture physique des \'equipements correspondant au fonctionnement du syst\'eme \^a un instant donn\'ee. L'id\'ee nous est alors venu d'utiliser la variable constamment remont\'ee dans le temps qui refl\`ete l'\'etat du syst\`eme. Il s'agit des mesures physiques. 
+
+		\paragraph{T\^aches \`a faire: }
+		Durant cette periode, il m'a \'et\'e demand\'e de:
+			\begin{itemize}
+				\item Une mod\'elisation des r\'eseaux de flots en tenant compte des propri\'et\'es physiques des r\'eseaux \'energ\'etiques vis\'es
+				\item Description du mod\`ele de donn\'ees des mesures de base
+				\item Une \'etude bibliographique des m\'ethodes d'apprentissage qui peuvent \^etre envisag\'ees dans ce contexte
+				
+			\end{itemize}
+
+	\section{Les probl\`emes rencontr\'es}
+	Differents obstacles se sont \'erig\'es durant cette phase d'analyse. Ils sont list\'es comme suit:
+	\begin{itemize}
+		\item L'absence de mesures dans le graphe conduisant \`a une mauvaise interpretation des phenom\`emes comme la detection de changement.
+		\item La presence de divers sources d'alimentation a tendance \`a masquer l'information entre les noeuds du graphe.
+	\end{itemize}
+
+	\section{Les travaux accomplis}
+	\begin{itemize}
+		\item Impl\'ementation d'algorithmes de flots sur un graphe en respectant les propri\'et\'es physiques. Cela dans le but de simuler toute interaction dans le r\'eseau visuellement
+		\item R\'edaction du modele de donn\'ees
+		\item  Mod\'elisation des r\'eseaux de flots energ\'etiques \textit{en cours d'ach\`evement}
+		\item Bibliographie sur le machine learning (en cours)
+	\end{itemize}
+	
+	\section{Les travaux pr\'evisionels}
+		\begin{itemize}
+			\item D\'efinr les crit\`eres de granularit\'e dans les mesures. Cela signifie quelles valeurs peut-on utiliser pour admettre l'existence de noeuds dans le graphe
+			\item Comprendre le modele de prediction saisonniere de charge
+			\item Considerer les \'equipements dits passif et actif comme l'onduleur dans la modelisation du graphe de flots 
+ 
+		\end{itemize}
+% Fin du document
+\end{document}

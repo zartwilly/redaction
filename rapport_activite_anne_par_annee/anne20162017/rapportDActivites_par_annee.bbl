@@ -1,0 +1,21 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[F.(1972)]{lineGraphe}
+Harary F.
+\newblock Line graphs.
+\newblock In \emph{Graph Theory}, chapter~8, pages 71--83. Massachusetts:
+  Addison-Wesley, 1972.
+
+\bibitem[Lehot(1974)]{decompositionEnCliquesParArcs}
+Philippe G.~H. Lehot.
+\newblock An optimal algorithm to detect a line graph and output its root
+  graph.
+\newblock In \emph{Journal of the 'ACM'}, pages 569--575. Association for
+  Computing Machinery (ACM), oct 1974.
+
+\end{thebibliography}

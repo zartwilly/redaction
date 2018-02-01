@@ -1,0 +1,201 @@
+% ----
+% decouverte de topologie du reseau energetique
+% ----
+Soient $\cal C$, l'ensemble des cliques de la line graphe $G_C$ et $G$ le graphe racine de $G_C$. \newline
+Chaque clique $C_k \in {\cal C}$ correspond \`a un sommet du graphe racine $G$. \newline 
+Soit $u = \{``ENTRANT'', ``SORTANT'', ``NONE''\}$, l'ensemble des marquages de chaque ar\^ete tel que les \'etiquettes $``ENTRANT''$ et $``SORTANT''$ sont associ\'ees respectivement \`a l'ar\^ete $a_i$ entrante et sortante du sommet $C_k$.
+\newline
+%-- definition de S_1 e S_2
+Soient $S_1$ et $S_2$ l'ensemble des arcs entrants et sortantes du sommet $C_k$.
+\begin{equation}
+S_\alpha = \{ S_{\alpha,i}, \hspace{0.2 em} \forall i \le 2^{card(C_k)+1}  \}
+\end{equation}
+avec $i$, le nombre de sous-ensemble de $C_k$ et $\alpha = \{1,2\}$. Le sous-ensemble $S_{\alpha,i}$ peut \^etre  l'ensemble vide $\emptyset$.
+ 
+ %--  ORACLE
+ \begin{definition}
+ Soit la clique $C_k$ de la couverture {\cal C}.
+ Un couple $(S_1,S_2)$ de sous-ensembles de $C_k$ est {\bf valide} si 
+ \begin{itemize}
+ \item $S_1 \ne S_2$
+ \item $S_1 \cup S_2 = C_k$
+ \item $S_1 \cap S_2 = \emptyset$
+ \end{itemize}
+ \end{definition}
+ 
+ \begin{definition}
+ Soit une fonction binaire $ORACLE$ d\'efinit de $S_1 \times S_2 \rightarrow \{0,1\}$, avec le couple valide $(S_1,S_2)$.
+ La fonction $ORACLE$ renvoie $1$ si et seulement si la loi de conservation autour du sommet $C_k \in G$ est respect\'ee c'est-\`a-dire : 
+ \begin{equation}
+ \forall a_i \in S_1, \forall a_j \in S_2, \sum_{a_i \in S_1} gp(a_i) - \sum_{a_j \in S_2} gp(a_j) \le \epsilon
+ \end{equation}
+ avec $\epsilon$ les pertes par effets joules, $gp(a_i)$ le flot dans l'arc $a_i \in E(G)$.
+ \end{definition}
+ 
+ \begin{property}
+ Si $ORACLE(S_1, S_2) = 1$ alors l'ensemble  $S_1$ est l'ensemble des arcs entrants et  $S_2$ l'ensemble des arcs sortants du sommet $C_k \in G$.
+ \end{property} 
+Les arcs de $S_1$ et $S_2$ ne concourent pas \`a un sommet $C_k$ lorsque  $ORACLE(S_1, S_2) = 0$.
+
+\begin{theorem}
+\label{arcsentrantsSortants}
+%Un arc $a_i$ est soit {\em entrant}, soit {\em sortant} mais jamais les deux.
+Si un sommet $a_i \in G_C$ appartient \`a deux cliques $C_{k_1}, C_{k_2} \in {\cal C}$ alors 
+l'arc  $a_i \in E(G)$ est soit entrant de $C_{k_1}$  et sortant de $C_{k_2}$ ou soit entrant de $C_{k_2}$  et sortant de $C_{k_1}$.
+\end{theorem}
+
+\begin{proof}
+D'apr\`es la d\'efinition \ref{line-couverture}, le sommet $a_i$ appartient \`a deux cliques $C_{k_1}$ et $C_{k_2}$ au maximum. 
+Cela implique qu'il existe une ar\^ete entre les sommets $C_{k_1}$ et $C_{k_2}$ dans $G$.
+Soient $S_1, S_2 \subset C_{k_1}$ et $S_1, S_2 \subset C_{k_2}$ telles que $ORACLE(S_1, S_2) = 1$ et $ORACLE(S_3, S_4) = 1$.
+Comme  $S_1 \cap S_2 = \emptyset$, $S_3 \cap S_4 = \emptyset$ et aussi  $C_{k_1} \cap C_{k_2} = \{a_i\}$, on a quatre choix possibles :
+$a_i \in S_1 \cap S_3$, $a_i \in S_1 \cap S_4$, $a_i \in S_2 \cap S_3$, $a_i \in S_2 \cap S_4$.
+\newline
+Si $a_i$ est entrant et sortant \`a $C_{k_1}$ et $C_{k_2}$ alors $a_i \in S_1 \cap S_3$ ou  $a_i \in S_2 \cap S_4$. 
+On en d\'eduit qu'il existe une boucle sur le sommet $C_{k_1}$ et $C_{k_2}$. 
+Cela est impossible parce que $G$ est un $DAG$. 
+\newline
+Alors $a_i$ est entrant \`a $C_{k_1}$ $=>$ $a_i \in S_2 \cap S_3$ ou  $a_i$ sortant \`a $C_{k_2}$  $a_i \in S_1 \cap S_4$. 
+\end{proof}
+
+Soit $A$ l'ensemble des cliques $C_j$ tel que $card(C_j) = min\{ card(C_k), C_k \in {\cal C}\}$.
+\newline
+Soit la fonction $f$ d\'efinie sur $ V(G_C) \times A \rightarrow \{0,1\}$ retournant $1$ si le sommet $a_i^u$ ne poss\`ede aucune \'etiquette c'est-\`a-dire labellis\'e \`a $None$.
+$$ f(a_i^u, C_j) = \begin{cases} 1 \hspace{0.2 em} si \hspace{0.2 em} M(a_i^u, C_j) \ne None \\ 0 \hspace{0.2 em} sinon \end{cases}$$
+La fonction $MA$ calcule le nombre de sommets labellis\'e dans une clique $C_k$.
+$$MA(C_k) =  \sum_{a_i^u \in C_k} f(a_i^u,C_k) $$
+Soient la clique $C_m$ telle que  $MA(C_m) = max\{ MA(C_j), C_j \in A\}$ et $B$ l'ensemble des sommets de la clique $C_m$ tel que $M(C_m, a_j^v) == None, \forall a_j^v \in B$. 
+
+
+%nommer l'algorithme
+\begin{algorithm}
+\caption{Decouverte\_graphe\_racine}
+\noindent DEBUT\\
+\noindent 1. Initialisation des \'etiquettes des sommets $a_i$ de $G_C$, et $C_k \in {\cal C}$ \\
+\noindent $M( C_k, a_i^u) = None$ \\
+~2. \indent {\bf Tant que} il existe une  ar\^ete de $G_C$ ($E(G_C)$) \\
+	\indent~~~~~~{\bf Faire}\\
+%~3.		\indent~~~~~~~~ $f(a_i^u, C_k) = \{ 1 si M(a_i^u, C_k) \ne None, 0 sinon$\\
+%~3.		\indent~~~~~~~~ $MA(C_k) = \sum_{a_i^u \in C_k} f(a_i^u,C_k) $\\
+%~3.	       	\indent~~~~~~~~choisir $a_i^u, C_k$ tel que $min\{ \hspace{0.1em} d(a_i^u),  a_i^u \in C_k \}$ et $max\{ M(C_k, a_i^u) \neq None \hspace{0.2em}, \forall a_i^u \in C_k \}$ \\
+%~3.	       	\indent~~~~~  choisir $a_i^u, C_k$ tel que $min\{ \hspace{0.2em} card(C_k),  C_k \in {\cal C} \}$ et $max\{ MA(C_k) , \forall C_k \in {\cal C} \}$ et $M(C_k,a_i^u) == None$ \\
+~3.		\indent~~~~~~~~choisir $A = \{C_j , card(C_j) = min\{ card(C_k), C_k \in {\cal C} \}\}$ \\
+~4.		\indent~~~~~~~~choisir $C_k$ tel que $MA(C_k) = max\{ MA(C_j), C_j \in A\} $ \\
+%~5.		\indent~~~~~~~~choisir $a_i^u$ al\'eatoirement dans $B = \{a_j^v , M(C_k, a_j^v) == None \hspace{0.2em} \forall a_j^v \in C_k\}$ \\
+~5.       	\indent~~~~~~~~{\bf Si} il existe $S_1$ et $S_2$ tel que $S_1 \cup S_2 = \emptyset $ et $S_1 \cup S_2 = C_k $ et $ORACLE(S_1, S_2, M )= 1 $ \\
+~6.	       	\indent~~~~~~~~~~~~{\bf alors}\\
+~7.	       	\indent~~~~~~~~~~~~ $S_1^k = sommets\_marques(S_1, M)(^1)$; \\
+~8.	       	\indent~~~~~~~~~~~~ $S_2^k = sommets\_marques(S_2, M)$; \\
+~9.		\indent ~~~~~~~~~~~~{\bf Pour tout} $a_i^K \in S_1 - S_1^k$ {\bf Faire} \\
+~10.		\indent ~~~~~~~~~~~~~ $M(C_k, a_i^K) = ``ENTRANT''$ \\
+~11.		\indent ~~~~~~~~~~ {\bf Pour tout} $a_i^K \in S_2 - S_2^k$ {\bf Faire} \\
+~12.		\indent ~~~~~~~~~~~~~ $M(C_k, a_i^K) = ``SORTANT''$ \\
+~13.		\indent~~~~~~~~~~ $E(G_{C}) =  E(G_C)  - E(G_C[C_k])$ \\
+~14.		\indent~~~~~~~~~~ ${\cal C} =  {\cal C}  - C_k$ \\
+~15.       	\indent~~~~~~~~{\bf FinSi} \\
+~16. \indent {\bf FinTant que} \\
+~17. \indent {\bf Pour tout} $a_i^u \in V(G_C)$ {\bf Faire} \\
+~18. \indent ~~~ $C_1, C_2$ = $Couverture\_Cliques(a_i^u, M)(^2)$\\
+% C_1 != emptyset et C_2 != \emptyset
+~19. \indent ~~~ {\bf Si } $C_1 \neq \emptyset$ et $C_2 \neq \emptyset$ {\bf Alors} \\
+~20. \indent ~~~~~~  {\bf Si}  $M(C_1, a_i^u) == ``SORTANT''$ {\bf Alors} \\
+~21. \indent ~~~~~~~~~~~~ $Mat(C_1)$ += $C_2$ $(^3)$ \\  
+~22. \indent ~~~~~~  {\bf Fin Si} \\
+~23. \indent ~~~~~~  {\bf Si}  $M(C_2, a_i^u) == ``SORTANT''$ {\bf Alors} \\
+~24. \indent ~~~~~~~~~~~~ $Mat(C_2)$ += $C_1$ $(^3)$ \\  
+~25. \indent ~~~~~~  {\bf Fin Si} \\
+~26. \indent ~~~ {\bf Fin si} \\
+% C_1 != emptyset et C_2 = \emptyset
+~27. \indent ~~~ {\bf Si } $C_1 \neq \emptyset$ et $C_2 == \emptyset$ {\bf Alors} \\
+%~29. \indent ~~~~~~  {\bf Si}  $M(C_1, a_i^u) == ``SORTIE''$ {\bf Alors} \\
+%~30. \indent ~~~~~~~~~~~~ $Mat(C_1)$ += $EXT\_SORTIE\_C1$ $(^3)$\\  
+%~31. \indent ~~~~~~  {\bf Fin Si} \\
+~28. \indent ~~~~~~  {\bf Si}  $M(C_1, a_i^u) == ``ENTRANT''$ {\bf Alors} \\
+~29. \indent ~~~~~~~~~~~~ $Mat(EXT\_a_i^u)$ += $C1$ $(^3)$\\  
+~30. \indent ~~~~~~  {\bf Fin Si} \\
+~31. \indent ~~~~~~  {\bf Si}  $M(C_1, a_i^u) == ``SORTANT''$ {\bf Alors} \\
+~32. \indent ~~~~~~~~~~~~ $Mat(C_1)$ += $EXT\_a_i^u$ $(^3)$ \\  
+~33. \indent ~~~~~~  {\bf Fin Si} \\
+~34. \indent ~~~ {\bf Fin si} \\
+~35. \indent {\bf Fin Pour} \\
+~36. \noindent {\bf Return} Mat\\
+% C_1 = emptyset et C_2 != emptyset
+%~36. \indent ~~~ {\bf Si } $C_1 == \emptyset$ et $C_2 \neq \emptyset$ {\bf Alors} \\
+%~37. \indent ~~~~~~  {\bf Si}  $M(C_2, a_i^u) == ``SORTIE''$ {\bf Alors} \\
+%~38. \indent ~~~~~~~~~~~~ $Mat(C_2)$ += $EXT\_SORTIE\_C2$ $(^3)$ \\  
+%~39. \indent ~~~~~~  {\bf Fin Si} \\
+%~40. \indent ~~~~~~  {\bf Si}  $M(C_2, a_i^u) == ``ENTREE''$ {\bf Alors} \\
+%~41. \indent ~~~~~~~~~~~~ $Mat(C_2)$ += $EXT\_ENTREE\_C2$ $(^3)$\\  
+%~42. \indent ~~~~~~  {\bf Fin Si} \\
+%~43. \indent ~~~ {\bf Fin si} \\
+\noindent FIN\\
+\end{algorithm}
+
+$^1$ : Cette fonction retourne les sommets de l'ensemble $S_1$ ou $S_2$ labellis\'es \`a $``ENTREE''$ ou $``SORTANT''$. Initialement, Ces sommets sont \'etiquett\'es \`a $``None''$.
+
+$^2$ : Cette fonction renvoie les cliques couvrantes une ar\^ete $a_i^u$ avec $C_1 \ne \emptyset$. Si $a_i^u$ est couvert par une clique alors $C_2 = \emptyset$.
+
+$^3$ : $EXT\_a_i^u$ est un sommet du graphe racine $G$.
+\newline
+
+L'algorithme {\em Decouverte\_graphe\_racine} d\'ebute par l'initialisation des sommets de $G_C$ \`a $''None''$.
+Tant qu'il existe une ar\^ete dans notre line graphe $G_C$, on choisit la plus petite clique $C_k$ dont le maximum de sommets de cette clique est labellis\'e soit par $''ENTRANT''$ ou soit par $''SORTANT''$ (lignes $3-4$).
+On partitionne la clique $C_k$  en deux sous-ensembles valides $S_1$ et $S_2$ tels que $S_1$ et $S_2$ correspondent, respectivement, \`a l'ensemble des arcs entrants et sortants du graphe racine $G$.
+Les sommets labellis\'es de $S_1$ not\'es $S_1^k$ portent l'\'etiquette $''ENTRANT''$ tandis que ceux labellis\'es en $''SORTANT''$ sont not\'es $S_2^k$ (lignes $6-12$). 
+Ensuite nous mettons \`a jour l'ensemble des ar\^etes et la line-couverture de $G_C$ (lignes $13-14$). 
+\newline
+Une fois termin\'e l'orientation des ar\^etes de $G$ qui  sont les sommets labellis\'es du line graphe $G_C$ (lignes $2-16$), nous construisons la liste d'adjacence de chaque sommet de $G$ (lignes $17-36$).
+Nous recherchons la couverture d'un sommet $a_i^u$ de $G_C$.
+\newline 
+Si le sommet  $a_i^u$ est couvert par une seule clique alors $C_2 = \emptyset$. Dans ce cas, cela signifie qu'il existe un arc entre le sommet $C_1$ et le sommet $EXT\_a_i^u$ que nous avons cr\'ee. Cet arc a pour extr\'emit\'e initiale $C_1$ si $a_i^u$ est labellis\'e par $''SORTANT''$ sinon pour extr\'emit\'e initiale $EXT\_a_i^u$ si $a_i^u$ est labellis\'e par $''ENTRANT''$ (lignes $27-34$).
+\newline
+Dans le cas o\`u le sommet $a_i^u$ est couvert par deux cliques non vides $C_1, C_2$, nous ajoutons un arc entre ces deux cliques.
+D'apr\'es le th\'eor\`eme  \ref{arcsentrantsSortants} stipulant qu'un sommet de $G_C$ est $''ENTRANT''$ de $C_1$ et $''SORTANT''$ de $C_2$ et vice-versa, nous d\'efinissons  $C_1$ comme extr\'emit\'e initiale de cet arc si $a_i^u$ est labellis\'e par $SORTANT$ dans cette clique $C_1$ sinon $C_2$ si $a_i^u$ est labellis\'e par $SORTANT$ dans cette clique $C_2$ (lignes $19-26$).
+
+\subsection{Complexit\'e de l'algorithme {\em Decouverte\_graphe\_racine} }
+
+La fonction $Couverture\_Cliques$ a une complexit\'e constante $O(1)$ alors que la complexit\'e de la  fonction $sommets\_marques$ depend du nombre de sommets dans $S_1$. Dans le pire des cas, sa complexit\'e est $O(n)$ avec $n = E(G)$ le nombre  d'arcs de $G$. Donc les lignes $17-35$ s'ex\'ecutent en $O(n)$ dans le pire des cas. 
+\newline
+Consid\'erons une line-couverture ${\cal C}$  de taille $K$,  une clique $C_i \in {\cal C}$ de taille $p_i$ et $k_i$ le nombre de sommets marqu\'es dans $C_i$. 
+\newline
+Le nombre de couples valides $(S_1,S_2)$ pour la clique $C_i$ avec $k_i$ sommets marqu\'es est $2^{p_i -k_i}$. 
+Au traitement de la premi\`ere clique de ${\cal C}$ de taille minimale $C_1$, il existe $0$ sommets marqu\'es. Le co\^ut $R_{cv_1}$ de couples valides est $R_{cv_1} = 2^{p_1}$.
+Au traitement de la seconde clique $C_2$, il existe $k_2 \ge 0$ et son co\^ut est  $R_{cv_2} = 2^{p_2 - k_2}$.
+Il existe une clique $C_\alpha$ \`a partir de laquelle $k_\alpha > 0, \alpha \le K$.
+On remarque que $p_\alpha - k_\alpha$ est d\'ecroissant car $k_\alpha$ augmente apr\`es chaque traitement de cliques. 
+Cela signifie qu'\`a la selection de la derni\`ere clique $C_k$, son co\^ut  est de $R_{cv_K} = 1$. 
+Le co\^ut est decroissant \`a chaque traitement c'est-\`a-dire 
+$$2^{p_{\alpha} - k_{\alpha}} \ge 2^{p_{\alpha+1} - k_{\alpha+1}} \ge \cdots \ge 2^{p_K - k_K}$$ 
+Le co\^ut des couples valides de ${\cal C}$ est 
+$$R_{cv} = O(2^\gamma), \gamma = max\{card(C_i), \forall C_i  \in \{C_1, \cdots, C_\alpha\} \}$$
+car il depend de la clique $C_i \in \{C_1, \cdots, C_\alpha\} \subset {\cal C}$.
+\newline
+Le co\^ut des lignes $3-4$ depend de $p_i$ et $K$ ($O(p_i) + O(K)$) et celui des lignes $7-14$ est de $O(p_i^2)$.
+\newline
+Soit le co\^ut $R$ de la boucle  {\em Tant que}. Il est de 
+$$ R = O(p_i) + O(K) + O(p_i^2) + O(2^\gamma) \simeq O(2^\gamma)$$
+
+La complexit\'e de {\em Decouverte\_graphe\_racine} est {\em pseudo-exponentielle} car l'exposant $\gamma$ est la taille d'une clique de taille interm\'ediaire.
+
+%Consid\'erons les instructions dans le boucle {\em Tant que}, $K$ le cardinal de ${\cal C}$ et $p$ le cardinal de la clique de taille minimale de ${\cal C}$ c'est-\`a-dire $card(A) = p$. 
+%\newline
+%$R_i$ est le co\^ut de la boucle {\em Tant que} au traitement de la $i^eme$ clique de $G_C$ et $C\_oracle$ le co\^ut de la fonction $ORACLE$.
+%S\'electionnons le premier clique de $G_C$. Son co\^ut est :
+%$$R_1 = p \times C_oracle(S_{1p}, S_{2p}) $$.
+%Le co\^ut  du deuxi\`eme sommet est :
+%$$R_2 = p \times C_oracle(S_{1p}, S_{2p})  + (p-1) \times C_oracle(S_{1p-1}, S_{2p-1})  $$.
+%Le co\^ut des $n$ sommets de $G_C$ est :
+%$$R_K = \sum_{k = 0}^{K-1} (p-k) \times C_oracle(S_{1p-k}, S_{2p-k})$$
+%
+%La particularit\'e de l'ORACLE est que pour $k \ge p$, tous les sommets de la clique $C_k$ sont labellis\'es entrainant qu'on ne genere aucuns sous-ensembles de $C_k$. Cela implique que  $C_oracle(S_{1p-k}, S_{2p-k}) = 1$. \newline
+%Cela revient \`a dire que le co\^ut $R_K$ est d\'ecroissant en fonction de $K$. \newline
+%G\'en\'erer tous  sous-ensembles de $C_k$ de taille $p$ est une combinaison de 
+%$card(P(E)) = 2^{p}$ et toutes les paires de $P(E)$ vaut au pire des cas $\frac{2^p * (2^p - 1)}{2}$. 
+%Alors  le  cout  $C_oracle(S_{1p}, S_{2p}$ est $O(2^p)$ ===> FAUX
+%%%%% A discuter avec SERGES ---> trouver le nombre de tuples provenant des sous ensembles  de C_k de taille $p$
+%Donc le co\^ut de $R_K$ est  
+%$$R_K = p \times O(2^p) + (p-1) \times O(2^{(p-1)}) + \cdots + 1 \times O(2^0)$$
+%$$ R_K $$
+%PAS FINI
+
+

@@ -1,0 +1,83 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[outdir=./images_fusionChapitres/]{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{import}
+\usepackage{pdfpages}
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+ 
+ %---------- definitions ------------------
+\newtheorem{definition}{D\'efinition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollaire}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remarque}
+\newtheorem*{property}{Propri\'et\'e}
+
+
+  %---------- definitions ------------------
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Fusion Chapitres}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{1875}} 
+
+
+\graphicspath{{/home/willy/Documents/latexDoc/article_15Fevrier17_04April17/MASCOT17_ADT/posterTest/images/}
+{/home/willy/Documents/latexDoc/redactionThese/chap4_evaluationPerformance/images/}{/home/willy/Documents/latexDoc/redactionThese/chap3_linegraphs/imagesLineGraphes/}}
+\makeatletter
+\def\input@path{{/home/willy/Documents/latexDoc/redactionThese/formatage_texte/}{/home/willy/Documents/latexDoc/redactionThese/planThese/}{/home/willy/Documents/latexDoc/redactionThese/chap4_evaluationPerformance/}{/home/willy/Documents/latexDoc/redactionThese/chap1_mesures_etudeDeLart/}{/home/willy/Documents/latexDoc/redactionThese/chap2_correlations/}{/home/willy/Documents/latexDoc/redactionThese/chap3_linegraphs/}{/home/willy/Documents/latexDoc/redactionThese/conclusions/}{/home/willy/Documents/latexDoc/redactionThese/introduction/}}
+\makeatother
+
+\begin{document}
+
+	%---- plan -----
+%	\input@path{planBis}
+	\maketitle
+	\tableofcontents
+	
+	%---- introduction
+	\input{introduction}
+
+	%---- chapitre 1
+	\input{mesures_etudeDeLart}
+	
+	%---- chapitre 2
+	\input{correlations}
+	
+	%---- chapitre 3
+	\input{linegraphes}
+	
+	%---- chapitre 4
+	\input{simulationsGraphesTheoriquesReelles}
+
+	%---- conclusion et persectives
+%	\input@path{conclusions}
+	
+	\tableofcontents
+\end{document}

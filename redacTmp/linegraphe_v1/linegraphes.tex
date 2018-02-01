@@ -1,0 +1,76 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[outdir=/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/]{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{amssymb} % used for not exists symbol ==> \nexists
+\usepackage{amsthm}
+ 
+\title{chapitre3: les graphes adjoints ou line graphes}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{\today}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{property}{Propri\'et\'e}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+%---insert paragraph (use 4) and subparagraph (use 5) to table of contents
+\setcounter{tocdepth}{4} 
+\setcounter{secnumdepth}{4}
+
+%---- path figures ----
+\graphicspath{{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_10_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/}
+{/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/}}
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Matrice de Correlation : un Line graphe}
+	\section{ \'Etat de l'art: les line graphes}
+%		\input{definition_linegraphes} ---------> relative works PAS ENCORE FAIT
+		
+	\section{Proposition d'algorithmes}
+		\subsection{Line-couverture}
+			\input{line_couverture}
+		\subsection{Algorithme de couverture}
+			\input{algorithme_couverture}% ------------> a debuger l'algo et a l'ecrire
+		\subsection{Algorithme de correction}
+			\input{algorithme_correction}
+		\subsection{Complexit\'e des algorithmes}
+			\input{complexite_algorithme}
+	
+	\section{D\'etermination de la topologie du r\'eseau \'energetique}
+%		\input{topologie_dag}    ----------> PAS ENCORE FAIT
+		
+	\section{Correction particuli\`ere de Graphes : Graphes Iourtes }
+%		\input{graphe_iourte}    ----------> PAS ENCORE REDIGER
+	
+\end{document}

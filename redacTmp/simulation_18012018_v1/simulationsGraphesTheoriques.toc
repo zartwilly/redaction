@@ -1,0 +1,16 @@
+\contentsline {chapter}{\numberline {1}Simulation des algorithmes sur des r\'eseaux th\'eoriques}{5}
+\contentsline {section}{\numberline {1.1}Objectifs}{5}
+\contentsline {section}{\numberline {1.2}D\'efinitions}{5}
+\contentsline {section}{\numberline {1.3}Donn\'ees: G\'en\'eration al\'eatoires de graphes}{7}
+\contentsline {subsection}{\numberline {1.3.1}G\'en\'eration de r\'eseaux de flots}{7}
+\contentsline {subsection}{\numberline {1.3.2}G\'en\'eration de line graphes sous jacent aux r\'eseaus de flots non orient\'e}{8}
+\contentsline {subsection}{\numberline {1.3.3}Distribution des valeurs de corr\'elation dans la matrice $matE$}{8}
+\contentsline {subsection}{\numberline {1.3.4}Description du protocole d'\'etude}{10}
+\contentsline {section}{\numberline {1.4}Analyses et interpr\'etations}{12}
+\contentsline {subsection}{\numberline {1.4.1}Distribution de la m\'ethode de permutation al\'eatoire}{13}
+\contentsline {subsection}{\numberline {1.4.2}Relation entre la distance line et la distance de Hamming}{16}
+\contentsline {subsection}{\numberline {1.4.3}Comparaison des m\'ethodes de correction}{17}
+\contentsline {subsection}{\numberline {1.4.4}Influence des erreurs de corr\'elations sur les distributions}{19}
+\contentsline {subsection}{\numberline {1.4.5}Impact de la fonction de co\^ut sur les distributions}{20}
+\contentsline {subsubsection}{Cas particulier: fonction de co\^ut en cloche}{21}
+\contentsline {section}{\numberline {1.5} Simulation des graphes Iourtes}{22}

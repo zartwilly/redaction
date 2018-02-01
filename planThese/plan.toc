@@ -1,0 +1,58 @@
+\contentsline {chapter}{\numberline {1}Introduction G\'en\'erale}{5}
+\contentsline {chapter}{\numberline {2}Contexte de l'\'etude}{7}
+\contentsline {section}{\numberline {2.1}Etat de l'art: reconstruction du graphe par les incidents}{7}
+\contentsline {section}{\numberline {2.2}Probl\'ematique}{7}
+\contentsline {chapter}{\numberline {3}Reseau de flots et Mesures }{9}
+\contentsline {section}{\numberline {3.1}Graphe de flots: R\'eseau \'electrique}{9}
+\contentsline {subsection}{\numberline {3.1.1}Mod\'elisation du r\'eseau \'electrique}{9}
+\contentsline {section}{\numberline {3.2}Grandeurs physiques et caracteristiques}{9}
+\contentsline {section}{\numberline {3.3}Loi de conservation dans un r\'eseau \'electrique }{9}
+\contentsline {section}{\numberline {3.4}Contraintes dans les r\'eseaux \'electriques}{9}
+\contentsline {chapter}{\numberline {4}Corr\'elation de mesures}{11}
+\contentsline {section}{\numberline {4.1}Mesures: des s\'eries temporelles}{12}
+\contentsline {subsection}{\numberline {4.1.1}S\'eries Temporelles: D\'efinitions et Propri\'et\'es}{12}
+\contentsline {subsection}{\numberline {4.1.2}Particularit\'es des mesures}{12}
+\contentsline {section}{\numberline {4.2}\'Etude de l'art sur la corr\'elation de s\'eries temporelles}{12}
+\contentsline {subsection}{\numberline {4.2.1}Corr\'elation sur les s\'eries enti\`eres: \{W,D\}DTW, TWE, MSM, CID, DTDc, COTE}{12}
+\contentsline {subsubsection}{Dynamic Time Warping: weight WDTW, derivative DDTW }{12}
+\contentsline {subsubsection}{Time Warp Edit TWE}{12}
+\contentsline {subsubsection}{Move-split-merge MSM}{12}
+\contentsline {subsubsection}{Complexity invariant Distance CID}{12}
+\contentsline {subsubsection}{Derivative Transform Distance DTDc}{12}
+\contentsline {subsubsection}{Elastic Ensemble EE}{12}
+\contentsline {subsubsection}{Collective of Transform Ensembles COTE}{12}
+\contentsline {subsubsection}{}{12}
+\contentsline {subsection}{\numberline {4.2.2}Corr\'elation par intervalles: TSF, TSBF, LPS}{12}
+\contentsline {subsubsection}{Time Series Forest TSF}{12}
+\contentsline {subsubsection}{Time Series Bag of Features TSBF}{12}
+\contentsline {subsubsection}{Learned Pattern Similarity LPS}{12}
+\contentsline {subsection}{\numberline {4.2.3}Corr\'elation par parties significatives(shapelets): FS, ST, LS}{12}
+\contentsline {subsubsection}{Fast Shapelets FS}{12}
+\contentsline {subsubsection}{Shapelet Transform ST}{12}
+\contentsline {subsubsection}{Learned Shapelets LS}{12}
+\contentsline {subsection}{\numberline {4.2.4}Corr\'elation par agr\'egation des features: BOP, SAXVSM, BOSS, DTW$_{F}$}{12}
+\contentsline {subsubsection}{Bag of Pattern BOP}{12}
+\contentsline {subsubsection}{Symbolic Aggregate approXimation Vectr Space Model SAXVSM}{12}
+\contentsline {subsubsection}{Bag of Symbolic Fourier Approximation (SFA) symbols BOSS}{12}
+\contentsline {subsubsection}{Dynamic Time Warping Features DTW$_{F}$}{12}
+\contentsline {section}{\numberline {4.3}Proposition d'une m\'ethode de corr\'elation de mesures \'electriques}{12}
+\contentsline {section}{\numberline {4.4}Formalisation et calcul de la Matrice de corr\'elation}{12}
+\contentsline {chapter}{\numberline {5}Algorithmes de graphes}{13}
+\contentsline {section}{\numberline {5.1}Matrice de Corr\'elation: un Line graph}{13}
+\contentsline {subsection}{\numberline {5.1.1}Line graphs: D\'efinitions et Propri\'et\'es}{13}
+\contentsline {subsection}{\numberline {5.1.2}Particularit\'es de la matrice de corr\'elation}{13}
+\contentsline {section}{\numberline {5.2}\'Etude de l'art sur la d\'ecomposition d'un Line graph}{13}
+\contentsline {section}{\numberline {5.3}Proposition d'algorithmes de resolution de line graph}{13}
+\contentsline {subsection}{\numberline {5.3.1}Algorithme de couverture du Line graph}{13}
+\contentsline {subsection}{\numberline {5.3.2}Algorithme de correction du Line graph}{13}
+\contentsline {subsection}{\numberline {5.3.3}Application sur un graphe Iourte}{13}
+\contentsline {subsection}{\numberline {5.3.4}Complexit\'e des algorithmes}{13}
+\contentsline {section}{\numberline {5.4}Construction du r\'eseau \'electrique et Orientation des ar\^etes }{13}
+\contentsline {chapter}{\numberline {6}simulation avec des donn\'ees r\'eelles}{15}
+\contentsline {section}{\numberline {6.1}R\'eseau \'electrique: datacenter d'un op\'erateur de t\'el\'ecommunications }{15}
+\contentsline {section}{\numberline {6.2}Grandeurs et Mesures}{15}
+\contentsline {section}{\numberline {6.3}Matrice de corr\'elation}{15}
+\contentsline {section}{\numberline {6.4}Application des algorithmes de couverture et de correction}{15}
+\contentsline {section}{\numberline {6.5}Discussion sur le r\'eseau propos\'e}{15}
+\contentsline {chapter}{\numberline {7}Conclusions}{17}
+\contentsline {chapter}{\numberline {8}Perpectives}{19}

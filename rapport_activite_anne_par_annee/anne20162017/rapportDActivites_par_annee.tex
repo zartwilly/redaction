@@ -1,0 +1,113 @@
+\documentclass[onecolumn, 12pt]{article}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Rapport d'activit\'es de la th\`ese ann\'ee par ann\'ee}
+%\author{Jules \bsc{Verne}}
+\date{\oldstylenums{2017}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+%------------- introduction ---------
+\section{Pr\'esentation du sujet de th\`ese}
+		
+L'univers du datacenter se r\'ev\`ele \^etre beaucoup plus complexe que l'on y pense. il regroupe plusieurs m\'etiers dont l'interaction devient difficile au vue des taches \`a accomplir compl\`etement diff\'erentes. Toutefois ces secteurs d'activit\'es partagent un objectif commun qui est l'accessibilit\'e et la disponibilit\'e des services IT h\'eberg\'es dans cette infrastructure. En effet au d\'ebut de leur apparition, l'int\'er\`et \'etait dirig\'e vers les donn\'ees contenues dans les serveurs afin qu'ils soient accessibles 24h/24 d\'elaissant au passage l'impact que ces b\^atiments avaient sur l'environnement. On peut citer la production de chaleur issues des \'equipements IT, la surconsommation d'\'electricit\'e pour \'eviter toute interruption d'intensit\'e et une utilisation d'eau assez importante afin de refroidir les serveurs.\newline
+Notre coeur de m\'etier est l'optimisation des \'energies (\'electrique, thermique) produites dans un souci de r\'eduire les couts d'exploitations et les impacts \'ecologiques de ces b\^atiments. Un des soucis rencontr\'es lors de la r\'ealisation de notre projet a \'et\'e l'absence de r\'ef\'erentielles correctes sur les \'equipements presents dans l'infrastructure. Par exemple certains appareils, remplac\'es par d'autres avec des caract\'eristiques diff\'erentes ne figurent nulle part dans la documentation, l'historique des maintenances est d\'ecousu avec beaucoup d'incompr\'ehension, l'organisation physique des appareils est modifi\'ee et pas mis \^a jour et les \'equipements hors tension ne figurent pas dans le schema de fonctionnement.\newline
+ Face \`a ces contraintes, notre pr\'eoccupation est de savoir comment trouver l'architecture physique du r\'eseau associ\'e au fonctionnement du syst\`eme \`a plusieurs instants donn\'ee. 
+ L'id\'ee nous est alors venu d'utiliser les valeurs de grandeurs physiques constamment remont\'ee dans le temps qui refl\`ete l'\'etat du syst\`eme. Il s'agit des mesures physiques. 
+
+
+\section{Activit\'es ann\'ee 1}
+Nous nous sommes consacr\'es \`a l'\'etude de corr\'elations de mesures physiques. \newline
+Nous avons debut\'e par le traitement des donn\'ees re\c cus en utilisant l'interpolation de Lagrange pour combler les mesures absentes dans les datasets. \newline
+Ensuite,  nous avons observ\'e que certains \'equipements ont les m\^emes profiles de consommation quand ils sont aliment\'es par le m\^eme \'equipement. 
+Cela signifie que tous ces \'equipements dans un graphe partagent une extr\'emit\'e commune. 
+On en conclut que les mesures physiques des \'equipements sont correl\'ees  si leurs profiles de consommation (leur tendances) sont identiques.
+Partant de cette observation, les m\'ethodes de corr\'elation glissantes et par fen\^etre de Pearson se sont montr\'ees tr\`es \'efficaces. 
+\newline
+Toutefois la pr\'esence d'onduleurs dans le r\'eseau \'electrique modifie ces profiles en aval de ceux-ci en les lissant c'est-\`a-dire tous les \'equipements aliment\'ees par l'onduleur. 
+Cela signifie des tendances diff\'erentes en tension et dans certains cas en intensit\'e. Cela induit que les m\'ethodes cit\'ees plus haut ne sont plus pertinentes. Nous avons decid\'e de nous tourner vers le machine learning.
+%Ensuite nous avons entamer les corr\'elations entre mesures en partant de l'id\'ee suivante: 
+%une bibliographie sur les corr\'elations de mesures physiques.
+
+\section{Activit\'es ann\'ee 2}
+La deuxi\`eme ann\'ee fut consacr\'ee \`a l'\'elaboration d'algorithme de reconstruction de graphes apr\`es une bibliographie sur la reconstruction de graphes. 
+Nous avons utilis\'e la notion de line graphes \cite{lineGraphe} pour distinguer les \'equipements ayant une extr\'emit\'e commune. 
+En effet, en transformant les ar\^etes du graphe en noeuds et les noeuds du graphe en ar\^etes, on obtient une clique. 
+Diff\'erentes m\'ethodes existent et celle choisie pour la d\'ecomposition en line graphes est celle de Philippe Lehot \cite{decompositionEnCliquesParArcs}. Malheureusement cette algorithme ne traite pas les sommets dans des ambiguit\'es c'est-\`a-dire ayant deux couvertures en cliques distints, chose quasi impossible parce que la d\'ecomposition en cliques d'un line graphe est unique. \newline
+Nous avons inclus \`a l'algorithme existant la d\'etection des sommets en situation d'ambiguit\'es et trouvent la meilleure clique de couverture \`a partir de la loi de conservation des noeuds appliqu\'ee aux mesures physiques.\newline
+Rappelons que l'\'electricit\'e dans sa propagation subit des pertes dues \`a la resistance des c\^ables. Ce ph\'enom\`ene est dit pertes par effets joules et nous le notons $\epsilon$. 
+Nous avons conclu que le meilleur intervalle des pertes par effets joules pour lequel la loi de conservation sur nos mesures \'etait respect\'ee, est $\epsilon \ge 0.8$.\newline 
+Cependant l'algorithme peut ne retrouver aucune d\'ecomposition en cliques parce que le graphe n'est pas un line graphe. Dans ce cas de figure, nous proposons l'algorithme de correction dont le but est de trouver un line graphe ayant une distance de Hamming minimale par rapport \`a celui fournit en entr\'ee.
+
+\section{Activit\'es ann\'ee 3}
+La simulation des algorithmes propos\'ees sur des donn\'ees concerne les travaux de la troisi\`eme ann\'ee. 
+Les premi\`ers tests ont debut\'ee sur des donn\'ees th\'eoriques.
+En effet, nous avons g\'en\'er\'e $500$ line graphes avec les mesures physiques de chaque sommet et on modifie $k \in [1,10]$ cases de la matrice d'adjacence du line graphe de la mani\`ere suivante :
+\begin{itemize}
+	\item la case \`a $0$ du line graphe est transform\'ee en $1$: on parle de corr\'elations fausses positives.
+	\item la case \`a $1$ du line graphe est transform\'ee en $0$: on parle de corr\'elations fausses n\'egatives.
+\end{itemize}
+Enfin, pour chaque case de la matrice d'adjacence du line graphe, on attribue une valeur de corr\'elation selon le type de la case de cette matrice (corr\'elations fausses n\'egatives, vrai n\'egatives, fausses positives et vrai positives).
+\newline
+Les tests r\'ealis\'es sur des donn\'ees th\'eoriques pr\'esentent de bons r\'esultats lorsque l'on ajoute $k < 7$ erreurs de corr\'elations dans la matrice d'adjacence du line graphe.
+En d'autres termes, les algorithmes (de couverture et de correction) fournissent le line graphe du r\'eseau \'electrique lorsque la matrice d'adjacence du graphe fourni en param\^etres de nos algorithmes poss\`ede $k < 7$ erreurs de corr\'elations, soit $2\%$ erreurs de corr\'elations pour $70\%$ de corr\'elations fausses n\'egatives et $30\%$ de corr\'elations de fausses positives.
+\newline
+Rappelons que la fonction de co\^ut pour la modification d'une case de la matrice d'adjacence utilise les valeurs de corr\'elations et le seuil de transformation de corr\'elation en valeurs binaires est $s = 0.7$. La fonction de co\^ut unitaire (c'est-\`a-dire la modification est de $1$) ne fournit pas de r\'esultats probants.
+\newline
+
+Les donn\'ees r\'eelles proviennent d'un datacenter d'un op\'erateur de t\'el\'ephonie.
+ Le test \'effectu\'e sur ces donn\'ees consiste \`a la d\'etermination de la matrice de corr\'elation, \`a la transformation de la matrice de corr\'elation en une matrice d'adjacence en appliquant le seuil $s$ et enfin l'ex\'ecution des algorithmes de couverture et de correction. \newline 
+ Les premi\`ers r\'esultats obtenus sont tr\'es d\'ec\'evants car la distance de Hamming est $153$. 
+ Cela s'explique par le fait que la matrice d'adjacence contient $8\%$ erreurs de corr\'elations dont $85.5\%$ et $14.5\%$ de corr\'elations respectivement fausses positives et fausses n\'egatives. 
+ Les erreurs de corr\'elations proviennent de la pr\'esence d'onduleurs dans le r\'eseau dans la mesure ou l'onduleur lisse les profiles de consommation des \'equipements qui lui sont rattach\'es impliquant que les \'equipements de branches diff\'erentes se retrouvent avec les profiles de consommations c'est-\`a-dire une droite horizontale.
+
+
+%%%% a faire 
+\section{Travaux \`a achever}
+\begin{itemize}
+	\item Tester sur les donn\'ees th\'eoriques un fonction de co\^ut en cloche. La particulart\'e de cette fonction est les valeurs de corr\'elation fausses positives et fausses negatives tr\`es proche du seuil $s$. Cela entraine que le co\^ut d'une corr\'elation vrai n\'egative ou vrai positive est tr\`es \'elev\'e et qu'on priorise la modification de corr\'elations fausses positives et fausses n\'egatives.
+	\item Trouver une m\'ethode de corr\'elation qui soit indiff\'erent \`a la pr\'esence d'un onduleur dans le r\'eseau \'electrique.
+	\item D\'eterminer le graphe root du line graphe.
+\end{itemize}
+
+\bibliographystyle{plainadtnat}
+\bibliography{bibliographie}
+\end{document}

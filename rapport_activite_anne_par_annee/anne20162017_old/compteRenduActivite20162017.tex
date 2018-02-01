@@ -1,0 +1,63 @@
+% Type de document
+\documentclass [a4paper,10pt]{article}
+ 
+% Chargement des extensions
+\usepackage[latin1]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{graphics}
+\usepackage[square,sort,comma,numbers,sectionbib]{natbib}
+
+
+\newtheorem{property}{propriete}
+
+\title{ compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee}
+\author{EHOUNOU Wilfried\\ doctorant informatique equipe MAGMAT }
+
+% Début du document
+\begin{document}
+
+	{\LARGE  Compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee} \\
+{ \bf ---------------------------------------------------------------------------------------------}
+	\section{Les objectifs fix\'es}
+		\paragraph{Pr\'esentation du sujet de th\`ese: }
+		
+L'univers du datacenter se r\'ev\`ele \^etre beaucoup plus complexe que l'on y pense. il regroupe plusieurs m\'etiers dont l'interaction devient difficile au vue des taches \`a accomplir compl\`etement diff\'erentes. Toutefois ces secteurs d'activit\'es partagent un objectif commun qui est l'accessibilit\'e et la disponibilit\'e des services IT h\'eberg\'es dans cette infrastructure. En effet au d\'ebut de leur apparition, l'int\'er\`et \'etait dirig\'e vers les donn\'ees contenues dans les serveurs afin qu'ils soient accessibles 24h/24 d\'elaissant au passage l'impact que ces b\^atiments avaient sur l'environnement. On peut citer la production de chaleur issues des \'equipements IT, la surconsommation d'\'electricit\'e pour \'eviter toute interruption d'intensit\'e et une utilisation d'eau assez importante afin de refroidir les serveurs.\newline
+Notre coeur de m\'etier est l'optimisation des \'energies (\'electrique, thermique) produites dans un souci de r\'eduire les couts d'exploitations et les impacts \'ecologiques de ces b\^atiments. Un des soucis rencontr\'es lors de la r\'ealisation de notre projet a \'et\'e l'absence de r\'ef\'erentielles correctes sur les \'equipements presents dans l'infrastructure. Par exemple certains appareils, remplac\'es par d'autres avec des caract\'eristiques diff\'erentes ne figurent nulle part dans la documentation, l'historique des maintenances est d\'ecousu avec beaucoup d'incompr\'ehension, l'organisation physique des appareils est modifi\'ee et pas mis \^a jour et les \'equipements hors tension ne figurent pas dans le schema de fonctionnement.\newline
+ Face \`a ces contraintes, notre pr\'eoccupation est de savoir comment trouver l'architecture physique du r\'eseau associ\'e au fonctionnement du syst\`eme \`a plusieurs instants donn\'ee. 
+ L'id\'ee nous est alors venu d'utiliser les valeurs de grandeurs physiques constamment remont\'ee dans le temps qui refl\`ete l'\'etat du syst\`eme. Il s'agit des mesures physiques. 
+
+La premi\`ere ann\'ee a permis de definir quelles variables sont importantes dans un r\'eseau \'energ\'etique. Ensuite nous avons effectu\'e des correlations entre mesures issues de la meme grandeur physique dans le but de detecter les arcs ou ar\^etes partageant un sommet en commun. Et enfin nous avons d\'efini une matrice de corr\'elation associ\'ee \`a toutes les grandeurs physiques en supposant qu'un arc est corr\'el\'e \`a un arc si toutes ses grandeurs sont corr\'el\'es entre elles. \newline
+
+La deuxi\`eme ann\'ee a conduit \`a la proposition de deux algorithmes. Nous avons suppos\'e que si plusieurs ar\^etes partagent un meme sommet alors ils forment un clique dans un graphe dual. Nous avons consider\'e la matrice de corr\'elation comme la matrice d'adjacence du line graphe induit par le graphe non orient\'e du r\'eseau \'energ\'etique. \newline
+Le premier algorithme est {\em l'algorithme de couverture} propos\'e par Philippe Lehot \cite{decompositionEnCliquesParArcs} dont nous avons modifi\'e afin qu'il consid\`ere les ar\^etes de notre graphe comme des sommets. On en a d\'eduit la propri\'et\'e suivante:
+\begin{property}
+Un graphe dont chaque sommet appartient \`a deux cliques et chaque ar\^ete \`a une clique admet une couverture en clique. Ce graphe est  un {\em line graphe}.
+\end{property}
+Ensuite, les sommets appartenant \`a plus de deux cliques, font l'objet de traitement dans l'algorithme suivant. Ces sommets proviennent d'erreurs de corr\'elations pendant le calcul de la matrice de corr\'elation. Ces erreurs sont des correlations {\em fausses positives} et {\em fausses n\'egatives}.\newline
+Le second algorithme nomm\'e {\em algorithme de correction} a pour but de fusionner les cliques voisines d\'un sommet, issu \`a l'ensemble des sommets n'appartenant \`a auncune clique, de tel sorte que
+\begin{itemize}
+ 	\item ce sommet appartienne \`a deux cliques.
+ 	\item le co\^ut de cette fusion de cliques soit minimal.
+\end{itemize}
+L'objectif de cet algorithme est de fournir le line graphe le plus proche possible du line graphe induit par le r\'eseau de flots, En d'autres termes, le line graphe dont la distance de Hamming soit minimale.   \newline
+
+Les travaux de la troisi\`eme ann\'ee consiste principalement \`a tester la robustesse des algorithmes propos\'es. Il s'agit:
+\begin{itemize}
+	\item de d\'efinir l'ordre de traitement des sommets, n'appartenant \`a aucunes cliques. En effet, nous avons g\'en\'erer $500$ line graphes dans lesquels on a modifi\'e $k \in [1,\cdots,9]$ corr\'elations (il y'a autant d'ar\^etes ajout\'ees et d'ar\^etes supprim\'ees). On a compar\'e les distances de Hamming moyennes pour chaque nombre $k$ selon quatre m\'ethodes: degr\'e minimum avec remise, co\^ut minimum avec remise, degr\'e minimum avec permutation et co\^ut minimum avec permutation. Et la meilleure m\'ethode est celle de degr\'e minimum avec permutation.
+	\item de sp\'ecifier dans quelle condition, les algorithmes fournissent de meilleurs resultats. La condition est le taux de corr\'elation fausses positives par rapport \`a celle fausses negatives dans la matrice d'adjacence. En effet, on  modifie $k \in [1,\cdots,9]$ corr\'elations selon une probabilit\'e $p$ de sorte qu'ils aient plus d'aretes ajout\'es dans les line graphes quand $p$ tend vers $1$ et plus d'ar\^etes supprim\'ees quand $p$ tend vers $0$. On constate que les distances de hamming entre graphes fournis par les algorithmes  et les line graphes g\'ener\'es est \'egale \`a $0$ dans $60\%$ des graphes. Cela signifie que, dans $60\%$ des cas, les algorithmes pr\'edisent les line graphes des graphes de base.  
+	\item de tester sur les r\'eseaux r\'eelles. On a remarqu\'e que le temps d'ex\'ecution de l'algorithme de correction est infini quand le degr\'e moyen du r\'eseau de flots est sup\'erieur \`a $9$. Nous devrons changer la structure de donn\'ees utilis\'e pour constater si cela change largement les r\'esultats d\'ej\`a obtenus.  
+\end{itemize}
+
+\paragraph{Travaux \`a r\'ealiser}
+Dans le quatri\'eme trimestre, je compte faire les taches suivantes:
+\begin{itemize}
+\item changer la structure de donn\'ees pour tester les performances de l'algorithme de correction.
+\item orienter les aretes du graphe car nous pouvons d\'ej\`a recontruire le r\'eseau non orient\'e \`a partir du line graphe.
+\item tester les algorithmes sur ces line graphes particuliers tel que les graphes iourtes.
+\item d\'ebut de la r\'edaction de la th\`ese.
+\end{itemize}
+
+\bibliographystyle{plainadtnat}
+\bibliography{bibliographie}	
+% Fin du document
+\end{document}

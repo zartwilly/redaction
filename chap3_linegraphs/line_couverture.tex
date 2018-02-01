@@ -1,0 +1,86 @@
+Consid\'erons un r\'eseau \'electrique mod\'elis\'e  par un DAG et une matrice $\mu_c$ dans laquelle chaque ligne/colonne est associ\'ee \`a un arc du DAG.
+Une case de $\mu_c[i,j]$ contient le niveau de corr\'elation de mesures entre l'arc $i$ et l'arc $j$, une valeur entre $0$ et $1$.
+Id\'ealement, si ces deux arcs partagent une extremit\'e en commun, soit l'extrimit\'e initiale ou soit l'extremit\'e finale comme dans la figure \ref{typeSommetsEnCommun}, la valeur est proche de $1$ sinon elle est proche de $0$.
+Toutefois des erreurs de mesures peuvent apparaitre.
+\newline
+\`A partir de $\mu_c$ et d'une valeur de seuil choisie $s \in [0,1]$, on consid\`ere la matrice $M$ de m\^eme dimension que $\mu_{c}$ dans laquelle 
+$M[i,j] = 1$ ssi $\mu_c[i,j] \ge s$, sinon $M[i,j] = 0$. 
+\newline
+Soit $G_C = (V_C,E_C)$ le graphe dont $M$ est la matrice d'adjacence.
+Id\'ealement, l'ensemble des liens ayant une extremit\'e commune forme une clique dans $G_C$.
+
+\begin{definition}
+	Un graphe $G_C = (V_C, E_C)$ est un graphe de corr\'elation ssi il est le line graphe d'un DAG.
+	L'ensemble $\cal C$ est dit une {\bf couverture de correlation} de $G_C$
+\end{definition}
+
+\subsection{Determination du graphe de corr\'elation et sa line couverture}
+	\begin{definition}
+	Une ambiguit\'e est un graphe isomorphe \`a l'un des graphes de la figure \ref{configurationAmbiguite}. Le sommet $X$ est appel\'e le {\bf point d'ambiguit\'e}.
+	\end{definition}
+	
+	\begin{centering}\vspace{-0.5em}
+	\begin{figure}[htb!]\vspace{-0.5em}
+	\includegraphics[scale=0.40]{./imagesLineGraphes/configurationAmbiguite.eps}\vspace{-0.5em}
+	\caption{ ambiguity presentation at point X }\vspace{-0.5em}
+	\label{configurationAmbiguite}
+	\end{figure}
+	\end{centering}
+	
+	\begin{lemma}
+	Si un graphe de corr\'elation $G_C$ admet deux couvertures de corr\'elation, alors il existe au moins un sommet $u$ de $G_C$ tel que $G[\{u\} \cup \Gamma_{G_C}(u)]$ est une ambiguit\'e dont $u$ est le point.
+	\end{lemma}
+	
+	\begin{proof}
+Consider two correlation covers $C$ and $C'$ of $G_C$. 
+Note that it exists at least one vertex $v$ of $G_C$ that is not covered by the same clique(s) in $C$ and $C'$.
+Let $c_1$ and $c_2$ ($c_2$ can be empty) partitionning $\{v\} \cup \Gamma_G(v)$ in $C$.
+Let $c_3$ and $c_4$ be two cliques  (different from  $c_1$ and $c_2$) partitionning $\{v\} \cup \Gamma_G_C(v)$.
+To each $i \in \{1,2\}$ and $j \in \{3,4\}$, we denote by $c_{i,j}$ the intersection of $c_i$ and $c_j$.
+Each vertex $w \in c_{i,j}$ is covered by at  most two cliques of $G_C$ in $C$ whose $c_i$ is one on them.
+Because  $c_j$ is a clique, the vertex $v$ is neighbour to all vertices of $c_{i',j}$ , for $i' \neq i$.
+The edges between these vertices are in $c'_i$, then each edge [w,z] for all $z \in c_{i',j}$ forms a clique matching to a flow network.
+Then a cardinal of each set $c_{i,j}$ is equal to $1$.
+We denote  by $v_{i,j}$ the only vertex belonging to $c_{i,j}$.
+It is possible to get $v_{1,3} = v_{1,4}$ or $v_{2,3} = v_{2,4}$.
+If two equalities are checked in, the vertex $v$ was covered by one clique of cardinality $3$ or not by two cliques.
+So, the only possible cases are showed by a figure \ref{graphe2Couverture}.
+The vertex $v$ is the point of an ambiguity that is isomorphic to $G_C[\{u\} \cup \Gamma_G_C(u)]$.
+	\end{proof}
+
+On peut deduire le corollaire suivant :
+\begin{corollary}
+Si un graphe de correlation admet deux couverture de correlation, alors il est isomorphe \`a un des graphes de la figure  \ref{graphe2Couverture}.
+\end{corollary}
+\begin{centering} \vspace{-0.5em}
+\begin{figure}[htb!] \vspace{-0.5em}
+\includegraphics[scale=0.45]{./imagesLineGraphes/graphe2Couverture.eps}
+\caption{ possible graphs with two covers and framed ambiguity points }
+\label{graphe2Couverture} 
+\end{figure}
+\end{centering} 
+En Effet, si $G_C[{u} \cup \Gamma_{G_C}(u)]$ est une ambiguit\'e, chaque ar\^ete, qui n'est pas li\'ee au point d'ambiguit\'e, doit \^etre une ar\^ete d'une et une seule autre ambiguit\'e de $G_C$. Et chaque sommet d\'une ambiguit\'e, qui n'est pas un point d'ambiguit\'e, doit appartenir \`a une et une seule autre ambiguit\'e de $G_C$ dont il n'est pas non  plus le point d'ambiguit\'e.
+De plus, chaque ar\^ete, n'\'etant pas couvert par les deux configurations de cliques possibles dans une ambiguit\'e (les ar\^etes en pointill\'ees dans la figure \ref{graphe2Couverture}), doivent \^etre dans la m\^eme situation dans une autre ambiguit\'e \`a laquelle elles appartiennent.
+Ces contraintes font que si un graphe contient une ambiguit\'e induite, alors il ne peut \^etre que dans un cas de la figure  \ref{graphe2Couverture}.
+
+\begin{definition}
+Soit $G$ un graphe et $u$ un sommet de $G$. Une partition de $\Gamma_G(v)$ en deux cliques $C_{u1}, C_{u2}$ est {\bf coh\'erente } ssi chaque sommet $v$ de $C_{u1}$ (resp $C_{u2}$) a au plus un voisin dans $C_{u2}$  (resp $C_{u1}$).
+\end{definition}
+Le r\'esultat suivant est un corollaire direct de la preuve du lemme \ref{}
+\begin{lemma}
+Soit $G_C$ un line graphe, $u$ un sommet de $G_C$ et une partition coh\'erente de ${u} \cup \Gamma_{G_C}(v)$ en deux cliques  $C_{u1}, C_{u2}$. 
+Si l'une de ces deux cliques est de cardinal sup\'erieur ou \'egal \`a $4$, alors cette partition coh\'erente est unique.
+\end{lemma}
+
+\'Etant donn\'e une partition coh\'erente $C_{u1}, C_{u2}$ pour un sommet $u$ de $G_C$, la fiabilit\'e de cette coh\'erence est
+$F(C_{u1}, C_{u2}) = \min\limits_{[x,y] \in E(C_{u1} \cup E(C_{u2} )}  \mu_{C}([x,y])$
+
+\begin{definition}
+Une {\bf line-couverture} d'un graphe non orient\'e connexe $G_C$ est un ensemble de cliques maximales de $G_C$ telles que chaque sommet de $G_C$ appartient \`a une ou deux de ces cliques et que chaque ar\^ete de $G_C$ soit couverte par exactement une de ces cliques.
+\end{definition}
+
+Il a \'et\'e montr\'e qu'un graphe $G_C$ est  un line graphe si et seulement si il admet une line-couverture.
+Bas\'ee sur cette id\'ee et sur des sous-graphes exclus, un algorithme lin\'eaire en fonction du nombre d'ar\^etes a \'et\'e propos\'e pour v\'erifier  si un graphe est un line graphe et si oui en fournir la line-couverture.
+Cette algorithme est {\bf l'algorithme de couverture}.
+
+

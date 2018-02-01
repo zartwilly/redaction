@@ -1,0 +1,141 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{redaction time series}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{\today}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{property}{Propri\'et\'e}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+%---- path figures ----
+\graphicspath{{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_10_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/}{/home/willy/Documents/latexDoc/redactionThese/chap3_linegraphs/imagesLineGraphes/}}
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Mesures : Des Series Temporelles}
+
+\section{Series temporelles}
+
+\begin{definition}
+Une s\'erie temporelle est une suite chronologique de valeurs r\'eelles $x_t$ \`a des instants de temps \'ecart\'es r\'eguli\`erement. 
+% formule
+\begin{equation}
+(x_t)_{1 \le t \le n}
+\end{equation}
+avec $n$ la dimension de la s\'erie.
+\end{definition}
+L'intervalle de temps entre deux mesures successives d\'epend de la s\'erie. 
+Il peut s'agir d'un jour, d'une semaine, d'une minute ...
+\newline
+G\'en\'eralement, les s\'eries temporelles s'utilisent dans les probl\`emes suivants :
+\begin{itemize}
+	\item mod\'elisation : la representation de la serie sous la forme d'une fonction du temps.
+	\item pr\'evision : pr\'edire les donn\'ees futures \`a partir de valeurs pr\'ed\'ecentes.
+	\item changement de r\'egime :  la s\'erie change-t-elle significativement \`a un instant $t$.
+	\item comparaison :  determiner la relation existante entre une s\'erie observ\'ee et d'autres s\'eries candidates.
+\end{itemize}
+Dans ce document, nous nous concentrerons \`a la derni\`ere categorie des probl\`emes. 
+
+Selon le but de l'etude \`a realiser, deux definitions s'imposent.
+
+\subsection{Particularit\'es des series temporelles}
+Bien que la s\'erie temporelle $(x_t)_{1 \le t \le n}$ est l'observation des $n$ premi\`eres r\'ealisations d'un processus stochastique $(X_t)_t$, elle se modelise sous la forme suivante:
+\begin{definition}
+la s\'erie temporelle se d\'ecompose en une somme de trois composantes 
+\begin{itemize}
+	\item deterministe ou tendance  non nulle $m$
+	\item p\'eriodique ou saisonni\`ere $s$
+	\item al\'eatoire ou le bruit $\epsilon$
+\end{itemize}
+\begin{equation}
+ X_t = m + s + \epsilon = f(t) + \epsilon
+\end{equation}
+\end{definition}
+\begin{definition}
+La fonction $f(t)$ est decompos\'ee en deux termes: 
+\begin{equation}
+	f(t) = m(t) + S(t)
+\end{equation}
+\`ou $m(t)$ et $S(t)$ sont deux fonctions avec 
+\begin{enumerate}
+	\item  $S(t)$ est une fonction p\'eriodique non nulle de p\'eriode $T$ telle que $\sum_{i = 1}^{T}S(i) = 0$ alors $s$ est la composante saisonni\`ere de $X$.
+	\item si $m(t)$ est non nulle alors $m$ est la tendance de $X$.
+\end{enumerate}
+avec $S(i)$ les coefficients de la fonction $S$.
+\end{definition}
+La tendance est une fonction d'une famille simple d\'ecrite par peu de param\`etres : fonction affine (droite), polyn\^ome de degr\'e faible, ou fonction exponentielle. 
+Le choix des familles de fonctions parmi lesquelles on cherche la fonction $f$
+se fait souvent \`a vue, en regardant les graphiques des donn\'ees sans autre justifcation
+th\'eorique : certaines saisonalit\'es sont visibles, d'autres apparaissent plus nettement apr\`es certaines transformations des donn\'ees brutes (transform\'ee de Fourier appel\'ee p\'eriodogramme). 
+Une tendance croissante r\'eguli\`ere est mod\'elis\'ee par une tendance affine, par un polyn\^ome d'ordre $2$ si on observe un certain creusement... 
+Il n'existe pas de crit\`ere objectif pour faire le choix de cette famille. 
+\newline
+Le choix de la p\'eriode de la saisonalit\'e est orient\'e par des connaissances a priori sur la s\'erie. 
+Par exemple, les ph\'enom\`enes li\'es aux climats, ainsi qu'une grande partie des s\'eries \'economiques ont une p\'eriodicit\'e annuelle.
+Mais une s\'erie de consommation \'electrique pr\'esente une saisonnalit\'e hebdomadaire en plus.
+\newline
+Certaines s\'eries se mod\'elisent par un produit des trois composantes. Cependant, l'application d'un logarithme nous permet de revenir \`a la propri\'et\'e pr\'ec\'edente.
+\begin{equation}
+ Y_t = log(X_t) = log(m) + log(s) + log(\epsilon)
+\end{equation}
+Le mod\`ele multiplicatif est approch\'e au mod\`ele additif.
+
+% definitions de m_t, s_t et \epsilon et methodes de calcul de ces composantes
+\subsection{Estimation de la tendance et la saisonnalit\'e}
+Les methodes present\'ees s'utilisent generalement dans la pr\'evision de donn\'ees.
+Nous utilisons ces m\'ethodes dans le but de d\'eterminer des param\^etres qui permettront de s'approcher, au pire des cas, de la s\'erie $X_t$.
+\newline
+la s\^erie temporelle peut \^etre mod\'elis\'e par un processus {\em stationnaire} et {\em non stationnaire}.
+% page 6 - 12 a comprendre et copier 
+% master 1: cours de series temporelles notes de JM bardet
+% introductionAuxSeriesTemporelles : page 42 : ts non stationnaire
+% Gouriéroux C. et Montfort A. Cours de séries temporelles , Economica, Paris, 1983.
+\subsubsection{Processus stationnaire}
+
+\subsubsection{Processus non stationnaire}
+
+
+% objectifs sur nos donnees
+Conna\^itre ces param\^etres, en particulier la p\'eriode $T$, nous permet de selectionner des \'echantillon repr\'esentatifs des s\'eries dans le but de les comparer entre eux.
+\section{Application des m\'ethodes sur les s\'eries temporelles de Champlan}
+% quel est la methode choisi et quel est la periode trouvee. Puis que faire du bruit apres detendanciation et desaisonnalisation.
+
+\end{document}

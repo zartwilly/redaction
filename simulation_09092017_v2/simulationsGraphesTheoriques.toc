@@ -1,0 +1,12 @@
+\contentsline {chapter}{\numberline {1}Simulation des algorithmes sur des r\'eseaux th\'eoriques}{5}
+\contentsline {section}{\numberline {1.1}Objectifs}{5}
+\contentsline {section}{\numberline {1.2}D\'efinitions}{5}
+\contentsline {section}{\numberline {1.3}Donn\'ees: G\'en\'eration al\'eatoires de graphes}{6}
+\contentsline {subsection}{\numberline {1.3.1}G\'eneration de r\'eseaux de flots}{6}
+\contentsline {subsection}{\numberline {1.3.2}G\'en\'eration de line graphes sous jacent au r\'eseau de flots non orient\'e}{7}
+\contentsline {subsection}{\numberline {1.3.3}Prise en compte de l'erreur de corr\'elation dans la matrice $matE$}{7}
+\contentsline {section}{\numberline {1.4}R\'esultats}{8}
+\contentsline {subsection}{\numberline {1.4.1}Distribution de la m\'ethode de permutation al\'eatoire}{9}
+\contentsline {subsection}{\numberline {1.4.2}Comparaison des m\'ethodes de correction}{9}
+\contentsline {subsection}{\numberline {1.4.3}Influence des erreurs de corr\'elations sur les distributions}{10}
+\contentsline {subsection}{\numberline {1.4.4}Impact de la fonction de co\^ut sur les distributions}{10}

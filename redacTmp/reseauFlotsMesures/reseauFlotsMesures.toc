@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}R\'eseau \'electrique d'un datacenter : un graphe de flots.}{1}
+\contentsline {paragraph}{\numberline {1.0.0.1}Les sources}{1}
+\contentsline {paragraph}{\numberline {1.0.0.2}Les tableaux}{2}
+\contentsline {paragraph}{\numberline {1.0.0.3}Les baies (ou racks) de serveurs}{2}
+\contentsline {subsection}{\numberline {1.1}Topologie du r\'eseau \'electrique}{2}
+\contentsline {subsubsection}{\numberline {1.1.1}Description du r\'eseau de flots}{2}
+\contentsline {subsection}{\numberline {1.2}Grandeurs physiques}{2}
+\contentsline {subsection}{\numberline {1.3}mesures physiques : TS}{2}
+\contentsline {subsection}{\numberline {1.4}Contraintes ou regles : loi de kirrchoff}{2}

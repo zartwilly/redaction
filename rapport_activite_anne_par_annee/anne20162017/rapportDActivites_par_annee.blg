@@ -1,0 +1,87 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: rapportDActivites_par_annee.aux
+The style file: plainadtnat.bst
+Database file #1: bibliographie.bib
+You're missing a field name---line 59 of file bibliographie.bib
+ : 
+ : % author =  "Ravindra K. Ahuja, Thomas L. MAgnanti, James B. Orlin",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 69 of file bibliographie.bib
+ : 
+ : % author =  "Chonghui Guo, Hailin Li, Donghua Pan ",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 77 of file bibliographie.bib
+ : 
+ : % author =  " Neal Parik, Stephen Boyd ",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 87 of file bibliographie.bib
+ : 
+ : % author =  " Bron and Kerbosh",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 97 of file bibliographie.bib
+ : 
+ : % title = "A max m,n algorithm for determining the graph H from its line graph G",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 112 of file bibliographie.bib
+ : 
+ : % title = "An efficient reconstruction of a graph from its line graph in parallel",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 130 of file bibliographie.bib
+ : 
+ : % author = "Carlos Mateo Domingo, Tom\'as Gomez San Roman, \'Alvaro Sanchez-Miralles",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 141 of file bibliographie.bib
+ : 
+ : % author =  "Phil Lawton",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 2 entries,
+            2785 wiz_defined-function locations,
+            612 strings with 5213 characters,
+and the built_in function-call counts, 1054 in all, are:
+= -- 105
+> -- 20
+< -- 5
++ -- 8
+- -- 6
+* -- 62
+:= -- 145
+add.period$ -- 8
+call.type$ -- 2
+change.case$ -- 8
+chr.to.int$ -- 2
+cite$ -- 4
+duplicate$ -- 65
+empty$ -- 106
+format.name$ -- 8
+if$ -- 242
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 2
+newline$ -- 18
+num.names$ -- 8
+pop$ -- 24
+preamble$ -- 1
+purify$ -- 6
+quote$ -- 0
+skip$ -- 45
+stack$ -- 0
+substring$ -- 60
+swap$ -- 20
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 22
+warning$ -- 0
+while$ -- 12
+width$ -- 0
+write$ -- 35
+(There were 8 error messages)

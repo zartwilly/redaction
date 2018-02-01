@@ -1,0 +1,16 @@
+\contentsline {chapter}{\numberline {1}Matrice de Correlation : un Line graphe}{5}
+\contentsline {section}{\numberline {1.1} \'Etat de l'art: les line graphes}{5}
+\contentsline {section}{\numberline {1.2}Proposition d'algorithmes}{5}
+\contentsline {subsection}{\numberline {1.2.1}Line-couverture}{5}
+\contentsline {subsubsection}{\numberline {1.2.1.1}D\'etermination du graphe de corr\'elation et sa line-couverture}{5}
+\contentsline {subsection}{\numberline {1.2.2}Algorithme de couverture}{7}
+\contentsline {subsubsection}{\numberline {1.2.2.1}Impact des pertes par effets joules}{9}
+\contentsline {paragraph}{\numberline {1.2.2.1.1}exp\'erience 1}{10}
+\contentsline {paragraph}{\numberline {1.2.2.1.2}exp\'erience 2}{10}
+\contentsline {subsubsection}{\numberline {1.2.2.2}Complexit\'e de l'algorithme de couverture}{11}
+\contentsline {subsection}{\numberline {1.2.3}Algorithme de correction}{11}
+\contentsline {section}{\numberline {1.3}Correction de la matrice de corr\'elation}{11}
+\contentsline {subsection}{\numberline {1.3.1}Complexit\'e des algorithmes}{14}
+\contentsline {section}{\numberline {1.4}Comportement des algorithmes de couverture et de correction}{14}
+\contentsline {section}{\numberline {1.5}D\'etermination de la topologie du r\'eseau \'energetique}{15}
+\contentsline {section}{\numberline {1.6}Correction particuli\`ere de Graphes : Graphes Iourtes }{15}

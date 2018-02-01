@@ -1,0 +1,32 @@
+% --- pas besoin pour le moment
+%Il a \'et\'e montr\'e qu'un graphe $G$ est un line graphe si et seulement s'il admet une {\em line couverture}.
+%Partant de cette hypoth\`ese et les sous graphes exclus, un algorithme lin\'eaire en fonction du nombre d'ar\^etes a \'et\'e propos\'e pour decider si un graphe est un line graphe et si oui fournir le graphe racine dont il est le line graphe sous-jacent \cite{decompositionEnCliquesParArcs}.
+% --- pas besoin pour le moment
+
+Nous d\'efinissons \`a pr\'esent le probl\`eme dont nous \'etudions.
+Soit le graphe $G_C = (V_C, E_C)$ obtenu entre les paires d'arcs du r\'eseau de flot \`a d\'eterminer.
+
+\begin{definition}
+Soient $G$ et $G'$ deux graphes ayant le m\^eme ensemble  de sommets ordonn\'e de la m\^eme fa\c con.
+%La distance en $G$ et $G'$ est la distance de Hamming not\'ee $DH(G,G')$ entre leurs deux matrices d'adjacente, c'est-\`a-dire le nombre d'\'el\'ements ayant une valeur diff\'erente dans chacune des deux matrices.
+La distance de Hamming entre $G$ et $G'$ not\'ee $DH(G,G')$ est le nombre d'\'el\'ements ayant une valeur diff\'erente dans chacune des deux matrices d'adjacence.
+\end{definition}
+Une distance de Hamming \'egale \`a $k$ $(k \in \mathbb{N})$ signifie qu'il existe $k$ ar\^etes diff\'erentes entre  les graphes $G$ et $G'$.
+
+\begin{definition}
+On appelle distance-line de $G$, not\'ee $DL(G)$, la plus petite distance de Hamming entre $G$ et $G'$, $G'$ \'etant le line graphe d'un DAG ayant le m\^eme ensemble de sommets que $G$.
+\end{definition}
+
+Nous consid\'erons le probl\`eme suivant. \newline
+{\bf Probl\`eme} Proxi-Line \newline
+{\bf Donn\'ees} : Un graphe $G=(V,E)$, un entier $k$. \newline
+{\bf Question} : $DL(G) \le k$ ? \newline
+
+\begin{conjecture}
+Proxi-Line est NP-complet.
+\end{conjecture}
+
+\begin{proof}
+\end{proof}
+
+Afin de traiter ce probl\`eme, nous utilisons l'approche de ROUSSOPOULOS \cite{ROUSSOPOULOS1973108} qui d\'efinit un line graphe par la couverture de ses ar\^etes par une clique et ses sommets par au moins deux cliques. On parle alors de {\em line-couverture}.

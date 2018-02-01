@@ -1,0 +1,39 @@
+% Type de document
+\documentclass [a4paper,10pt]{article}
+ 
+% Chargement des extensions
+\usepackage[latin1]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{graphics}
+
+
+
+\title{ compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee}
+\author{EHOUNOU Wilfried\\ doctorant informatique equipe MAGMAT }
+
+% Début du document
+\begin{document}
+
+	{\LARGE  Compte rendu d'activit\'e pour l'ann\'ee \'ecoul\'ee} \\
+{ \bf ---------------------------------------------------------------------------------------------}
+	\section{Les objectifs fix\'es}
+		\paragraph{Pr\'esentation du sujet de th\`ese: }
+		
+L'univers du datacenter se r\'ev\`ele \^etre beaucoup plus complexe que l'on y pense. il regroupe plusieurs m\'etiers dont l'interaction devient difficile au vue des taches \`a accomplir compl\`etement diff\'erentes. Toutefois ces secteurs d'activit\'es partagent un objectif commun qui est l'accessibilit\'e et la disponibilit\'e des services IT h\'eberg\'es dans cette infrastructure. En effet au d\'ebut de leur apparition, l'int\'er\`et \'etait dirig\'e vers les donn\'ees contenues dans les serveurs afin qu'ils soient accessibles 24h/24 d\'elaissant au passage l'impact que ces b\^atiments avaient sur l'environnement. On peut citer la production de chaleur issues des \'equipements IT, la surconsommation d'\'electricit\'e pour \'eviter toute interruption d'intensit\'e et une utilisation d'eau assez importante afin de refroidir les serveurs.\newline
+Notre coeur de m\'etier est l'optimisation des \'energies (\'electrique, thermique) produites dans un souci de r\'eduire les couts d'exploitations et les impacts \'ecologiques de ces b\^atiments. Un des soucis rencontr\'es lors de la r\'ealisation de notre projet a \'et\'e l'absence de r\'ef\'erentielles correctes sur les \'equipements en fonctionnement. Par exemple certains appareils, remplac\'es par d'autres avec des caract\'eristiques diff\'erentes ne figurent nulle part dans la documentation, l'historique des maintenances est d\'ecousu avec beaucoup d'incompr\'ehension et l'organisation physique des appareils est modifi\'ee et pas mis \^a jour.\newline
+ Face \^a ces contraintes, notre pr\'eoccupation est de savoir comment trouver l'architecture physique des \'equipements correspondant au fonctionnement du syst\'eme \^a un instant donn\'ee. L'id\'ee nous est alors venu d'utiliser la variable constamment remont\'ee dans le temps qui refl\`ete l'\'etat du syst\`eme. Il s'agit des mesures physiques. 
+
+		\paragraph{Travaux r\'ealis\'es: }
+		le 1er trimestre a consist\'e \`a d\'efinir la fonction de corr\'elation entre 2 arcs. Cette fonction d\'etermine le pourcentage de similarit\'e entre l'ensemble de mesures  prises sur les 2 arcs. En ex\'ecutant cette fonction sur tous les paires possibles d'arcs on obtient la matrice de corr\'elation des arcs. La matrice de corr\'elation est la matrice d'adjacence du graphe non orient\'e sous-jacent du res\'eau de flots \'a pr\'edire. \\
+		Par la suite, une \'etude bibliographique sur la d\'ecomposition en cliques \`a partir d'un linegraph en a d\'eduit que des travaux avaient \'et\'e \'effectu\'es seulement dans le cas o\`u la matrice d'adjacence du graphe formait un \textit{linegraph}. Durant le deuxi\`eme trimestre, on a suppos\'e que cette matrice d'adjacence formait un \textit{linegraph} et nous avons impl\'ement\'e cet algorithme de d\'ecomposition en cliques. Nous avons consid\'er\'e que des arcs couverts par une clique partagent un sommet en commun. Cependant nous ignorions lequels de ces arcs appartenaient \`a l'ensemble  d'arriv\'e ou \`a l'ensemble de d\'epart de ce sommet. \newline
+		 Pendant le troisi\`eme trimestre, nous avons conduit les travaux sur l'identification des arcs entrants et sortants du noeud d\'eduit de la clique. Nous avons d\'efini une fonction d'orientation pour jouer ce r\^ole. Cette fonction est une fonction de d\'ecision qui depend  d'une variable epsilon $\epsilon$. Si cette variable est petite, la fonction d'orientation g\'en\`ere beaucoup de bipartitions fausses positives. Par contre, si $\epsilon$ est grande, la fonction d'orientation g\'en\`ere beaucoup de bipartitions fausses n\'egatives. \newline
+		 Une \'etude sur le bon intervalle de d\'ecision a \'et\'e faite au d\'ebut du quatri\`eme trimestre et la prise en compte des erreurs de corr\'elation dans la matrice d'adjacence a \'et\'e introduite dans l'algorithme de d\'ecoupage en cliques. Cette derni\`ere \'etape est toujours en cours.   
+		
+	\paragraph{Travaux pr\'evisionnels: }
+	\begin{itemize}
+		\item achever la correction de la matrice d'adjacence. Cette correction consiste \`a trouver le \textit{linegraph} le plus proche de cette matrice matrice  d'adjacence. En d'autre termes c'est changer le minimum possible de valeurs de corr\'elation dans la matrice.
+		\item tester cette algorithme sur des donn\'ees r\'eelles.
+	\end{itemize}	
+	
+% Fin du document
+\end{document}

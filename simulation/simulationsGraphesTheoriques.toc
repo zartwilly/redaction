@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1}Simulation des algorithmes sur r\'eseaux th\'eoriques}{5}
+\contentsline {section}{\numberline {1.1}Objectifs}{5}
+\contentsline {section}{\numberline {1.2}D\'efinition de la m\'etrique: distance de Hamming}{5}
+\contentsline {section}{\numberline {1.3}G\'en\'eration de graphes orient\'es}{5}
+\contentsline {section}{\numberline {1.4}processus de simulations}{6}
+\contentsline {section}{\numberline {1.5}R\'esultats}{6}

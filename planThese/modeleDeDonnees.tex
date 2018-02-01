@@ -1,0 +1,319 @@
+\documentclass[onecolumn, 12pt]{article}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+ %\usepackage{layout}    
+ %\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+ %\usepackage{setspace}
+ %\usepackage{soul}
+ %\usepackage{color} 
+  %\usepackage{verbatim}
+  %\usepackage{moreverb}
+  %\usepackage{listings}
+ %\usepackage{url}
+ \usepackage{graphicx}
+ \usepackage{epstopdf}
+%\usepackage{caption}
+ %\usepackage{setspace}
+ 
+% \setstretch{1.0}
+ 
+ %\makeatletter
+ 
+ %\def \@maketitle{   % custom maketitle 
+%{\Large \bfseries \color{black} \@title}
+%hrule permet de dessiner une ligne droite sous le titre
+%{\scshape Student:} \@author ~ at  \@date \par \smallskip \hrule \bigskip 
+%}
+%can contain definition of particular /section
+%\makeatother
+ 
+ \title{Mod\`ele de Donn\'ees}
+ \author{Willy Ehounou}
+ %\date{01/06/15}
+ 
+ \begin{document}
+%\chapter{Mod�le de donn�es}
+\maketitle
+\tableofcontents
+\listoffigures
+\section{Buts}
+L'univers du datacenter se r\'ev\`ele \^etre beaucoup plus complexe que l'on y pense. Il regroupe plusieurs m\'etiers dont l'interaction devient difficile au vue des t\^aches \`a accomplir compl\`etement diff\'erentes. Toutefois ces secteurs d'activit\'es partagent un objectif commun qui est l'accessibilit\'e et la disponibilit\'e des services IT h\'eberg\'es dans cette infrastructure. En effet au d\'ebut de leur apparition, l'int\'er\`et \'etait dirig\'e vers les donn\'ees contenues dans les serveurs afin qu'ils soient accessibles 24h/24 d\'elaissant au passage l'impact que ces b\^atiments avaient sur l'environnement. On peut citer la production de chaleur issue des \'equipements IT, la surconsommation d'\'electricit\'e pour \'eviter toute interruption d'intensit\'e et une utilisation d'eau assez importante afin de refroidir les serveurs.\newline
+Notre coeur de m\'etier est l'optimisation des \'energies (\'electrique, thermique) produites dans un souci de r\'eduire les co\^uts d'exploitations et les impacts \'ecologiques de ces b\^atiments. Un des soucis rencontr\'es lors de la r\'ealisation de notre projet a \'et\'e l'absence de r\'ef\'erentiels corrects sur les \'equipements en fonctionnement. Par exemple certains appareils, remplac\'es par d'autres avec des caract\'eristiques diff\'erentes ne figurent nulle part dans la documentation, l'historique des maintenances est d\'ecousu avec beaucoup d'incompr\'ehension et l'organisation physique des appareils est modifi\'ee et pas mis \`a jour.\newline
+ Face \`a ces contraintes, notre pr\'eoccupation est de savoir comment trouver l'architecture physique des \'equipements correspondant au fonctionnement du syst\`eme \`a un instant donn\'e. L'id\'ee nous est alors venu d'utiliser des valeurs de variables constamment remont\'ees \`a chaque instant de temps qui refl\`ete l'\'etat du syst\`eme. Il s'agit des mesures physiques. 
+La premi\`ere partie de nos travaux porte sur l'\'energie \'electrique dans lequel, \`a partir de lois physiques et \'electrotechniques et des mesures collect\'ees , nous reconstruirons la topologie. Ensuite nous passerons \`a la topologie thermique et enfin d\'efinirons les crit\`eres  de g\'en\'eralisation de d\'ecouverte de topologie.   
+
+\section {D\'efinition du mod\`ele \'electrique}
+En \'electricit\'e, chaque \'equipement a une fonction pr\'ecise: soit il est actif soit passif. Un \'equipement actif est un appareil permettant de produire de l'\'energie tandis qu'un dip\^ole passif est capable de faire circuler l'\'energie avec une r\'esistance consid\'er\'ee n\'egligeable. Ainsi le courant g\'en\'er\'e par un dip\^ole actif est fourni aux autres dip\^oles passifs et pas l'inverse. 
+De m\^eme, les dip\^oles actifs sont des points d'entr\'es de l'\'energie dans le r\'eseau  \`a l'exception des accumulateurs ou batt\'eries dont le r\^ole est de stabiliser (lisser) l'\'energie re\c cue avant de la d\'elivrer aux \'equipements passifs qui lui sont directement li\'es. Les accumulateurs ne respectent pas la loi de conservation d'\'energie. \newline
+Les dip\^oles interm\'ediaires sont tous passifs et ont une fonction de protection de l'infrastructure \'electrique sous jacents. 
+Ils sont reli\'es soit entre eux soit \`a un \'equipement actif ou soit \`a un puits.
+On d\'efinit un puits comme un dip\^ole passif consommateur d'\'energie localis\'e g\'en\'eralement aux extr\'emit\'es finales d'un sch\'ema \'electrique. Il prend aussi le nom de feuille.
+Ainsi donc, dans une installation \'electrique, l'\'energie est produite par les \'equipements actifs, transport\'ee par les  dip\^oles interm\'ediaires et consomm\'ee par les feuilles.
+De cette mani\`ere on observe  un sens de propagation de l'intensit\'e dans le circuit. On peut alors affirmer la pr\'esence d'un r\'eseau avec un flot orient\'e de la source vers le puits et que le sch\'ema synoptique est \textit{orient\'e} (c'est \`a dire allant d'un noeud vers un autre en suivant toujours la m\^eme direction). \newline
+Le datacenter est aliment\'e par le r\'eseau national. Celui ci est rattach\'e aux tableaux communement appel\'es tableaux g\'en\'eraux basse ou haute tension(TGBT ou TGHT)  qui sont des dip\^oles interm\'ediaires.  Par ailleurs, ces tableaux sont directement rattach\'es qu'une seule ou 2 sources d'\'energie et ne peuvent \^etre reli\'es entre eux. On dit alors que ces \'equipements appartiennent au m\^eme \emph{niveau topologique}. Un niveau topologique d'un \'equipement est  le nombre de sauts maximal de la source \`a ce dernier. Remarquons \'egalement qu'il n'existe \emph{aucuns cycles} dans les datacenters.\newline
+Le synoptique \'electrique est compos\'e de plusieurs \'equipements reli\'es entre eux par les c\^ables de caract\'eristiques pr\'ecises. La meilleure repr\'esentation math\'ematique du synoptique est un graphe au vue des sp\'ecifications d\'ecrites plus haut. En effet les \'equipements pourraient \^etre repr\'esent\'es par des noeuds et les c\^ables par des ar\`etes. En plus, on peut utiliser la litterature sur les graphes dans l'interpr\'etation de nos r\'esultats.\newline
+La topologie \'electrique de nos datacenters sera repr\'esent\'ee par un graphe orient\'e acyclique commun\'ement appel\'ee \emph{Directed Acyclic Graph(DAG)}. 
+
+\subsection{Caract\'eristiques des noeuds}
+Notre topologie devra \^etre constitu\'ee de liens ou noeuds probables et d\'eclar\'es. On entend par \'el\'ement probable tout \'el\'ement \'etant d\'ecouvert par la m\'ethode d'apprentissage et par \'el\'ement d\'eclar\'e celui ajout\'e dans le graphe par un utilisateur.
+On distingue 3 types de noeuds:
+\begin{itemize}
+\item noeud actif: on a l'onduleur ayant pour r\^ole de stabiliser la tension re\c cue et le groupe \'electrog\'ene \'etant surtout une source d'\'energie.
+\item noeud passif :  par exemple, les tableaux de distributions (TGBTx, RO100, etc...).
+\item noeud charge : on les retrouve dans le graphe au niveau des noeuds feuilles c'est-\`a-dire sans aucuns successeurs. Comme exemple, on a les serveurs.
+\end{itemize}
+Un \'equipement repr\'esent\'e par un noeud est d\'esign\'e par un nom, un nom de salle, un calibre c'est-\`a-dire  une puissance seuil de fonctionnement. Les caract\'eristiques de chaque appareil deviennent des attributs ou propri\'et\'es pour nos noeuds. \newline
+L'\'energie fournie par un noeud \`a ses voisins est mesur\'ee par des compteurs situ\'es sur des tableaux associ\'es \`a ses voisins sortants. Sur un tableau, on denombre des capteurs collectant divers types de mesures comme la puissance, l'intensit\'e, la tension, etc... Ces valeurs correspondent \`a l'\'energie transport\'ee par le lien incident \`a notre tableau (voir figure ~\ref{correspondanceCompteurSurUnTableauEtValeurSurUnLien}). \newline
+Pour mieux repr\'esenter ce fonctionnement, notre graphe portera sur ses arcs les diff\'erentes valeurs de grandeurs physiques. On considera  alors notre sch\'ema \'electrique comme un graphe de flots.
+\begin{figure}[!h]
+\includegraphics[scale=0.5 ]{correspondanceCompteurSurUnTableauEtValeurSurUnLien.eps}
+\caption{Correspondance compteur sur un tableau et valeur sur le lien}
+\label{correspondanceCompteurSurUnTableauEtValeurSurUnLien}
+ \end{figure}
+ 
+\subsection{Caract\'eristiques des liens}
+Comme expliqu\'e plus haut, chaque lien poss\`ede une valeur qui est la mesure d'une grandeur. Il est d\'esign\'e par le type d'arcs (label de l'arc), un temps, le type de grandeur et sa valeur. Il repr\'esente un \'etat du syst\`eme c'est-\`a-dire pour un temps donn\'e, on doit savoir quelles sont les valeurs des grandeurs remont\'ees. Par exemple un arc entre 2 sommets TGBT1 et DD106 a les attributs suivants:
+\begin{itemize}
+\item label: measurement/electrical
+\item @timestamp: 1359248400000
+\item physical\_quantity:P
+\item value : 12098
+\end{itemize}
+il existe 3 types de labels: 
+\begin{itemize}
+\item topology/electrical : arc n'ayant aucune mesure mais poss\'edant une valeur seuil du lien
+\item measurement/electrical : arc ayant la valeur d'une seule grandeur \`a un temps donn\'e
+\item statistical/electrical: arc ayant des statistiques d'un \'echantillon de valeurs entre 2 temps donn\'es. Comme statistiques, on a la moyenne, les quantiles, l'\'ecart-type, etc...   
+\end{itemize} 
+\'Etant donn\'ee qu'un arc ne peut poss\'eder qu'une seule mesure, il existe plusieurs arcs entre 2 sommets adjacents pour un \'etat de syst\`eme donn\'e (un timestamp donn\'e).  
+
+\subsection{Description math\'ematique du graphe} 
+
+On d\'ecrit ici un graphe orient\'e \'etiquet\'e repr\'esentant un r\'eseau \'electrique.
+Soient\\
+ $S$: un ensemble de sommets de taille $m$ \\
+$A$: un ensemble d'arcs de taille $n$ \\
+$Y$: un ensemble de mesures physiques d\'efini comme suit
+
+\begin{equation} \label{eq1}
+\begin{split}
+Y & =\{ I : intensite \hspace{0.1 cm} monophasee, \\
+&  I_{x} : x \in \{1,2,3\}: intensite \hspace{0.1 cm} triphasee, \\
+&  V: tension \hspace{0.1cm} simple \hspace{0.1cm} monophasee,\\
+&  V_{x}, x \in \{1,2,3\}: tension \hspace{0.1cm} simple \hspace{0.1cm}triphasee,\\
+&  U: tension \hspace{0.1cm} composee \hspace{0.1cm} monophasee,\\
+&  U_{x}, x \in \{1,2,3\}: tension \hspace{0.1cm} composee \hspace{0.1cm}triphasee,\\
+&  P: puissance \hspace{0.1 cm} active,\\
+&  Q: puissance \hspace{0.1 cm} reactive,\\
+&  S: puissance \hspace{0.1 cm} apparente,\\
+&  FP: facteur \hspace{0.1 cm} de \hspace{0.1 cm} puissance\\
+\}
+\end{split}
+\end{equation}
+\`A chaque instant de temps $t \in T$, est ajout\'e un arc labellis\'e. Une serie temporelle $T$ de longueur $l$ associ\'ee \`a chaque grandeur physique $y \in Y$ constitue les propri\'et\'es de chaque arc.
+$\begin{array}{ccccc}
+label & : & R*Y*A & \to & R  \\
+ & & (t, x, a) & \mapsto & val \\
+\end{array}$
+\newline
+Dans l'impl\'ementation, on a 2 types d'arcs :
+\begin{itemize}
+\item arc labelis\'e "topology/electrical" d\'efinissant la structure du graphe et les valeurs limites des capacites des arcs $A_{T}$ et
+\item arc labelis\'e "measurement/electrical" contenant les valeurs des grandeurs physiques $A_{M}$.
+\end{itemize}
+$K$: ensemble de valeurs seuil des arcs pour toutes les grandeurs physiques
+\[K = \{ K^{i}(u, v) , i\in Y, (u,v) \in A_{T} \}  \]
+
+\'etant donn\'e un graphe $G(S, A)$, pour tout sommet $u, v \in S$ il existe un arc  $(u, v) \in A$ tel que :
+\begin{itemize}
+	\item la valeur du calibre, d\'efinie par les grandeurs $I, I_{x} \in Y$ avec  $x \in  \{ 1,2,3\}$, est port\'ee par l'arc de type \textit{topology/electrical}
+	\[
+		\forall y \in Y, \exists K^{(y)}(u,v) \in A
+	\]
+	\item le flux d'un arc est inferieur au calibre de ce dernier
+	\[
+		\forall t \in T, a \in A, y \in Y : f_{t,a}^{(y)} < K^{(y)}(u,v)
+	\]	
+	NB: couramment on \'ecrira $f_{t}^{(y)}$ car $(u,v) \in A_{M}$
+\end{itemize}
+
+\underline{Question}
+Le probl\`eme principal est de construire un graphe $G = (S, A)$ \`a partir d'un ensemble de mesures 
+tel que la loi des noeuds soit v\'erifi\'ee: soient $u, v, w$ des noeuds , $t \in T$ un instant de la serie temporelle, $y \in Y$ une grandeur physique
+\[
+	\sum f_{t}^{(y)} (u,v) = -\sum f_{t}^{(y)} (v, w)
+\]
+avec $u \in N^{-}(v)$: ensemble des voisins entrants et $w \in N^{+}(v)$: ensemble des voisins sortants. \newline
+Puisqu'on constate une manque de certaines valeurs dans les s\'eries temporelles, ce probl\`eme parait trop compliqu\'e.
+Ainsi on ajoute une notion de probabilit\'e qui d\'efinit  le taux d'erreur de trouver un graphe v\'erifiant les r\'egles statistiques.
+
+\subsection{Construction du graphe}
+Une remarque essentielle dans notre \'echange stipule qu'il ne faut pas prendre en compte l'existence de noeuds puisque le r\'ef\'erentiel est probablement faux. En un mot, la construction du graphe se basera sur les mesures de grandeurs localis\'ees sur les liens. Elle consistera \`a trouver le ou les noeuds se trouvant entre 2 liens. On distinguera 2 approches:
+\begin{itemize}
+\item d\'efinir le ou les types de graphes possibles et v\'erifier lequel des graphes est le plus probable au moyen de lois physiques (loi de conservation).
+\item chercher les relations (corr\'elation, causalit\'e, etc ...) entre les arcs portant des mesures. L'existence d'une relation correspond la pr\'esence d'un noeud. Des interrogations surviennent quant \`a la position d'un noeud. En d'autres termes,  le noeud est-il proche ou \'eloign\'e des arcs \`a l'origine de cette relation. 
+\end{itemize}
+Pour cela, on d\'efinira alors la granularit\'e des relations comme ceci:
+\begin{itemize}
+\item granularit\'e forte: elle correspond au faite que les arcs sont incidents au m\^eme noeud. On a 3 cas de figures.\\
+\begin{figure}[!h]
+\includegraphics[scale=0.4 ]{granulariteForte.eps}
+\caption{Granularit\'e forte avec source unique (\`a gauche), avec une cible unique(au centre) et \`a extr\'emit\'e}
+\end{figure}
+
+\item granularit\'e faible : c'est l'interaction entre arcs de distance \emph{k} avec $k \ge1$. La distance est le plus court chemin entre 2 arcs. Par exemple sur la figure ~\ref{granulariteFaible}, la distance entre $e_{1}$ et $e_{2}$ est de 1 et celle entre  $e_{1}$ et $e_{4}$ vaut \emph{2}. Tandis que la distance entre  $e_{2}$ et $e_{4}$ est de \emph{0}. L'interaction entre  $e_{2}$ et $e_{4}$ correspond \`a une granularit\'e forte.  
+
+\begin{figure}
+\includegraphics[scale=0.4 ]{granulariteFaible.eps}
+\caption{Granularit\'e faible}
+\label {granulariteFaible}
+\end{figure}
+\end{itemize}
+
+\subsection {Questions \`a compl\'eter}
+\begin{itemize}
+\item notre mod\`ele de donn\'ees s'apparente - t - il \`a un graphe hi\'erarchique? c'est une notion \`a d\'efinir.
+\item quels sont les crit\`eres \`a utiliser pour d\'efinir la granularit\'e? Doit-on utiliser des valeurs seuils pour distinguer les types de granularit\'es dans les interations avec les arcs?  
+\item quelle est la quantit\'e d'informations n\'ecessaire \`a la construction du graphe?
+\end{itemize}
+
+\section {Algorithmes \'ecrits}
+
+Avant de d\'ecrire les diff\'erents scripts, nous allons d\'efinir 4 termes courants utilis\'es. Il s'agit de niveau topologique, chemin am\'eliorant,  capacit\'e et valeurs r\'esiduelles 
+\begin{itemize}
+\item niveau topologique: c'est une valeur correspondant au chemin le plus long entre la source et un noeud donn\'e.
+\item chemin am\'eliorant: c'est un chemin dont la valeur mininal de la capacit\'e de tous ses arcs est sup\'erieure \`a 0. En effet, il peut faire circuler une certaine quantit\'e de flux qui correspond \`a la plus petite valeur de capacit\'e de chaque arc.  On associe alors cette valeur mininal \`a ce chemin.   
+\item capacit\'e: c'est la valeur maximale pouvant circuler dans un arc. 
+\item valeur ou capacit\'e r\'esiduelle : c'est la valeur de la capacit\'e restante dans un arc. On dira alors qu'elle est la diff\'erence entre la capacit\'e et la valeur du flux circulant \`a l'int\'erieur de l'arc 
+\end{itemize}
+
+\subsection{D\'etection de DAG}
+On distingue 2 types de graphes: les graphes acycliques aussi app\'el\'es DAG(\emph{Directed Acyclic Graph}) et les graphes non orient\'es. Selon le type de graphes, l'ex\'ecution de certains algorithmes donne des r\'esultats diff\'erents au pire aucun r\'esultat. Tel est le cas de l'algorithme de Ford-Fulkerson calculant le flot maximal dans un graphe. En effet, cet algo est bas\'e sur la d\'ecouverte de chemin am\'eliorant entre 2 noeuds. Si le graphe contient un cycle, la recherche de chemins tombe dans une boucle sans fin et l'algorithme de flot maximal plante. D'ou l'int\'er\^et de cette fonction de d\'eterminer la pr\'esence de cycles dans un graphe.\\
+L'algo recherche tous les noeuds n'ayant pas de arcs incidents entrants. Une fois ceux ci trouv\'es, un num\'ero leurs est attribu\'e et tous les arcs incidents sortants sont supprim\'es. Il s'ex\'ecute jusqu'a ce qu'il n'existe plus de noeuds non marqu\'es et ayant des arcs. S'il trouve un noeud d\'ej\`a marqu\'e ayant des arcs incidents entrants, alors il decouvre un \emph{cycle} et retourne \emph{Infinity}. Le num\'ero attribu\'e correspond au \emph{niveau topologique}. \\
+S'ex\'ecutant en $\mathrm{O}{(n*m)}$, cet algorithme contenu dans le fichier \emph{longerPath.groovy} est compos\'e de 2 fonctions:
+\begin{itemize}
+\item cloneEdge() cr\'eant de nouveaux arcs sur lesquels se d\'eroulent l'algorithme et s'ex\'ecutant en  $\mathrm{O}{(1)}$.
+\item longerPath() ajoutant les niveaux topologiques sur les sommets du graphe en l'absence de cycles. Sinon il retourne un message d'erreur. Sa complexit\'e est de l'ordre de  $\mathrm{O}{(n*m)}$.
+\end{itemize} 
+
+\subsection{Graphe semi-dual en noeud et en lien}
+Cette fonction est n\'ecessaire pour trouver  des chemins independants en arcs et en sommets. \\
+Le but de cette fonction est de construire, \`a partir du graphe initial, un nouveau graphe dans lequel chaque sommet du graphe initial est scind\'e en 2 sommets  \emph {$\textrm{V}_\textrm{x}$-} et  \emph {$\textrm{V}_\textrm{x}$+}  rattach\'es par un arc de valeur 1. \\
+S'ex\'ecutant en  $\mathrm{O}{(m)}$, il a l'avantage de consid\'erer qu'une seule fois les sommets \emph {$\textrm{V}_\textrm{x}$-} et  \emph {$\textrm{V}_\textrm{x}$+} pendant l'ex\'ecution de l'algorithme de flot maximal. En Effet, le flot max recherche des chemins am\'eliorants dans le graphe. \`A chaque fois qu'il decouvre un chemin am\'eliorant, il soustrait les capacit\'es de chaque arc du chemin par la valeur mininal de tous les arcs. Ainsi si l'arc (\emph {$\textrm{V}_\textrm{x}$-} , \emph {$\textrm{V}_\textrm{x}$+}) appartient \`a un chemin, sa nouvelle valeur devient 0 et ne peut plus \^etre contenu dans un autre chemin am\'eliorant.
+
+\subsection{Chemin redondant}
+En gremlin, il existe une fonction \emph{simplePath()} affichant tous les chemins entre 2 noeuds. La d\'ecouverte de chemins est un probl\`eme de complexit\'e exponentielle. De Plus plusieurs chemins d\'ecouverts peuvent avoir des noeuds et des arcs en commun. D'o\'u l'int\'er\^et de notre fonction qui permet de trouver des chemins ind\'ependants en noeuds et en liens.
+Ce script  v\'erifie l'existence d'au moins 2 chemins  strictement distincts entre une source et un noeud d\'esign\'e (nomm\'e puits ou serveur). En d'autres termes, trouver 2 chemins ou plus ayant des noeuds et arcs distincts. En utilisant les notions de chemins am\'eliorants et de graphe semi-dual, on trouve le nombre de chemins entre 2 noeuds. Un message est retourn\'e lorsqu'on a un seul chemin sinon la liste de chemin est affich\'e. Il se base principalement sur les 3 fonctions:
+\begin{itemize}
+\item graphSemiDual: voir description dans la section "Graphe semi-dual en noeud et en lien"
+\item flotMax() ex\'ecutant l'algorithme de Ford-fulkerson. Cette fonction se base sur la notion de chemin am\'eliorant dans le graphe. Lorsque le chemin am\'eliorant est d\'ecouvert, la valeur des flux de chaque arc est d\'ecrement\'e par la valeur de ce chemin. Cette fonction s'arr\^ete lorsqu'il n'existe plus de chemins am\'eliorants. Elle s'ex\'ecute en  $\mathrm{O}{(n*m)}$.
+\end{itemize}
+La complexit\'e du script  s'\'evalue en complexit\'e autour de  $\mathrm{O}{(m*n)}$.
+
+\subsection{ Flot maximal }
+Il permet de connaitre la valeur du flot maximal circulant dans tout le graphe. Il est utilis\'e dans les fonctions de \emph{cheminRedondant()} et \emph{flotCapacitaire() }. Cet algorithme de Ford-Fulkerson modifie les valeurs du flux mais aussi des valeurs r\'esiduels dans tout le graphe.\\
+D\'ebutant par le noeud source, la fonction cherche un chemin am\'eliorant entre la source et le puits. Si elle existe, il calcule la valeur minimal de ce chemin et la soustrait par les valeurs de flux de chaque arc constituant le chemin am\'eliorant. Et l'op\'eration recommence jusqu'\`a ce qu'il n'existe plus aucuns chemins am\'eliorants c'est-\`a-dire la valeur du flot de chaque chemin ameliorant est \'egale \`a 0.
+La particularit\'e de cette impl\'ementation est la modification de la capacit\'e restante dans l'arc. \\
+Ainsi \`a la fin de la fonction, on se retrouve avec la valeur r\'esiduelle, le flux de l'arc qui doivent \^etre \'egale \'a la capacit\'e lorsqu'on les somme.\\
+Consernant la loi de conservation de flux, elle est respect\'ee m\^eme si le graphe initial poss\`ede des noeuds des\`equilibr\'es.
+Il s'ex\'ecute en $\mathrm{O}{(m*n)}$
+\\
+Remarque: la r\'epartition de charge dans cet algo est bas\'ee sur la saturation de liens. En effet lors de la d\'ecouverte d'un chemin am\'eliorant, on sature l'arc ayant la plus petite quantit\'e de flux. Les autres arcs du chemin voient leur flux soustrait de la plus petite quantit\'e.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+\subsection{ Flot capacitaire}
+L'id\'ee est de simuler les capacit\'es r\'esiduelles dans le graphe lorsqu'on modifie les valeurs de flux d'un ou de plusieurs noeuds. Sa particularit\'e est la cr\'eation d'un noeud puits unique, voisin aux noeuds feuilles mentionn\'es, et ayant comme valeurs les modifications de flux de ces derniers. En effet, chaque feuille cit\'ee en argument de la fonction a une valeur souhait\'ee de fonctionnement. Ses valeurs sont ajout\'ees aux arcs cr\'ees entre le puits unique et chacun des noeuds feuilles. Cela permet d'appliquer avec aisance un flot maximal entre la source et le puits unique  du graphe et d'\'eviter de fournir une r\'epartition de flux. La r\'epartition choisie est celle du flot maximal c'est-\`a-dire la saturation d'un chemin avant de passer \`a un autre chemin.\\
+Cet algo d\'etermine la capacit\'e (valeur max de flots) n\'ecessaire qui puisse \^etre fournie au puits pour fonctionner. Pour se faire, nous ex\'ecutons l'algo de \emph{flot max} de ford-fulkerson en utilisant les valeurs r\'esiduels.  
+Ayant trouv\'e toutes les valeurs r\'esiduelles, on somme toutes celles entrants en ce noeud "T" et on la compare avec la nouvelle demande fournie en param\`etres dans la fonction. 
+Cet algorithme utilise 3 fonctions :
+\begin{itemize}
+\item flowResidual() qui est une impl\'ementation du flot maximal avec comme particularit\'e l'utilisation des valeurs r\'esiduelles des arcs.
+\item flotCapacitaire() qui cr\'ee un noeud rattach\'e aux noeuds feuilles avec comme flux leurs valeurs demand\'ees. Par la suite ex\'ecute la fonction flowResidual() et compare les flux entrants au noeud puits. S'il est sup\'erieur \`a la somme des valeurs demand\'ees alors l'ajout peut \^etre effectu\'e dans le r\'eseau.
+\end{itemize}
+ Sa complexit\'e est de  $\mathrm{O}{(n*m)}$.
+
+\subsection{Graphe al\'eatoire} 
+Cette algorithme permet de g\'en\'erer un graphe en se basant sur une probabilit\'e correspondante \'a l'existence d'un arc entre 2 noeuds et d'ajouter des flux dans les arcs en respectant les lois physiques telle que celle de la loi de Kirchoff. Le but de cette algo est de g\'en\'eraliser l'utilisation des diff\'erents algos  d\'efinis dans cette partie. Il se compose de 3 fonctions:
+\begin{itemize}
+\item grapheAleatoire(): elle prend en param\`etres le nombre de sommets par niveaux, le nombre de niveaux dans le graphe et la probabilit\'e d'existence de liens entre 2 noeuds. Son ex\'ecution est de l'ordre de $\mathrm{O}{(p*k^{2})}$ avec \emph{p} le nombre de niveaux dans le graphe et \emph{k} le nombre max de sommets par niveau.
+\item ajoutCalibre(): elle d\'efinit les capacit\'es de chaque arc dans le r\'eseau. Elle s'ex\'ecute en $\mathrm{O}{(m*n+p^{2})}$. Comme $p<<m$ alors la compl\'exit\'e est de $\mathrm{O}{(m*n)}$
+\item repartitionHorizontale(): se charge de v\'erifier l'application de la loi de conservation. Son explication d\'etaill\'ee est faite dans la rubrique suivante.
+\end{itemize}
+Il en resulte que ce script s'ex\'ecute en  $\mathrm{O}{(m*n+p*k^{2})}$.
+
+
+\subsection{R\'epartition de charges}
+La r\'epartition de charge couramment utilis\'ee dans les algorithmes de flots est celle de la saturation de liens c'est-\`a-dire un arc  ne recevra aucun flot tant que l'arc qui lui est adjacent n'est pas satur\'e. Cette repr\'esentation est contraire \`a celle des r\'eseaux \'electriques en ce sens qu'un lien satur\'e provoque un court circuit entrainant une redirection de toute l'\'energie circulant dans cette branche vers une autre branche. Ainsi l'int\'er\^et de cet algo est de mod\'eliser la r\'epartition dans un r\'eseau \'electrique en se basant sur un crit\`ere que nous nommerons \emph{crit\`ere de r\'epartition}. \\
+ L'ensemble des \'equipements \'electriques dans un datacenter sont passifs \`a l'exception des serveurs et des g\'en\'erateurs et chaque dip\^ole actif fonctionne en triphas\'ee parce que cela permet de transporter plus d'intensit\'e en r\'eduisant les pertes joules. Un \'equipement en triphas\'e signifie que chacune des sorties de ce dernier est \'egale aux autres en intensit\'e, tension et puissance. Alors le crit\`ere choisi ici est l'\'equit\'e. D'autres crit\`eres tels que celles des 80-20 et celles des 60-40 (le dip\^ole tire 60\% de son \'energie sur un dip\^ole adjacent et 40\% sur les autres) existent mais seront impl\'ement\'es plus tard en fonction des sp\'ecificit\'es des \'equipements du datacenter donn\'ees.\\
+Cette fonction consiste \`a d\'eterminer la capacit\'e restante dans tous les arcs d'un r\'eseau lorsqu'on r\'eduit la capacit\'e du lien voir le perdre ou augmente du flux dans un arc. Son int\'er\^et r\'eside dans le respect de la loi de conservation d'energie et  dans la prise en compte de la saturation d'arcs en les retirant de l'ensemble des liens du graphe. \'Evalu\'ee autour de $\mathrm{O}{(n)}$, elle s'organise autour des fonctions suivantes: 
+\begin{itemize}
+	\item verification(): comme son nom l'indique, elle v\'erifie quels sont les arcs entrants d'un noeud qui sont satur\'es lors de l'ajout de charge. Elle retrouve la liste des arcs satur\'es et celle des arcs non satur\'es. Rappelons que le partage se fait de mani\`ere \'equitable c'est-\`a-dire que chaque lien re\c coit le m\^eme quantit\'e que on nommera $x$. Elle s'ex\'ecute en  $\mathrm{O}{(n)}$
+	\item repartitionHorizontale(): apr\`es r\'eception des listes non satur\'ees et satur\'ees, elle ajoute \`a la valeur du flot courant de chaque lien de la liste non satur\'ee, la valeur $x$. Puis sont supprim\'es les liens appartenant \`a la liste satur\'ee. On reapplique la fonction repartitionHorizontale() sur le m\^eme noeud avec comme valeur \`a distribuer la somme des valeurs des arcs supprim\'es. Lorsque l'affectation de valeurs est achev\'ee, on passe \`a ses voisins. Sa complexit\'e est de $\mathrm{O}{(n)}$
+	\item repartitionVerticale():  elle retranche sur tous les arcs entrants la m\^eme quantit\'e de valeur $x$. Cette fonction s'appelle r\'ecursivement jusqu'\`a ce qu'on trouve le noeud source.  Lorsque  la valeur $x$ est sup\'erieure \`a la valeur du flot, on coupe le lien et on redistribue la valeur de ce lien sur ses voisins entrants. Dans le cas contraire, on redistribue la valeur $x$ aux voisins de notre noeud. Sa complexit\'e est de $\mathrm{O}{(n)}$
+\end{itemize}
+
+\subsection{Le calcul de complexit\'e}
+Ref\'erons nous au code gremlin de longerPath() d\'efini en annexe 1. Son pseudo code est d\'efini  dans l'algorthime 1 et La complexit\'e de longerPath() est de  $\mathrm{O}{(m+2m*n+2*n)}$ = $\mathrm{O}{(n*m)}$.\\
+L'instruction \emph{g.V().sideEffect(\{it.setProperty('level', -1)\}).iterate()} corrrespond au bout de code suivant 
+\begin{algorithmic}
+\REQUIRE liste : liste de noeuds de taille $m$
+\FOR {$ i \leftarrow 1 \hspace{0.2 cm} to \hspace{0.2 cm} m $}
+	\STATE	$liste[i].level \leftarrow -1 $
+\ENDFOR
+\end{algorithmic}
+%\begin{algorithm}
+%\caption {cloneEdge(arc(i), nomLabel)}
+%\begin{algorithmic}
+%\REQUIRE arc(i) : l'arc sortant du noeud i \{lire les arcs sortant d'un sommet i \}
+%\REQUIRE nomLabel : nom du label \{lire le label nomlabel\}
+%\STATE $newEdge \leftarrow addEdge(arc(i).sommetEntrant, arc(i).sommetSortant, label)$ \{ajouter un arc entre le sommetEntrant de l arc et le sommetSortant de l arc avec l'etiquette \emph{label} \}
+%\STATE $ElementHelper.copyProperties(arc(i), newEdge)$
+%\end{algorithmic}
+%\end{algorithm}
+
+\begin{algorithm}
+\caption {longerPath(g, label, etiquette)}
+\begin{algorithmic}
+\REQUIRE g : instance titan
+\REQUIRE arc : tous les liens entrants d'un noeud $i$. on note arc(i)
+\REQUIRE liste : liste de noeuds de taille $m$. $liste[i]$ est le noeud \`a l'indice $i$ de la $liste$  
+%\FOR {$i \leftarrow 1 \hspace{0.2 cm} to \hspace{0.2 cm} m$} 
+%	\IF {arc(liste[i]).label == etiquette}
+%		\STATE	cloneEdge(arc(liste[i]), etiquette)
+%	\ENDIF
+%\ENDFOR
+%
+%\FOR {$ i \leftarrow 1 \hspace{0.2 cm} to \hspace{0.2 cm} m $}
+%	\STATE	$liste[i].level \leftarrow -1 $
+%\ENDFOR
+\STATE $ cpt \leftarrow 0$
+\STATE $i \leftarrow 0 $
+\STATE $borne \leftarrow g.V.count() $ \{ = m , compte le nombre de sommets du graphe \}
+\WHILE {$cpt < borne$} 
+	\FOR {$i  \leftarrow 0 \hspace{0.1 cm} to \hspace{0.1 cm} m$} 
+		 \IF {$ !arc(liste[i]).etiquette \hspace{0.3 cm} \&\& \hspace{0.3 cm} liste[i].level < 0$} 
+			\STATE $ i.level \leftarrow i+1$
+			\STATE $ cpt \leftarrow cpt+1 $
+		\ENDIF
+	%\ENDFOR
+	%\FOR{$ i \leftarrow  0 \hspace{0.2 cm} to \hspace{0.2 cm} m $}
+		 	\IF {$ !arc(liste[i]).etiquette \hspace{0.3 cm} \&\& \hspace{0.3 cm} liste[i].level > 0$}
+				\STATE remove arc(i)
+			\ENDIF
+	\ENDFOR
+	\IF {$test \neq cpt$} 
+		\STATE $test \leftarrow cpt$
+	\ELSE 
+		\STATE return infinity
+	\ENDIF
+\ENDWHILE
+\end {algorithmic}
+\end{algorithm}
+ 
+
+ \end{document}
