@@ -68,7 +68,7 @@ Considerons le graphe non orient\'e $G = (V,E)$ du r\'eseau de flots et son line
 La matrice $matE$ est la matrice d'adjacence de $L(G)$ dont chaque case est not\'ee $\mu[i,j]$.
 La matrice de corr\'elation $M$ de dimension $|E| \times |E|$ contient une matrice dont chaque case $\mu_c[i,j]$ contient des valeurs de corr\'elations comprise entre $0$ et $1$. 
 Appliqu\'e une seuil de corr\'elation  $s$ \`a la matrice $M$, on obtient la matrice $matE$. On en deduit que la matrice de corr\'elation de $L(G)$ est $M$. \newline
-Le line-graphe $L(G)$, dont on ajoute des erreurs de corr\'elations (modification de cases $\mu$) dans sa matrice d'adjacence, est not\'e $L(G')$. Les matrice d'adjacence et de corr\'elation de $LG'$ sont $matE'$ et $M'$ respectivement. Les cases des matrices $matE'$ et $M'$ sont not\'ees  $\mu'[i,j]$ et $\mu'_c[i,j]$ respectivement.
+Le line-graphe $L(G)$, dont on ajoute des erreurs de corr\'elations (modification de cases $\mu$) dans sa matrice d'adjacence, est not\'e $G'$. Les matrice d'adjacence et de corr\'elation de $G'$ sont $matE'$ et $M'$ respectivement. Les cases des matrices $matE'$ et $M'$ sont not\'ees  $\mu'[i,j]$ et $\mu'_c[i,j]$ respectivement.
  
 \subsection{D\'efinitions}
 
@@ -136,6 +136,11 @@ La figure r\'esume les valeurs de corr\'elations prises par chaque erreur. Ces v
 \end{itemize}
 Dans le cas o\`u la matrice $matE$ ne contient aucunes erreurs de corr\'elations, alors $p\_correl = s$.
 
+% graphe de correlation
+\begin{definition}{ graphe de corr\'elation } \newline
+Un graphe de corr\'elation $G'$ est un line-graphe dont on a introduit des erreurs de corr\'elation.
+\end{definition}
+G\'en\'eralement, le graphe de corr\'elation $G'$ n'est pas  un line-graphe. Toutefois, s'il est un line-graphe alors son graphe racine $L^{-1}(G')$ est diff\'erent du graphe $G$ ($G \neq L^{-1}(G')$).
 % methode de correction
 \begin{definition}{ m\'ethode de correction } \newline
 Un m\'ethode de correction est l'ordre dans lequel on traite des sommets non couverts par aucune clique.
@@ -157,13 +162,13 @@ En outre, nous montrerons la relation existance entre la distance line et celle 
 %#               generation  graphes de correlation				  #
 %# 			(protocole de simulation)					  #
 %##########################################
-\section{G\'en\'eration des graphes de corr\'elation}
+\section{G\'en\'eration d'un graphe de corr\'elation}
 
 
 %##########################################
 %#               correction graphes de correlation avec erreurs          #
 %##########################################
-\section{Correction des graphes de corr\'elation}
+\section{Correction d'un graphe de corr\'elation}
 
 
 %#############################
