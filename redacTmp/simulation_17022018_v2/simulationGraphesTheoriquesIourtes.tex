@@ -64,7 +64,7 @@ Apr\`es la d\'efinition des m\'ethodes de correction, erreurs et seuil de corr\'
 %#              	objectifs et definitions				#
 %###################################
 \section{D\'efinitions et objectif}
-Considerons le graphe non orient\'e $G = (V,E)$ du r\'eseau de flots et son line-graphe $L(G) = (E, A)$ avec $A$ l'ensemble des ar\^etes.
+Considerons le graphe non orient\'e $G = (V,E)$ du r\'eseau de flots de matrice d'adjacence $matA$ et son line-graphe $L(G) = (E, A)$ avec $A$ l'ensemble des ar\^etes.
 La matrice $matE$ est la matrice d'adjacence de $L(G)$ dont chaque case est not\'ee $\mu[i,j]$. Elle est aussi appel\'e matrice de corr\'elation binaire.
 La matrice de corr\'elation $M$ de dimension $|E| \times |E|$ contient une matrice dont chaque case $\mu_c[i,j]$ contient des valeurs de corr\'elations comprise entre $0$ et $1$. 
 Appliqu\'e une seuil de corr\'elation  $s$ \`a la matrice $M$, on obtient la matrice $matE$. On en deduit que la matrice de corr\'elation de $L(G)$ est $M$. \newline
@@ -163,7 +163,36 @@ En outre, nous montrerons la relation existance entre la distance line et celle 
 %# 			(protocole de simulation)					  #
 %##########################################
 \section{G\'en\'eration d'un graphe de corr\'elation}
-Pour obtenir un graphe de corr\'elation $G'$, nous allons g\'en\'erer un r\'eseau de flots et   lui associer des mesures \'electriques sur chacune des ar\^etes. Ensuite, nous produirons la matrice de  corr\'elation binaire $matE$ li\'ee \`a ce r\'eseau. Enfin nous introduirons $k$ erreurs de correlations dans la matrice $matE$.
+Pour obtenir un graphe de corr\'elation $G'$, nous allons g\'en\'erer un r\'eseau de flots et   lui associer des mesures \'electriques sur chacune des ar\^etes. Ensuite, nous produirons la matrice de  corr\'elation binaire $matE$ li\'ee \`a ce r\'eseau. Enfin nous introduirons $k$ erreurs de corr\'elations dans la matrice $matE$.
+
+\subsection{Construction d'un r\'eseau \'energ\'etique $G$}
+Soient $n$ le nombre de sommets et $m$ le nombre d'ar\^etes.
+On choisit $\alpha$ le degr\'e moyen de $G$.
+\newline
+On g\'en\`ere un graphe $G$ de $n$ sommets, de $m$ ar\^etes et dont la probabilit\'e d'existence d'une ar\^ete entre deux sommets est de $\frac{\alpha}{n}$. Si $G$ n'est pas connexe, nous choisissons al\'eatoirement un sommet de chaque composante connexe et nous ajoutons une ar\^ete entre ces sommets. 
+\newline
+Nous choisissons les sommets de degr\'e minimum comme des sources de notre tri topologique.
+Nous \'effectuons ce tri avec un parcours en largeur {\em Breast First Search (BFS)} dans le graphe $G$.
+Chaque sommet $x$ a un ordre topologique $D_x$ et l'ar\^ete $a_{xy}$ devient soit l'arc $a_{xy}$ si $D_x < D_y$ soit l'arc $a_{yx}$ si $D_x > D_y$. 
+Le graphe obtenu est alors orient\'e (un {\em Directed Acyclic Graph} $DAG$).
+\newline
+L'ajout des mesures depend du r\'eseau \'energ\'etique \`a mod\'eliser et des grandeurs physiques \`a observer. 
+Dans le cas d'un r\'eseau \'electrique basse tension sinusoidal, nous choisirons l'intensit\'e ($I$), la tension ($U$) et la puissance ($P$) parce que certaines grandeurs physiques n'apportent aucune information (puissance r\'eactive constante ($Q$)) et certains param\^etres du r\'eseau sont inconnues (le facteur de puissance ($cos \phi$)).
+L'intensit\'e varie entre $150A$ et $200A$, la tension entre  $220V$ et $250V$. 
+En supposant que la r\'esistance des c\^ables \'electriques est n\'egligeable et que $cos \phi \approx 1$ , la puissance varie de $33000W$ et $62500W$ en s'inspirant de la formule $P = U \times I \times cos \phi$.
+\newline
+L'attribution des mesures pour chaque grandeur physique se fait \'egalement par parcours en largeur $(BFS)$. 
+En effet,  on d\'ebute par les sommets sources et on g\'en\`ere une valeur al\'eatoire comprise dans l'intervalle de la grandeur physique. 
+Chaque arc sortant du sommet source re\c coit  un flot \'egal \`a la somme des flots sur les arcs entrants du sommet source multipli\'ee par le facteur $\epsilon$ (d\'esignant les pertes par effets joules) et divis\'ee par le degr\'e sortant de ce sommet si nous avons comme grandeurs les intensit\'es et les puissances.
+Dans le cas de grandeurs comme les tensions, le flot de chaque arc sortant est le flot multipli\'ee par le facteur $\epsilon$. 
+On propage les valeurs de la grandeur physique jusqu'aux sommets puits.
+L'application de ces r\`egles de flots permettent de v\'erifier la {\em loi de conversation des noeuds} \cite{loiDeConservation}.
+
+\subsection{Construction de la matrice de corr\'elation}
+\'Etant donn\'e que la corr\'elation entre ar\^etes n\'eglige la position du sommet dans celle-ci, la matrice de corr\'elation binaire est la matrice $matE$ d'adjacence du line-graphe $L(G)$ sous-jacent au graphe non orient\'e de $G$.
+\newline
+Nous considerons la symm\'etrie superieure de $matE$ car nous supposons $G$ comme un graphe non orient\'e. 
+Toutes les cases $\mu[i,j] = 1$ de $matA$ sont num\'erot\'ees et forment les sommets de la matrice $matA$ 
 
 %##########################################
 %#               correction graphes de correlation avec erreurs          #
