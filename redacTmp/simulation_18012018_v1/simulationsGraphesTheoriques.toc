@@ -13,4 +13,4 @@
 \contentsline {subsection}{\numberline {1.4.4}Influence des erreurs de corr\'elations sur les distributions}{19}
 \contentsline {subsection}{\numberline {1.4.5}Impact de la fonction de co\^ut sur les distributions}{20}
 \contentsline {subsubsection}{Cas particulier: fonction de co\^ut en cloche}{21}
-\contentsline {section}{\numberline {1.5} Simulation des graphes Iourtes}{22}
+\contentsline {section}{\numberline {1.5} Simulation des graphes Iourtes}{23}

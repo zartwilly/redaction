@@ -1,0 +1,180 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+%\usepackage[T1]{fontenc}
+
+%\usepackage[francais]{babel}     
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+%\usepackage{epstopdf}
+\usepackage[outdir=/home/willy/Documents/latexDoc/redaction/fusion_fichiers/images_fusionChapitres/]{epstopdf}
+%\usepackage[outdir=./../../fusion_fichiers/images_fusionChapitres/]{epstopdf}
+%\usepackage[outdir=./]{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+ 
+ 
+% \title{Mod\`ele de Donn\'ees}
+% \author{Willy Ehounou}
+ %\date{01/06/15}
+\title{Chapitre6 : Simulations sur donn\'ees al\'eatoires}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{\today}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{property}{Propri\'et\'e}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remark}
+
+%---- path figures ----
+\graphicspath{
+{/home/willy/Documents/latexDoc/redaction/fusion_fichiers/images_fusionChapitres/}
+}
+ 
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Simulation des algorithmes sur des r\'eseaux th\'eoriques}
+Dans ce chapitre, nous allons \'evaluer les performances des algorithmes propos\'es pr\'ecisement l'algorithme de correction. Nous proc\'ederons en deux \'etapes. 
+La premi\`ere \'etape consistera  \`a g\'en\'erer des line-graphes dont nous ajouterons des erreurs dans leurs matrices d'adjacence. Le but de l'algorithme de correction sera de corriger les erreurs ajout\'ees \`a partir des cliques d\'ecouvertes par l'algorithme de couverture. 
+La seconde \'etape consid\'erera les graphes n'ayant aucune line-couverture (graphes iourtes). Sur ces graphes iourtes, nous ferons  une \'etude comparative entre les distances line th\'eoriques (propri\'et\'e \ref{proprieteGrapheIourte}) et propos\'es par l'algorithme de correction pour caliber les param\`etres de l'algorithme de correction. \newline
+%Apr\`es une description de notre protocole de simulation, nous definirons les methodes de correction et les fonctions de co\^ut et pr\'esenterons les param\^etres qui resolvent le probl\`eme Proxi-line.
+Apr\`es la d\'efinition des m\'ethodes de correction, erreurs et seuil de corr\'elation et des fonctions de co\^uts de la suppression et de l'ajout des ar\^etes, nous d\'ecrirons la g\'en\'eration d'un graphe de corr\'elation c'est-\`a-dire un line-graphe dont on a ajout\'e/supprim\'e des ar\^etes et nous deduirons les valeurs de param\`etres qui resolvent le probl\`eme Proxi-line. 
+
+%###################################
+%#              	objectifs et definitions				#
+%###################################
+\section{D\'efinitions et objectif}
+Considerons le graphe non orient\'e $G = (V,E)$ du r\'eseau de flots et son line-graphe $L(G) = (E, A)$ avec $A$ l'ensemble des ar\^etes.
+La matrice $matE$ est la matrice d'adjacence de $L(G)$ dont chaque case est not\'ee $\mu[i,j]$.
+La matrice de corr\'elation $M$ de dimension $|E| \times |E|$ contient une matrice dont chaque case $\mu_c[i,j]$ contient des valeurs de corr\'elations comprise entre $0$ et $1$. 
+Appliqu\'e une seuil de corr\'elation  $s$ \`a la matrice $M$, on obtient la matrice $matE$. On en deduit que la matrice de corr\'elation de $L(G)$ est $M$. \newline
+Le line-graphe $L(G)$, dont on ajoute des erreurs de corr\'elations (modification de cases $\mu$) dans sa matrice d'adjacence, est not\'e $L(G')$. Les matrice d'adjacence et de corr\'elation de $LG'$ sont $matE'$ et $M'$ respectivement. Les cases des matrices $matE'$ et $M'$ sont not\'ees  $\mu'[i,j]$ et $\mu'_c[i,j]$ respectivement.
+ 
+\subsection{D\'efinitions}
+
+\begin{definition}
+Une corr\'elation entre ar\^etes est l'existence d'un sommet commun aux ar\^etes. 
+Ce sommet commun peut \^etre source, destination ou interm\'ediaire comme pr\'esent\'e dans la figure \ref{typeSommetEnCommun}.
+\begin{centering} 
+\begin{figure}[htb!] 
+\includegraphics[scale=0.50]{typeSommetsEnCommun.eps}
+\caption{De la gauche \`a la droite: sommet $X$ source, sommet $X$ interm\'ediaire, sommet $X$ destination}
+\label{typeSommetEnCommun} 
+\end{figure}
+\end{centering} 
+\end{definition}
+Dans la matrice d'adjacence $matE$ de $L(G)$, une case \`a $\mu[i,j] = 1$ d\'esigne deux ar\^etes partageant un sommet dans $G$ alors que la case \`a $\mu[i,j] = 0$ implique que deux ar\^etes n'ont aucuns sommets en commun dans $G$. 
+\newline
+Par ailleurs, une case \`a $\mu[i,j] = 1$ signifie que sa valeur de corr\'elation  est comprise entre $s$ et $1$ ($s \le \mu_c[i,j] \le 1$) tandis que $\mu[i,j] = 0$ implique une valeur de corr\'elation comprise entre $0$ et $s$ ($0 \le \mu_c[i,j] < s$). 
+Dans la r\'ealit\'e, nous avons des corr\'elations ($0 \le \mu_c[i,j] < s$) alors que ces ar\^etes n'ont un sommet en commun et aussi des corr\'elations  ($s \le \mu_c[i,j] \le 1$) alors que ces ar\^etes n'ont aucuns sommets partag\'es. Ces situations engendrent des {\em erreurs de corr\'elations} dans $matE$.
+
+\begin{definition}
+Une {\bf erreur de corr\'elation} est la modification de la valeur d'une case de la matrice d'adjacence $matE$ de $LG$.
+\end{definition}
+On distingue quatre cat\'egories d'erreurs de corr\'elation, regroup\'ees dans le tableau \ref{categoriesErreursCorrelation}. Il s'agit des corr\'elations 
+\begin{itemize}
+\item {\bf vrai positives} : Il s'agit de cases $\mu'_c = 1$ dans $matE'$ n'ayant pas \'et\'e modifi\'ees dans la matrice $matE$.
+\item {\bf vrai n\'egatives} :  Il s'agit de cases $\mu'_c = 0$ dans $matE'$ n'ayant pas \'et\'e modifi\'ees dans la matrice $matE$.
+\item {\bf faux positives} : Il s'agit de cases $\mu'_c = 0$ dans $matE'$ modifi\'ees dans la matrice $matE$.
+\item {\bf faux n\'egatives} : Il s'agit de cases $\mu'_c = 1$ dans $matE'$ modifi\'ees dans la matrice $matE$.
+\end{itemize}
+ La corr\'elation {\em fausse n\'egative} (l'absence de corr\'elation) est d\'esign\'ee par la valeur $0$ dans la matrice d'adjacence $matE'$ tandis que la corr\'elation {\em fausse positive} (l'existence de corr\'elation) a une valeur $1$ dans cette matrice. (voir tableau \ref{categoriesErreursCorrelation})
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ p{3em} p{3em} p{10em} }
+		$LG$ & $LG'$ & $\hspace{1 em}$ corr\'elations \\
+		0 & 0 & $\rightarrow$ vrai n\'egative \\
+		0 & 1 & $\rightarrow$ fausse positive \\
+		1 & 0 & $\rightarrow$ fausse n\'egative \\
+		1 & 1 & $\rightarrow$ vrai positive \\
+	\end{tabular}
+	\caption{ \label{categoriesErreursCorrelation}  Les types d'erreurs dans les matrices d'adjacence de $LG$ et $LG'$}
+\end{table}
+\newline
+% comment departager les erreurs de correlations? p_correl
+% quel est la valeur de correlation pour chaque erreur de correlation
+La distinction entre ces erreurs est faite par le seuil d'erreur de corr\'elation $p\_correl$.
+\begin{definition} {seuil d'erreur de corr\'elation $p\_correl$} \newline
+Le seuil d'erreur de corr\'elation est une valeur de corr\'elation divisant les erreurs de corr\'elations en deux sous-ensembles disjoints : faux n\'egatifs et faux positives. \newline
+Si  $p\_correl \le \mu_c[i,j]< s$ $\rightarrow$ corr\'elation fausses positives. \newline
+Si $p\_correl - s \le \mu_c[i,j]< p\_correl$ $\rightarrow$ corr\'elation fausses n\'egatives.
+\end{definition}
+
+\begin{figure}[htb!] 
+\centering
+\includegraphics[scale=0.750]{intervallesFauxPositivesNegatives.eps}
+\caption{ Correspondance entre valeurs et types de corr\'elations }
+\label{intervallesFauxPositivesNegatives} 
+\end{figure}
+
+La figure r\'esume les valeurs de corr\'elations prises par chaque erreur. Ces valeurs sont regroup\'ees en quatre intervalles :
+\begin{itemize}
+\item {\em vrai n\'egatives} $\rightarrow$ $int\_vn = [0, p\_correl - s[$
+\item {\em fausses n\'egatives} $\rightarrow$ $int\_fn = [p\_correl - s, p\_correl[$
+\item {\em fausse positives} $\rightarrow$ $int\_fp = [p\_correl, s[$
+\item {\em vrai positives} $\rightarrow$ $int\_vp = [s, 1]$
+\end{itemize}
+Dans le cas o\`u la matrice $matE$ ne contient aucunes erreurs de corr\'elations, alors $p\_correl = s$.
+
+% methode de correction
+\begin{definition}{ m\'ethode de correction } \newline
+Un m\'ethode de correction est l'ordre dans lequel on traite des sommets non couverts par aucune clique.
+\end{definition}
+
+% fonction de cout
+\begin{definition}{ fonction de co\^ut d'un sommet} \newline
+La fonction de co\^ut d'un sommet est le co\^ut de chaque ar\^ete ajout\'ee ou supprim\'ee \`a son voisinage lorsqu'on applique l'algorithme de correction sur ce sommet.
+\end{definition}
+
+\subsection{Objectif}
+Le but de cette \'etude est de montrer que nos algorithmes (couverture et correction) proposent
+toujours un line-graphe connexe de distance line minimale
+\`a condition que la matrice du graphe de corr\'elation contienne $k<6$ d'erreurs de corr\'elations
+et que les corr\'elations {\bf fausses n\'egatives} repr\'esentent plus de $65\%$ des erreurs de la matrice de corr\'elation.
+En outre, nous montrerons la relation existance entre la distance line et celle de Hamming afin d'utiliser la distance line comme une m\'etrique dans les cas o\`u il est impossible de calculer la distance de Hamming (cas du graphe iourte).
+
+%##########################################
+%#               generation  graphes de correlation				  #
+%# 			(protocole de simulation)					  #
+%##########################################
+\section{G\'en\'eration des graphes de corr\'elation}
+
+
+%##########################################
+%#               correction graphes de correlation avec erreurs          #
+%##########################################
+\section{Correction des graphes de corr\'elation}
+
+
+%#############################
+%#               correction graphes iourtes           #
+%#############################
+\section{Correction des Graphes Iourtes}
+
+
+%#############################
+%#               conclusion				          #
+%#############################
+\section{Conclusion}
+
+\end{document}

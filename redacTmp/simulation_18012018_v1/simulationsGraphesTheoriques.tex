@@ -48,7 +48,7 @@
 \graphicspath{{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/}
 {/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_10_2017/}
 {/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/}
-{/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/}
+{/home/willy/Documents/latexDoc/redaction/fusion_fichiers/images_fusionChapitres/}
 }
  
 \begin{document}
@@ -65,8 +65,8 @@ Les algorithmes propos\'es sont ex\'ecut\'es sur des matrices de corr\'elation c
 
 
 \section{Objectifs}
-Les travaux r\'ealis\'es dans cette partie ont pour but de montrer que les algorithmes propos\'es (couverture et correction) fournissent un line graphe de distance de Hamming minimale lorsque la matrice d'adjacence de ce graphe contient plus de corr\'elations {\em fausses positives} que de corr\'elations {\em fausses n\'egatives} et peu d'erreurs de corr\'elations et cela malgr\'e l'ordre du line graphe. Pr\'ecisons aussi le nombre d'erreurs de corr\'elation  doit \^etre inf\'erieur \`a $6$ pour un seuil de corr\'elation sup\'erieure \`a $0.8$ . \newline
-Pour parvenir \`a un tel resultat, nous montrons que les sommets, n'appartenant \`a aucune couverture (sommets $\in sommets\_1$) doivent \^etre corrig\'es avec la m\'ethode de {\bf permutation al\'eatoire minimum} pour une {\bf fonction de co\^ut normale} pour de meilleurs r\'esultats.
+Les travaux r\'ealis\'es dans cette partie ont pour but de montrer que les algorithmes propos\'es (couverture et correction) fournissent un line graphe de distance de Hamming minimale lorsque la matrice d'adjacence de ce graphe contient plus de corr\'elations {\em fausses n\'egatives} que de corr\'elations {\em fausses positives} et peu d'erreurs de corr\'elations et cela malgr\'e l'ordre du line graphe. Pr\'ecisons aussi le nombre d'erreurs de corr\'elation  doit \^etre inf\'erieur \`a $6$ pour un seuil de corr\'elation sup\'erieure \`a $0.8$ . \newline
+Pour parvenir \`a un tel r\'esultat, nous montrons que les sommets, n'appartenant \`a aucune couverture (sommets $\in sommets\_1$) doivent \^etre corrig\'es avec la m\'ethode de {\bf permutation al\'eatoire} pour une {\bf fonction de co\^ut normale} pour de meilleurs r\'esultats.
 Nous montrons \'egalement la relation existante entre la distance de Hamming et la distance line.
 
 \section{D\'efinitions}
@@ -423,12 +423,14 @@ Nous calculons la corr\'elation entre les distances line et de Hamming \`a parti
 avec $x \in [0,1]$ une valeur de corr\'elation et $k$ le nombre d'erreurs de corr\'elation. 
 \newline
 Sur la figure \ref{dh_vs_dl_p_05}, est repr\'esent\'e la fonction de repartition $F_k$ dans laquelle nous avons, en absicce, la corr\'elation entre les distances et, en ordonn\'e, le pourcentage de graphes dont la corr\'elation $corr$ est inf\'erieure \`a $x$. 
+%% ------ pas encore REPROGRAMMER
 \begin{figure}[htb!] 
 \centering
 \includegraphics[scale=0.35]{comparaison_entre_fct_cout_et_methodes_correction/correlation_dh_dl_p_05.jpeg}
 \caption{ distance line versus distance de Hamming pour $k$ erreurs de corr\'elation et $p = 0.5$ }
 \label{dh_vs_dl_p_05} 
 \end{figure}
+%% ----- pas encore REPROGRAMMER
 En effet si $corr_k = 1$ alors il n'existe aucune corr\'elation entre les distances line et de Hamming. Cela signifie que le line graphe fourni $LG_{k}$ est  le veritable line graphe de $LG$ sur notre r\'eseau de flots $G$ ($LG_{k} = LG$). 
 De m\^eme, si $corr_k = 0$ alors les distances line et de Hamming sont identiques. Cela signifie que ajouter/supprimer ces ar\^etes au line graphe $LG_k$ produit le line graphe de notre r\'eseau ($LG_{k} \neq LG$) et que $LG_{k}$ et $LG$ sont differents de $k$ ar\^etes quand $k < 6$.
 \newline
@@ -450,43 +452,35 @@ Nous pouvons conclure que l'utilisation de la distance line est une bonne m\'etr
 Nous recherchons la meilleure m\'ethode de correction parmi les cinq m\'ethodes \'enumer\'ees plus haut. 
 Pour ce faire, on dispose des distributions de distances line et de Hamming, des histogrammes, des fonctions de repartitions de ces distributions et aussi des moyennes de distances line/Hamming associ\'ees \`a $k$ corr\'elations \'erron\'ees pour chacune des m\'ethodes regroup\'ees dans les figures \ref{permut_distanceMoyenDLDH_k_0_5_aleatoire_p_05} et \ref{permut_distanceMoyenDLDH_k_5_9_aleatoire_p_05}.  
 Nous utilisons la moyenne des distances de Hamming pour la comparaison de m\'ethodes parce que la distance de Hamming permet d'\'evaluer la diff\'erence entre le graphe de base $LG$ et celui pr\'edit $LG_k$ par nos algorithmes et aussi nous connaissons les line graphes associ\'es aux r\'eseaux \'electriques.\newline
-Rappelons que nous avons la probabilit\'e $p\_correl=0.5$ et la fonction de co\^ut est unitaire ($F_0$).
-La figure \ref{compareDifferentesMethodesCorrectionSommets_fct_cout_unitaire_p05} affiche les courbes  des diff\'erentes m\'ethodes pour des distances de Hamming moyenn\'ees en fonction des $k$ erreurs de corr\'elations.
+Rappelons que nous avons la probabilit\'e $p\_correl=0.5$ et la fonction de co\^ut est normal ($F_1$).
+La figure \ref{compareDifferentesMethodesCorrectionSommets_fct_cout_normal_p05} affiche les courbes  des diff\'erentes m\'ethodes pour des distances de Hamming moyenn\'ees en fonction des $k$ erreurs de corr\'elations.
 \newline
-Nous constatons  que la pire des m\'ethodes est celle de degr\'e minimum avec remise (en rouge avec un rond) car elle est au dessus des autres et la meilleure est celle de {\em de permutation al\'eatoire} (en jaune avec un triangle) car elle propose des line graphes ayant  le nombre minimum d'ar\^etes diff\'erentes pour $ \forall k$.\newline
+Nous constatons  que la pire des m\'ethodes est celle de degr\'e minimum avec remise (en bleu avec un carr\'e) car elle est au dessus des autres et la meilleure est celle de {\em de permutation al\'eatoire} (en rouge avec un rond) car elle propose des line graphes ayant  le nombre minimum d'ar\^etes diff\'erentes pour $ \forall k$.\newline
 \begin{figure}[htb!] 
 \centering
 % a changer par des chemins relatifs
-\includegraphics[scale=0.25]{comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/comparaisonDifferentesMethodesFonctDeCout_normal_500G_p_05.jpeg}
+\includegraphics[scale=0.25]{simulation_comparaisonDifferentesMethodes_by_FonctDeCout_normal_500G_p_correl_05.jpeg}
 \caption{ Comparaison des diff\'erentes m\'ethodes de correction de sommets pour $k \in [1,9]$ corr\'elations modifi\'ees. Les courbes en bleu carr\'e, rouge carr\'ee, rouge rond, vert rond et jaune triangle sont associ\'ees respectivement aux m\'ethodes 1, 2, 3, 5, 4 }
-\label{compareDifferentesMethodesCorrectionSommets_fct_cout_unitaire_p05} 
+\label{compareDifferentesMethodesCorrectionSommets_fct_cout_normal_p05} 
 \end{figure}
 Nous retenons, pour la suite, la m\'ethode de {\bf permutation al\'eatoire} comme m\'ethode de correction des sommets n'appartenant \`a aucune couverture (sommets $\in sommets\_1$).
 \newline
 
 
+
 \subsection{Influence des erreurs de corr\'elations sur les distributions}
 % comparaison de p sur la methode de permutation aleatoire
+%% ---- pas encore REPROGRAMMER -- utiliser la fonction de cout unitaire
 \begin{figure}[htb!] 
 \centering
 % meilleur probabilite p parmi les [0.0, 0.1, 0.2, ...., 1.0]
 % a changer par des chemins relatifs
+%\includegraphics[scale=0.25]{permut_aleatoire_coutMin_degreMin_fct_cout_normal_500G/aleatoire/courbes/comparaison_probabilities_p_00_10_moy_dh_aleatoire_p_10.jpeg}
 \includegraphics[scale=0.25]{permut_aleatoire_coutMin_degreMin_fct_cout_normal_500G/aleatoire/courbes/comparaison_probabilities_p_00_10_moy_dh_aleatoire_p_10.jpeg}
 \caption{ Comparaison des diff\'erentes probabilit\'es d'ajout $k \in [1,9]$ de corr\'elations fausses positives et fausses n\'egatives sur la m\'ethode de permutation al\'eatoire }
 \label{compareDifferentesProbabilitesP0_1_fct_cout_unitaire_p05} 
 \end{figure}
-
-%------ a effacer cette image --------%
-%\begin{centering} 
-%\begin{figure}[htb!] 
-%% distribution de p = 1.0 
-%% a changer par des chemins relatifs
-%\includegraphics[scale=0.10]{permut_aleatoire_coutMin_degreMin_fct_cout_normal_500G/aleatoire/courbes/distanceMoyenDLDH_k_0_10_aleatoire_p_10.jpeg}
-%\caption{ distribution des distances line et de Hamming pour $p=1.0$ et $k \in [1,9]$ corr\'elations modifi\'ees}
-%\label{distributionDLDH_p1.0_k19_fct_cout_unitaire} 
-%\end{figure}
-%\end{centering} 
-%------ a effacer cette image --------%
+%% ---- pas encore REPROGRAMMER
 
 Faisons varier la variable $p\_correl \in [0,1]$ par pas de $0.1$ dans le but de visualiser l'impact de corr\'elations {\em fausses positives} et {\em fausses n\'egatives} dans l'ex\'ecution des algorithmes. Rappelons que l'ajout et la suppression d'ar\^etes ont le m\^eme co\^ut de traitement c'est-\`a-dire $1$.
 La figure \ref{compareDifferentesProbabilitesP0_1_fct_cout_unitaire_p05} r\'esume l'\'evolution des types d'erreurs de corr\'elations ($p\_correl$) pour des distances de Hamming $moy\_DH$ en fonction de  $k \in [1, 9]$  erreurs de corr\'elations.
@@ -502,7 +496,7 @@ En revanche, ce pourcentage baisse avec beaucoup d'erreurs de corr\'elations. Te
 \end{figure}
 %En revanche, ce pourcentage baisse malgr\'e le nombre \'elev\'e de corr\'elations {\em fausses positives}. Tel est le cas pour $k = 9$ corr\'elations o\`u le taux est de $24\%$. 
 \newline
-Par ailleurs, le mauvais r\'esultat obtenu pour des probabilit\'es $p < 0.5$ s'explique par le mode de fonctionnement de l'algorithme de correction. En Effet, cet algorithme consiste \`a ajouter des ar\^etes au voisinage du sommet \`a corriger puis de supprimer certaines ar\^etes pour \'eviter qu'un sommet n'appartienne \`a plus de $2$ cliques (propriet\'e du line graphe).
+Par ailleurs, le mauvais r\'esultat obtenu pour des probabilit\'es $p\_correl < 0.5$ s'explique par le mode de fonctionnement de l'algorithme de correction. En Effet, cet algorithme consiste \`a ajouter des ar\^etes au voisinage du sommet \`a corriger puis de supprimer certaines ar\^etes pour \'eviter qu'un sommet n'appartienne \`a plus de $2$ cliques (propriet\'e du line graphe).
 \newline
 Nous pensons que le meilleur compromis est la probabilit\'e $p\_correl = 0.7$ parce que, pour peu de corr\'elations modifi\'ees ($k<5$), les lines graphes produits $LG_k$ et g\'en\'er\'es $LG$ diff\`erent de $k<6$ ar\^etes correspondant aux $k$ erreurs de  corr\'elations \'effectu\'ees  et au d\'el\`a $k \geq 6$, le nombre d'ar\^etes diff\'erentes est fonction du nombre de corr\'elations faites multipl\'e par $1.5$.
 Cela signifie qu'il faut, dans la matrice de corr\'elation, $30\%$ de corr\'elations {\em fausses positives} et $70\%$ de corr\'elation {\em fausses n\'egatives}. 
@@ -522,7 +516,7 @@ En d'autres termes, la suppression d'ar\^etes {\em fausses n\'egatives} a un co\
 \begin{figure}[htb!] 
 \centering
 % a changer par des chemins relatifs
-\includegraphics[scale=0.25]{comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/comparaisonDifferentesFonctDeCout_by_permut_aleatoire_p_05.jpeg}
+\includegraphics[scale=0.25]{simulation_comparaisonDifferentesFonctDeCout_by_aleatoire_p_correl_05.jpeg}
 \caption{ Comparaison des diff\'erentes fonctions de co\^ut avec l'ajout de $k \in [1,9]$ de corr\'elations fausses positives et fausses n\'egatives pour une probabilit\'e $p = 0.5$ avec la m\'ethode de permutation al\'eatoire }
 \label{compareDifferentesFonctionDeCout_p05} 
 \end{figure}
@@ -591,14 +585,15 @@ Alors qu'on a une d\'ecroissance faible de $0$ \`a $s$ et une croissance forte d
 Ce qui explique le co\^ut faible des fausses n\'egatives et celui \'elev\'e des fausses positives. 
 Par ailleurs, la courbe en bleu (fonction unitaire $F_0$) est au dessus des deux autres courbes ($F_1$ et cloche) signifiant que son co\^ut est le plus \'elev\'e des trois fonctions.
 \newline
-\begin{centering} 
+%% ---- REPROGRAMMER
 \begin{figure}[htb!] 
+\centering
 % a changer par des chemins relatifs
 \includegraphics[scale=0.25]{comparaison_entre_fct_cout_et_methodes_correction/simulation_comparaisonDifferentesFonctDeCout_by_aleatoire_p_05.jpeg}
 \caption{ Comparaison des fonctions de co\^ut unitaire, normal et en cloche avec l'ajout de $k \in [1,9]$ de corr\'elations fausses positives et fausses n\'egatives pour une probabilit\'e $p = 0.5$ avec la m\'ethode de permutation al\'eatoire }
 \label{comparaison_fct_cloche_unitaire_normal_p05} 
 \end{figure}
-\end{centering} 
+%% ---- REPROGRAMMER
 %Conclusion
 On en conclut, par transitivit\'e, que la fonction $F_1$ fournit les co\^uts minimum pendant la correction.
 
@@ -606,4 +601,13 @@ On en conclut, par transitivit\'e, que la fonction $F_1$ fournit les co\^uts min
 
 % ajout du cas particulier des graphes iourtes
 \section{ Simulation des graphes Iourtes}
+Appliquons les resultats de la section pr\'ec\'edente c'est-\`a-dire la methode de correction est la permutation al\'eatoire pour une fonction de co\^ut normal et une probabilit\'e d'erreurs \`a $p\_correl = 0.7$.
+La particularit\'e de ce graphe repose sur l'absence de line-couverture de celui-ci. En d'autres termes, chaque sommet et son voisinage ne forment pas de cliques. 
+\newline
+Nous allons analyser les performances de  l'algorithme de correction sur ce type de graphes c'est-\`a-dire le nombre d'ar\^etes ajout\'es pour obtenir un line graphe est minimal. 
+
+
+
+
+
 \end{document}
