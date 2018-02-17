@@ -189,10 +189,36 @@ On propage les valeurs de la grandeur physique jusqu'aux sommets puits.
 L'application de ces r\`egles de flots permettent de v\'erifier la {\em loi de conversation des noeuds} \cite{loiDeConservation}.
 
 \subsection{Construction de la matrice de corr\'elation}
-\'Etant donn\'e que la corr\'elation entre ar\^etes n\'eglige la position du sommet dans celle-ci, la matrice de corr\'elation binaire est la matrice $matE$ d'adjacence du line-graphe $L(G)$ sous-jacent au graphe non orient\'e de $G$.
+\'Etant donn\'e que la corr\'elation entre ar\^etes n\'eglige la position du sommet dans celle-ci, la matrice de corr\'elation binaire est la matrice $matE$ d'adjacence du line-graphe $L(G)= (E, A)$. %sous-jacent au graphe non orient\'e de $G$.
 \newline
-Nous considerons la symm\'etrie superieure de $matE$ car nous supposons $G$ comme un graphe non orient\'e. 
-Toutes les cases $\mu[i,j] = 1$ de $matA$ sont num\'erot\'ees et forment les sommets de la matrice $matA$ 
+Nous considerons la symm\'etrie sup\'erieure de $matE$ car $G=(V,E)$ est un graphe non orient\'e. 
+Toutes les cases $\mu_G[i,j] = 1$ de $matA$ sont num\'erot\'ees sous la forme $(i,j)$ et forment les sommets de la matrice $matE$. Lorsque deux ar\^etes ont un sommet commun c'est-\`a-dire $\mu_G[i,j]  = \mu_G[j,k] $ ou $\mu_G[i,j]  = \mu_G[k,j]$ ou $\mu_G[j,i]  = \mu_G[k,j] $ alors la case de $matE$ re\c coit $1$ ($\mu[i',j'] = 1$ avec $i' = (i,j) \in A$ et $j' = (j,k) \in A$).
+\newline
+La matrice de correction $M$ contient des valeurs de corr\'elation probabilistes. 
+Chaque case $\mu_c[i,j]$ de $M$ contient une corr\'elation fonction du type d'erreur associ\'e \`a celui-ci. 
+Pour ce faire, nous consid\'erons deux cas :
+\subsubsection{Cas 1 : $matE$ ne contient pas d'erreurs }
+Dans ce cas, la variable de seuil de corr\'elation $p\_correl$ est le seuil $s$ ($p\_correl = s$). 
+Nous allons g\'en\'erer les corr\'elations {\em vrai positives}  selon la loi exponentielle de param\`etre $\lambda \ge 2$ et les corr\'elations {\em vrai n\'egatives} selon la loi exponentielle de param\`etre $\lambda \ge -2$. Cela donne des distributions repr\'esent\'ees sur la figure \ref{vraiPositivesNegativesAutourDuSeuil}.
+\subsubsection{Cas 2 : $matE$ contient d'erreurs }
+Nous distinguons les quatres types d'erreurs de corr\'elations. Les corr\'elations {\em vrai positives} et {\em vrai n\'egatives}  suivent  la loi exponentielle de param\`etre $\lambda \ge 2$ et de param\`etre $\lambda \ge -2$ respectivement. 
+Les corr\'elations {\em fausses positives et fausses n\'egatives} se localisent autour du seuil $p\_correl$ et  suivent des lois normales. La figure \ref{distributionErreursCorrelations} pr\'esente les courbes des distributions des  diff\'erentes erreurs de corr\'elation.
+\begin{figure}[htb!] 
+\centering
+\includegraphics[scale=0.750]{vraiPositivesNegativesAutourDuSeuil.eps}
+\caption{\`A gauche : Parabole croissante pour les erreurs {vrai positives} dans l'intervalle  $[s,1]$, \`a droite : Parabole d\'ecroissante pour les erreurs {vrai n\'egatives} dans l'intervalle $[0.s[$. L'ordonn\'e d\'esigne le taux de corr\'elation pour une valeur donn\'ee. }
+\label{vraiPositivesNegativesAutourDuSeuil} 
+\end{figure}
+
+\begin{figure}[htb!] 
+\centering
+\includegraphics[scale=0.750]{distributionErreursCorrelations.eps}
+\caption{En haut : loi exponentielle pour les erreurs   {\em vrai positives et vrai n\'egatives}, en bas : loi uniforme pour les erreurs   {\em fausses positives et fausses n\'egatives} }
+\label{distributionErreursCorrelations} 
+\end{figure}
+
+ 
+L'utilisation de lois de probabilit\'e a pour but de montrer l'impact de seuil $p\_correl$ sur la line-couverture et aussi calculer les co\^uts de correction des sommets n'appartenant \`a aucune cliques.
 
 %##########################################
 %#               correction graphes de correlation avec erreurs          #
