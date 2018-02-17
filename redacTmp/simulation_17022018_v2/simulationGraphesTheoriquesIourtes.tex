@@ -65,7 +65,7 @@ Apr\`es la d\'efinition des m\'ethodes de correction, erreurs et seuil de corr\'
 %###################################
 \section{D\'efinitions et objectif}
 Considerons le graphe non orient\'e $G = (V,E)$ du r\'eseau de flots et son line-graphe $L(G) = (E, A)$ avec $A$ l'ensemble des ar\^etes.
-La matrice $matE$ est la matrice d'adjacence de $L(G)$ dont chaque case est not\'ee $\mu[i,j]$.
+La matrice $matE$ est la matrice d'adjacence de $L(G)$ dont chaque case est not\'ee $\mu[i,j]$. Elle est aussi appel\'e matrice de corr\'elation binaire.
 La matrice de corr\'elation $M$ de dimension $|E| \times |E|$ contient une matrice dont chaque case $\mu_c[i,j]$ contient des valeurs de corr\'elations comprise entre $0$ et $1$. 
 Appliqu\'e une seuil de corr\'elation  $s$ \`a la matrice $M$, on obtient la matrice $matE$. On en deduit que la matrice de corr\'elation de $L(G)$ est $M$. \newline
 Le line-graphe $L(G)$, dont on ajoute des erreurs de corr\'elations (modification de cases $\mu$) dans sa matrice d'adjacence, est not\'e $G'$. Les matrice d'adjacence et de corr\'elation de $G'$ sont $matE'$ et $M'$ respectivement. Les cases des matrices $matE'$ et $M'$ sont not\'ees  $\mu'[i,j]$ et $\mu'_c[i,j]$ respectivement.
@@ -163,7 +163,7 @@ En outre, nous montrerons la relation existance entre la distance line et celle 
 %# 			(protocole de simulation)					  #
 %##########################################
 \section{G\'en\'eration d'un graphe de corr\'elation}
-
+Pour obtenir un graphe de corr\'elation $G'$, nous allons g\'en\'erer un r\'eseau de flots et   lui associer des mesures \'electriques sur chacune des ar\^etes. Ensuite, nous produirons la matrice de  corr\'elation binaire $matE$ li\'ee \`a ce r\'eseau. Enfin nous introduirons $k$ erreurs de correlations dans la matrice $matE$.
 
 %##########################################
 %#               correction graphes de correlation avec erreurs          #
