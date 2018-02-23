@@ -54,6 +54,13 @@
 \section{Graphes Iourtes}
 Nous \'evaluons les performances de l'algorithme de correction sur des graphes dont les sommets ne sont couverts par aucune cliques. Dans l'algorithme de couverture, ces sommets sont labellis\'es \`a $cliq(v) = -1$. Ces graphes sont nomm\'es {\em iourtes}.
 
+\begin{figure}[htb!] 
+\centering
+\includegraphics[scale=0.50]{grapheIourteG0.eps}
+\caption{Graphe iourte $G_0 $}
+\label{grapheIourteG0} 
+\end{figure}
+
 \begin{definition}
 Un graphe iourte $G_0 = (V, E)$ est un graphe dont
 \begin{itemize}
@@ -64,7 +71,8 @@ Un graphe iourte $G_0 = (V, E)$ est un graphe dont
 	\item $G_0$ est {\em 4-r\'egulier}.
 \end{itemize}
 \end{definition}
-La figure \ref{grapheIourteG0} est une illustration d'un graphe iourte $G_0$.\newline
+La figure \ref{grapheIourteG0} est une illustration d'un graphe iourte $G_0$.
+\newline
 Soient $k$ la profondeur c'est-\`a-dire le nombre de fois qu'on modifie $G_0$ par la transformation d'ar\^etes en chaines de longueur $2$ et $G_0^k$ le graphe $G_0$ de profondeur $k$.
 
 \begin{theorem}
@@ -82,7 +90,7 @@ En rep\'etant $k$ fois cette modification, nous obtenons le graphe $G_0^k$ de $3
 
 La figure \ref{grapheIourteG01eExecution} d\'ecrit un line-graphe $L(G_0)$ couvrant $G_0$ en lui ajoutant $6$ ar\^etes (en pointill\'ees).
 Ces $6$ ar\^etes d\'esignent la plus petite modification possible de $G_0$ en termes de co\^ut d'ajout et suppression.
-Par consequent $DL(G_0) = 6$. 
+Par cons\'equent $DL(G_0) = 6$. 
 \begin{conjecture}
 \label{conjectureDLIourte}
 La distance line de $G_0^k$ v\'erifie $DL(G_0^k) \le 3k+6$.
@@ -90,7 +98,7 @@ La distance line de $G_0^k$ v\'erifie $DL(G_0^k) \le 3k+6$.
 \begin{figure}[htb!] 
 \centering
 \includegraphics[scale=0.50]{grapheIourteG01eExecution.eps}
-\caption{}
+\caption{Une correction du graphe $G_0$ : $DL(G_0) = 6$ }
 \label{grapheIourteG01eExecution} 
 \end{figure}
 Le line-graphe  $L(G_0^k)$ couvrant $G_0^k$ \`a distance de Hamming de $3k+6$ obtient \`a partir de  $L(G_0^{k-1})$ en supprimant une ar\^ete parmi deux dans un cycle de taille $6$. Ce cycle est form\'e par les anciens sommets $A$, $B$, $C$ (de $G_0^{k-1}$) et les nouveaux sommets $A$, $B$, $C$ de $G_0^k$, soit une suppression de $3$.
@@ -99,8 +107,8 @@ Chacun ar\^ete non supprim\'ee dans ce cycle forme une clique de taille $2$ et  
 Dans la section suivante, nous analysons les distances lines obtenues par l'algorithme de correction par rapport \`a la conjecture \ref{conjectureDLIourte}.
 
 \subsection{Correction des graphes Iourtes}
-Dans cette partie, nous allons v\'erifier que la correction de graphes iourtes de diff\'erentes profondeurs tend vers $3k+6$.
- En d'autres termes, nous allons \'etudier l'impact de l'ajout/suppressiond'ar\^etes lors la correction d'un sommet dans le processus de correction du graphe.
+Dans cette partie, nous allons v\'erifier que la correction de graphes iourtes de diff\'erentes profondeurs modifie $3k+6$ ar\^etes.
+ En d'autres termes, nous allons \'etudier l'impact de l'ajout/suppression d'ar\^etes lors la correction d'un sommet dans le processus de correction du graphe.
 Pour ce faire, nous construisons $50$ graphes iourtes dont chaque graphe a une profondeur $k \in [0,50]$.
 Sur chaque graphe $G_0^k$, nous ex\'ecutons  l'algorithme de correction  $50$ fois et nous r\'ecuperons la distance de Hamming minimale entre $G_0^k$ et les line-graphes obtenus i.e la distance line.
 \newline
@@ -111,7 +119,7 @@ Nous allons consid\'erer trois niveaux de priorit\'e :
 	\item priorit\'e ajout : ajouter coute $\phi^{+} = 1$ alors que supprimer coute $\phi^{-} = 10$; 
 	\item priorit\'e suppression : ajouter coute $\phi^{+} = 10$ alors que supprimer coute $\phi^{-} = 1$; 
 \end{itemize}
-Les figures \ref{priorAjout1Ajout10}  et \ref{priorAjout1Supp10} contiennent trois courbes : la droite d'\'equation $y = 3k+6$ d\'esignant le comportement id\'eal de l'algorithme de correction, les courbes labellis\'ees {\em dl\_ajout\_X} et {\em dl\_supp\_Y}  repr\'esentant le comportement de la correction quand $\phi^{+} = X$ et $\phi^{-} = Y$ respectivement avec $X, Y \in \{1,10\}$. 
+Les figures \ref{priorAjout1Ajout10}(a)  et \ref{priorAjout1Supp10}(a) contiennent trois courbes : la droite d'\'equation $y = 3k+6$ d\'esignant le comportement id\'eal de l'algorithme de correction, les courbes labellis\'ees {\em dl\_ajout\_X} et {\em dl\_supp\_Y}  repr\'esentant le comportement de la correction quand $\phi^{+} = X$ et $\phi^{-} = Y$ respectivement avec $X, Y \in \{1,10\}$. 
 La courbe  {\em dl\_ajout\_X} d\'esigne la priorisation sur l'ajout d'ar\^etes en attribuant un poids $w\_ajout = 1$ pour l'ajout et un poids $w\_supp = X$ pour une suppression.
 De m\^eme la  courbe  {\em dl\_supp\_Y} d\'esigne la priorisation sur la suppression d'ar\^etes en attribuant un poids $w\_supp = 1$ pour la suppression et un poids $w\_ajout = Y$ pour un ajout.
 
@@ -119,19 +127,34 @@ De m\^eme la  courbe  {\em dl\_supp\_Y} d\'esigne la priorisation sur la suppres
 \begin{figure}[htb!] 
 \centering
 \includegraphics[scale=0.250]{comparaison_prior_ajout_wi_1_ajout_wi_10_distance_line_vs_3k_6_graphe_iourte.jpeg}
-\caption{(a)Priorisation sur l'ajout d'ar\^etes : la courbe {\em dl\_ajout\_1} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 1$ pour la suppression,   la courbe {\em dl\_ajout\_10} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 10$ pour la suppression, (b) taux de suppression d'ar\^etes de $G_0^k$}
+\caption{(a)Priorisation sur l'ajout d'ar\^etes : la courbe {\em dl\_ajout\_1} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 1$ pour la suppression,   la courbe {\em dl\_ajout\_10} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 10$ pour la suppression, (b) taux de suppression d'ar\^etes de $G_0^k$ pour les priorisations  {\em dl\_ajout\_1} et  {\em dl\_ajout\_10}, (c) la diff\'erence de distances lines entre les priorisations {\em dl\_ajout\_1} et  {\em dl\_ajout\_10}  et la droite $y=3k+6$.  }
 \label{priorAjout1Ajout10} 
 \end{figure}
-L'exemple th\'eorique \'effectu\'e sur le graphe $G_0$ propose la distance de Hamming minimale $DL= 6$ en n'ajoutant que des ar\^etes (voir figure \ref{grapheIourteG01eExecution}).
-Nous allons prioriser alors l'ajout des ar\^etes dans la correction c'est-\`a-dire attribuer des poids \'elev\'es  $w\_supp = 10$ pour la suppression et des poids faibles $w\_ajout = 1$ pour l'ajout d'ar\^etes et il est repr\'esent\'e par la courbe {\em dl\_ajout\_10}. Puis nous comparons sa courbe  avec la courbe {\em dl\_ajout\_1}.
+L'exemple th\'eorique effectu\'e sur le graphe $G_0$ propose la distance de Hamming minimale $DL= 6$ en n'ajoutant que des ar\^etes (voir figure \ref{grapheIourteG01eExecution}).
+Nous allons alors prioriser l'ajout des ar\^etes dans la correction c'est-\`a-dire attribuer des poids \'elev\'es  $w\_supp = 10$ pour la suppression et des poids faibles $w\_ajout = 1$ pour l'ajout d'ar\^etes et cette priorisation est repr\'esent\'ee par la courbe {\em dl\_ajout\_10}. Puis nous comparons sa courbe  avec la courbe {\em dl\_ajout\_1}.
 \newline
-La courbe {\em dl\_ajout\_1} croit faiblement alors que la courbe {\em dl\_ajout\_10}  croit fortement et l'\'ecart entre ces deux courbes \'evolue lin\'eairement.
-La courbe  {\em dl\_ajout\_10} a tendance \`a supprimer moins d'ar\^etes de $G_0^k$ que celle {\em dl\_ajout\_1} comme nous le constatons sur la figure \ref{priorAjout1Ajout10}(b) o\'u le taux de suppressions de {\em dl\_ajout\_1} est sup\'erieure \`a celui de {\em dl\_ajout\_10}. Cela s'explique par le fait que l'ajout et la suppression dans {\em dl\_ajout\_1} ont leur meme co\^ut ($\phi^{+} = \phi^{-} = 1$) et la correction tend \`a supprimer les ar\^etes. En plus la courbe {\em dl\_ajout\_10} ajoute plus d'ar\^etes dans $G_0^k$ que  celle {\em dl\_ajout\_1}.
+Les courbes {\em dl\_ajout\_1} et {\em dl\_ajout\_10} croissent lin\'eairement avec des pentes respectives de ($\alpha_{dl\_ajout\_1} \approx 3.76$ et $\alpha_{dl\_ajout\_10} \approx 4.96$).
+La courbe {\em dl\_ajout\_1} croit faiblement par rapport \`a celle de {\em dl\_ajout\_10}.
+De m\^eme, les diff\'erences de distances line entre les courbes {\em dl\_ajout\_1} et $y=3k+6$  et les courbes {\em dl\_ajout\_10} et $y=3k+6$  \'evolue aussi lin\'eairement avec la courbe entre 
+ {\em dl\_ajout\_1} et $y=3k+6$ qui croit faiblement (voir figure \ref{priorAjout1Ajout10}(c)). 
+ Il se deduit que la courbe {\em dl\_ajout\_10} ajoute beaucoup d'ar\^etes dans $G_0^k$ par rapport \`a la courbe  {\em dl\_ajout\_1}. 
+Ce qui est normal puisque l'hypoth\'ese est une priorisation de l'ajout d'ar\^etes. 
+Toutefois, en observant la figure \ref{priorAjout1Ajout10}(b), on remarque que {\em dl\_ajout\_10} supprime moins d'ar\^etes dans $G_0^k$ par rapport \`a {\em dl\_ajout\_1}.
+Le fait que  l'ajout et la suppression dans {\em dl\_ajout\_1} ont le m\^eme co\^ut ($\phi^{+} = \phi^{-} = 1$) explique ces suppressions massives et ces suppressions engendrent l'ajout d'ar\^etes pour obtenir un line-graphe connexe.
 \newline
-La priorisation sur l'ajout d'ar\^etes donne de mauvais r\'esultats parce que l'\'ecart entre les courbes {\em dl\_ajout\_10} et $y=3k+6$ croit lin\'eairement lorsque $k$ grandit.
-Par ailleurs ne priviliger aucune priorisation a de bons r\'esultats car l'ecart entre {\em dl\_ajout\_1} et $y=3k+6$ croit faiblement \`a cause de la suppression des ar\^etes de $G_0^k$ et du faible ajout dans les lines graphes $L(G_0^k)$.
-\newline 
-Puisque prioriser l'ajout d'ar\^etes ne produit pas de bonnes r\'esultats, que ce passe-t-il si on priorise la suppression?   
+La priorisation sur l'ajout d'ar\^etes donne de mauvais r\'esultats parce que la courbe {\em dl\_ajout\_10} est tr\`es \'eloign\'e de celle de $y = 3k+6$ lorsque $k$ grandit.
+Par ailleurs, ne priviliger aucune priorisation donne de bons r\'esultats car l'\'ecart entre {\em dl\_ajout\_1} et $y=3k+6$ est  faible pour $k \le 8$ et au d\'el\`a croit lin\'eairement mais faiblement  \ref{priorAjout1Ajout10}(c). Et cela decoule de l'ajout des ar\^etes dans $G_0^k$ pour des lines graphes $L(G_0^k)$.  
+\newline
+Puisque prioriser l'ajout d'ar\^etes ne produit pas de bonnes r\'esultats, que se passe-t-il si on priorise la suppression?   
+
+
+%La courbe {\em dl\_ajout\_1} croit faiblement alors que la courbe {\em dl\_ajout\_10}  croit fortement et l'\'ecart entre ces deux courbes \'evolue lin\'eairement.
+%La courbe  {\em dl\_ajout\_10} supprime moins d'ar\^etes de $G_0^k$ que celle {\em dl\_ajout\_1} comme nous le constatons sur la figure \ref{priorAjout1Ajout10}(b) o\`u le taux de suppressions de {\em dl\_ajout\_1} est sup\'erieure \`a celui de {\em dl\_ajout\_10}. Cela s'explique par le fait que l'ajout et la suppression dans {\em dl\_ajout\_1} ont leur meme co\^ut ($\phi^{+} = \phi^{-} = 1$) et la correction tend \`a supprimer les ar\^etes. En plus la courbe {\em dl\_ajout\_10} ajoute plus d'ar\^etes dans $G_0^k$ que  celle {\em dl\_ajout\_1}.
+%\newline
+%La priorisation sur l'ajout d'ar\^etes donne de mauvais r\'esultats parce que l'\'ecart entre les courbes {\em dl\_ajout\_10} et $y=3k+6$ croit lin\'eairement lorsque $k$ grandit.
+%Par ailleurs ne priviliger aucune priorisation a de bons r\'esultats car l'ecart entre {\em dl\_ajout\_1} et $y=3k+6$ croit faiblement \`a cause de la suppression des ar\^etes de $G_0^k$ et du faible ajout dans les lines graphes $L(G_0^k)$.
+%\newline 
+%Puisque prioriser l'ajout d'ar\^etes ne produit pas de bonnes r\'esultats, que ce passe-t-il si on priorise la suppression?   
 
 
 
@@ -139,13 +162,15 @@ Puisque prioriser l'ajout d'ar\^etes ne produit pas de bonnes r\'esultats, que c
 \begin{figure}[htb!] 
 \centering
 \includegraphics[scale=0.250]{comparaison_prior_ajout_wi_1_supp_wi_10_distance_line_vs_3k_6_graphe_iourte.jpeg}
-\caption{(a)Priorisation sur la suppression d'ar\^etes : la courbe {\em dl\_supp\_10} est la priorisation sur la suppression d'ar\^etes avec un poids $w\_supp=1$ pour la suppression et $w\_ajout = 10$ pour l'ajout,   la courbe {\em dl\_ajout\_1} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 1$ pour la suppression, (b) taux de suppression d'ar\^etes de $G_0^k$}
+\caption{(a)Priorisation sur la suppression d'ar\^etes : la courbe {\em dl\_supp\_10} est la priorisation sur la suppression d'ar\^etes avec un poids $w\_supp=1$ pour la suppression et $w\_ajout = 10$ pour l'ajout,   la courbe {\em dl\_ajout\_1} est la priorisation sur l'ajout d'ar\^etes avec un poids $w\_ajout=1$ pour l'ajout et $w\_supp = 1$ pour la suppression, (b) taux de suppression d'ar\^etes de $G_0^k$, (c) la diff\'erence de distances lines entre les priorisations {\em dl\_ajout\_1} et  {\em dl\_supp\_10}  et la droite $y=3k+6$. }
 \label{priorAjout1Supp10} 
 \end{figure}
-Ici nous attribuons des poids \'elev\'es  $w\_ajout = 10$ pour l'ajout et des poids faibles $w\_supp = 1$ pour la suppression d'ar\^etes. La courbe repr\'esentant cette priorisation est  {\em dl\_supp\_10} et nous la comparons avec la courbe $dl\_ajout\_1$.
+Puisque ajouter et supprimer au m\^eme co\^ut produit de bons r\'esultats pour les distances-line,  nous attribuons des poids \'elev\'es  $w\_ajout = 10$ pour l'ajout et des poids faibles $w\_supp = 1$ pour la suppression d'ar\^etes. La courbe repr\'esentant cette priorisation est  {\em dl\_supp\_10} et nous la comparons avec la courbe $dl\_ajout\_1$.
 \newline
-Dans la figure  \ref{priorAjout1Supp10}(a), les courbes {\em dl\_ajout\_1} et {\em dl\_supp\_10} sont confondues jusqu'\`a la profondeur $k \le 20$ et au d\'el\`a de $k > 20$, il existe un leger \'ecart entre ces deux courbes. Nous l'expliquons par leurs pentes tr\`es proches ($\alpha_{dl\_ajout\_1} \approx 3.93$ et $\alpha_{dl\_supp\_10} \approx 3.78$) qui accentuent l'\'ecart quand $k$ croit. De m\^eme, les taux de suppression d'ar\^etes de $G_0^k$ entre  {\em dl\_ajout\_1} et {\em dl\_supp\_10} sont identiques (voir figure \ref{priorAjout1Supp10}(b)).
-Toutefois, la courbe {\em dl\_supp\_10} donne de meilleurs r\'esultats pour $k > 22$ puisque {\em dl\_supp\_10} se rapproche de $y=3k+6$.
+Dans la figure  \ref{priorAjout1Supp10}(a), les courbes {\em dl\_ajout\_1} et {\em dl\_supp\_10} sont confondues jusqu'\`a la profondeur $k \le 20$ et au d\'el\`a de $k > 20$, il existe un leger \'ecart entre ces deux courbes. Nous l'expliquons par leurs pentes tr\`es proches ($\alpha_{dl\_ajout\_1} \approx 3.93$ et $\alpha_{dl\_supp\_10} \approx 3.78$) qui accentuent l'\'ecart des distances-line quand $k$ croit (voir figure \ref{priorAjout1Supp10}(c)). 
+Cet \'ecart est caus\'e par la suppression d'ar\^etes car {\em dl\_supp\_10} supprime environ $50\%$ des ar\^etes de $G_0^k$ alors que  {\em dl\_ajout\_1} en supprime environ $45\%$ (voir figure \ref{priorAjout1Supp10}(b)).
+Toutefois, la courbe {\em dl\_supp\_10} donne de meilleurs r\'esultats pour $k > 22$ puisque {\em dl\_supp\_10} se rapproche de $y=3k+6$ (voir figure \ref{priorAjout1Supp10}(c)).
+
 
 Nous pouvons conclure que la meilleure m\'ethode de correction des graphes iourtes est la priorisation de la suppression d'ar\^etes.
 Cependant la conjecture \ref{conjectureDLIourte} ne se v\'erifie pas parce que certaines ar\^etes de $G_0^k$ ont \'et\'e suppression du line-graphe $L(G_0^k)$ et ce taux de suppression de ces ar\^etes  avoisine les $50\%$.
