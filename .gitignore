@@ -1,0 +1,6 @@
+#ignore all files finished by .log, .aux, .toc, synctex.gz
+*.toc
+*.log
+*.aux
+*.synctex.gz
+*.pdf
