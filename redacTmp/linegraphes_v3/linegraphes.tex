@@ -1,0 +1,102 @@
+\documentclass[onecolumn, 12pt]{book}
+
+\usepackage[latin1]{inputenc}   
+%\usepackage[francais]{babel}     
+\usepackage{algorithm}
+\usepackage{algorithmic} 
+
+\usepackage{layout}    
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} 
+\usepackage{setspace}
+\usepackage{soul}
+\usepackage{color} 
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[outdir=/home/willy/Documents/latexDoc/redaction/fusion_fichiers/images_fusionChapitres/]{epstopdf}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{amsmath, amsthm, amssymb}
+ 
+\title{chapitre3: D\'ecouverte de topologie par les corr\'elations}
+\author{Wilfried Ehounou}
+\date{\oldstylenums{\today}} 
+
+\newtheorem{definition}{D\'efinition}
+\newtheorem{property}{Propri\'et\'e}
+\newtheorem{theorem}{Th\'eor\`eme}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemme}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Exemple}
+\newtheorem{remark}{Remarque}
+
+%---insert paragraph (use 4) and subparagraph (use 5) to table of contents
+%\setcounter{tocdepth}{4} 
+%\setcounter{secnumdepth}{4}
+
+%---- path figures ----
+\graphicspath{{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_10_2017/}
+{/home/willy/Documents/courbePython/courbeDegreCoutMinAleatoire_11_09_2017/comparaison_MethodesCorrection_fctDeCout_permut_aleatoire_coutMin_degreMin/}
+{/home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionChapitres/}}
+ 
+ %---- add name algorithm 
+ \makeatletter
+\renewcommand{\ALG@name}{Algorithme}
+\makeatother
+
+\begin{document}
+\maketitle
+%\tableofcontents
+%--------------------------------------------------------------------
+%------- formulation du probleme ---------------------
+%--------------------------------------------------------------------
+\section{Formulation du Probl\`eme}
+
+	%------- introduction_matrice_correlation ---------
+	\input{introduction_matrice_correlation}
+
+	%------- caracteristiques_linegraphes ----------------
+	\subsection{Caracteristiques d'un line-graphe}
+		\input{caracteristiques_linegraphes}
+
+	%------- proprietes_linegraphes -------------------------
+	\subsection{Propri\'et\'es d'un line-graphe}
+		\input{proprietes_linegraphes}
+
+	%------- probleme -----------------------------------------------
+	\subsection{Probl\`eme}
+		\input{probleme_distance_line}
+
+%-----------------------------------------------------------------------------------------------------------
+%------- algorithme de decouverte: couverture et correction ---------------------
+%-----------------------------------------------------------------------------------------------------------
+\section{Algorithmes de d\'ecouverte de topologie}
+
+%	\input{introduction_algorithme_decouverte}
+	\subsection{Algorithme de couverture}
+%		\input{algorithme_couverture}% ------------> a debuger l'algo et a l'ecrire
+	\subsection{Algorithme de correction}
+%		\input{algorithme_correction}
+	\subsection{Complexit\'e des algorithmes}
+%		\input{complexite_algorithme}
+
+%--------------------------------------------------------------------
+%------- 		graphe root		---------------------
+%--------------------------------------------------------------------
+\section{D\'etermination de la topologie du r\'eseau \'energ\'etique}
+%	\input{topologie_dag}
+		
+%--------------------------------------------------------------------
+%------- 	graphes iourtes		 ---------------------
+%--------------------------------------------------------------------
+\section{Correction particuli\`ere de Graphes : Graphes Iourtes }
+%	\input{graphe_iourte} 
+
+\end{document}
