@@ -1,0 +1,11 @@
+Consid\'erons un r\'eseau \'electrique modelis\'e par un {\em DAG} $G_F$ et une matrice de corr\'elation $\mu_C$ dans laquelle chaque ligne ou colonne est associ\'ee \`a un arc du graphe $G_F$.
+Chaque case $\mu_C[i,j]$ contient une valeur comprise entre $0$ et $1$ qui est la corr\'elation entre les arcs $i$ et $j$. 
+Id\'ealement, une corr\'elation proche de $1$ indique que les arcs partagent un sommet peu importe l'extremit\'e (finale ou initial) et dans le cas contraire, elle est proche de $0$. 
+Toutefois, il existe des erreurs de mesures sur les arcs entrainant des erreurs de corr\'elation dans la matrice $\mu_C$. Une erreur de corr\'elation est une valeur proche de $1$ (respectivement de $0$) alors que les arcs n'ont aucun sommet en commun (respectivement partage un sommet).
+\newline
+En choisissant un seuil ${\cal S} = [0,1]$, nous consid\'erons  la matrice $M$ de m\^eme dimension que $\mu_C$ telle que $M[i,j] = 1$ ssi $\mu_C[i,j] \ge {\cal S}$ sinon $M[i,j] = 0$.
+\newline
+Soit $G_M = (V, E)$ un graphe non orient\'e dont $M$ est la matrice d'adjacence obtenue par application du seuil $\cal S$ \`a $\mu_C$. 
+Si   $\mu_C$ ne contient aucune erreur de corr\'elation et que $\cal S$ est bien choisi alors $G_M$ est le line-graphe du $G_F$. Notre probl\`eme est alors de corriger ces erreurs  permettant d'obtenir le line-graphe le plus proche du line-graphe du $G_F$.
+\newline
+Dans ce chapitre, nous expliquerons l'utilit\'e des line-graphes dans la reconstruction de topologie. Ensuite nous d\'efinirons le probl\`eme et les algorithmes de r\'esolution de celui-ci. Enfin nous \'evaluons nos algorithmes dans les conditions extr\^emes ($M$ ne contient que des erreurs de corr\'elation).
