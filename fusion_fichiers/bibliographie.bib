@@ -1,0 +1,221 @@
+
+@article{loiDeConservation,
+	author 	= 	{Ravindra K. Ahuja, Thomas L. MAgnanti, James B. Orlin},
+	title 		= 	{Networks flows },
+	year		= 	{1993},
+	publisher 	= 	{Prentice-Hall, Inc},
+	journal	=	{A Simon \& Schuster Company, Englewood Cliffs, NJ},
+	pages	=	{166-196}
+}
+
+@article{saxtheorique,
+	author 	= 	{ E. Keogh, J. Lin and A. Fu  },
+	title 		= 	{ HOT SAX: Efficiently Finding the Most Unusual Time Series Subsequence },
+	year		= 	{ Nov 27-30, 2005 },
+	journal 	= 	{ In Proc. of the 5th IEEE International Conference on Data Mining },
+	volume 	=	{ ICDM2005 },
+	pages	=	{ 226 - 233 }
+}
+
+@article{paatheorique ,
+	author 	= 	{Chonghui Guo, Hailin Li, Donghua Pan },
+	title 		= 	{An Improved Piecewise Aggregate Approximation Based on Statistical Features for Time Series Mining  },
+	year		= 	{September 1-3, 2010 },
+	journal 	= 	{4th International Conference, KSEM 2010 },
+	pages	=	{234-244 }
+}
+
+@article{ proximalAlgorithms ,
+	author 	= 	{ Neal Parik, Stephen Boyd },
+	title 		= 	{ proximal algorithms },
+	year		= 	{ 2013 },
+	publisher	= 	{ NOW Foundation and Trends in optimization  },
+	volume 	=	{ 1 },
+	number	= 	{ 3  },
+	pages	=	{ 142-156 }
+}
+
+@article{ BronAndKerbosh,
+	author 	= 	{ Bron and Kerbosh},
+	title 		= 	{ finding all cliques of an undirected graph},
+	year		= 	{ 1973},
+	journal 	= 	{ ACM},
+	number	= 	{ 16},
+	pages	=	{ 575-577}
+}
+
+@article{ decompositionEnCliques,
+	author 	= 	{Degiorgi Daniele Giorgio, Simon Klaus},
+	title 		= 	{ A dynamic algorithm for line graph recognition },
+	year		= 	{ 1995 },
+	journal 	= 	{ Graph theoretic concepts in computer science (Aachen, 1995) },
+	volume 	=	{ lectures Notes in Computer Science, 1017, berlin },
+	publisher	= 	{ Springer },
+	pages	=	{ 37-48 }
+}
+
+@article{ lineGraphe,
+	author 	= 	{Harary F.},
+	title 		= 	{ 8. line graphs },
+	year		= 	{ 1972 },
+	journal 	= 	{ Graph theory (PDF) },
+	publisher 	=	{ Massachusetts: Addison-Wesley },
+	pages	=	{ 71-83 }
+}
+
+@article{ decompositionEnCliquesParArcs,
+	author 	= 	{ Philippe G.H Lehot},
+	title 		= 	{ An Optimal Algorithm to Detect a Line Graph and Output its Root Graph },
+	year		= 	{ october 1974 },
+	journal 	= 	{ ACM 21(4) },
+	pages	=	{ 569-575 },
+	note    =      {Cet algorithme se subdivise en deux parties : 
+La premi\`ere partie consiste \`a nommer des sommets appartenant \'a une m\^eme clique et la seconde partie \`a comparer, s'il existe, le line graphe propos\'e avec celui du graphe racine. 
+Concernant le nommage, il distingue 5 categories de sommets:
+\begin{itemize}
+\item les sommets "well-defined" : des sommets graphe racine $G$ dont leur clique correspondante dans $L(G)$ a \'et\'e trouv\'ee et identifi\'ee.
+\item les sommets "half-named" : des sommets de $L(G)$ dont un sommet de leur ar\^ete dans $G$ a d\'ej\`a \'et\'e "well-defined".
+\item les sommets "fully-named" : des aretes de $G$ dont leurs deux sommets dans $L(G)$ sont "well-defined".
+\item les sommets "basics" : sommets adjacents dans $L(G)$. Not\e $2-3$, chaque chiffre est un sommet dans $G$.
+\item les sommets "cross" : sommets adjacents aux sommets "basics" appartenant \`a deux cliques.
+\end{itemize}
+Le but de cet algorithme est d'identifier les sommets "cross" parmi les sommets adjacents d'un sommet de $L(G)$ \`a partir des trois cas \cite[ decompositionEnCliquesParArcs]. \newline
+L'algorithme debute par la selection de deux sommets "half-named basics" et de leur ensemble d'adjacents $X$.
+Si $|X| = \emptyset$ alors tous les sommets des cliques sont identifi\'es en "half-named".
+Si $|X| = 1$ alors il existe un sommet $x$ adjacent aux deux sommets "basics" ($1-2,2-3$) tel que $(x,1-2,2-3)$ forme un triangle "odd" si $x=2_4$ ou un triangle "even" si $x=1-3$. Le sommet $x$ devient $cross$ et est identifi\'e en "fully named". Les autres sommets $1-2,2-3$ sont identifi\'es en "half-named".
+Dans le cas o\`u  $|X = \{x,y\}|=2$, si $x$ et $y$ sont adjacents alors il n'existe pas de sommets "cross" sinon ils constituent deux triangles avec $1-2,2-3$. Un de ces triangles est "odd" implique que $x=2-4$ , $y=1-3$ et $y$ est identifi\'e en sommet "cross".
+Enfin pour $|X =\{ a,b,...\}| \ge 3$, si $a$ et $b$ sont adjacents, $b$ est declar\'e sommet "cross" sinon c'est $a$ qui le devient.
+La derniere \'etape selectionne al\'eatoirement un sommet $u$ "half-named". Ce sommet est adjacent \`a un sommet $v$ "fully-named". Si ce sommet $v$ n'est pas d\'ej\`a couvert par une clique, alors il existe un sommet $z$ "fully-named" qui appartient d\'ej\`a \`a une clique et qui est declar\'e sommet "cross" de ces deux pr\'ec\'edents sommets $u$ et $v$. Trouver ces sommets $u$ et $v$ (gr\^ace \`a une pile ad-hoc ou $u$ et $v$ sont en t\^ete) et declarons les avec le num\'ero de la clique. Tous les sommets sont nomm\'es "fully-named" et nous identifions les sommets "fully-named" adjacents par un nouveau num\'ero de clique.
+\newline
+Nous comparons les graphes $L(G)$ et $G$ ar\^etes par ar\^etes et s'il existe une ar\^ete n'ayant pas de correspondance alors L(G) n'est pas un line-graphe.
+\newline
+L'algorithme s'execute en $O(N)+E$ avec $N$ car le processus de nommage des ar\^etes est en $O(N)$ et la comparaison entre graphes en $E$ \'etapes.
+
+}
+
+@article{ROUSSOPOULOS1973108,
+	title = {"A max m,n algorithm for determining the graph H from its line graph G"},
+	journal = {Information Processing Letters},
+	volume = {2},
+	number = {4},
+	pages = { 108 - 112 },
+	year = {1973},
+	note = {''''},
+	issn = { 0020-0190},
+	doi = {http://dx.doi.org/10.1016/0020-0190(73)90029-X},
+	url =  {http://www.sciencedirect.com/science/article/pii/002001907390029X},
+	author = {Nicholas D. Roussopoulos},
+	keywords = {graph, maximal subgroup, complete graph, complete bipartite, automorphism}
+}
+@article{ NAOR1990132,
+	title = {An efficient reconstruction of a graph from its line graph in parallel},
+	journal = {Journal of Algorithms},
+	volume = {11},
+	number = {1},
+	pages = {132 - 143},
+	year = {1990},
+	note = {it is possible to compute the root graphe  in $O(log(V))$ time by using the divide-and-conquer scheme and $O(E)$ processors},
+	issn = {0196-6774},
+	doi = {http://dx.doi.org/10.1016/0196-6774(90)90034-C},
+	url = {http://www.sciencedirect.com/science/article/pii/019667749090034C},
+	author = {Joseph Naor and Mark B Novick"}
+}
+@article{whitney1932congruent,
+ 	 title={Congruent graphs and the connectivity of graphs},
+  	author={Whitney, Hassler},
+ 	 journal={American Journal of Mathematics},
+  	volume={54},
+ 	 number={1},
+ 	 pages={150--168},
+ 	 year={1932},
+ 	 publisher={JSTOR},
+ 	 note={Concept of root graph was introduced by Whitney and he proved that if two linegraphs are isomorphic and connected, then their root graphs are isomorphic except for the triangle graph.}
+}
+
+% \AtEveryBibitem{%
+%  \clearfield{note}%
+%}
+@article{ RNM,
+	author 	= 	{Carlos Mateo Domingo, Tom\'as Gomez San Roman, \'Alvaro Sanchez-Miralles},
+	title 		= 	{ A Reference Network Model for Large-Scale Distribution Planning With Automatic Street Map Generation  },
+	year		= 	{08 July 2010 },
+	journal 	= 	{ IEEE Transactions on Power Systems },
+	volume 	=	{  26 },
+	number	= 	{ 11769694  },
+	pages	=	{ 190-197 },
+	note  	= 	{an engineering-based reference network model (RNM) is employed to generate a forward-looking benchmark of efficient network expenditures. The RNM designs an efficient distribution network that can accommodate expected growth of distributed energy resources as well as new network smart grid technologies and practices. In short, the RNM helps the regulator ``peer into the future'', reducing both information asymmetry and systemic uncertainty}
+}
+
+@article{ britishEnergyNetwork,
+	author 	= 	{Phil Lawton},
+	title 		= 	{ Balancing the energy network  },
+	year		= 	{ 2012},
+	journal 	= 	{ IngeniaOnline},
+	pages	=	{1-4},
+	note 	=	{investissement of UK electricity network, regulation of energy supply, tackling wind imbalances, Maintaining network security, managing gas}
+}
+
+% line graphes et sa racine reconnaissance
+@article{ROOIJetWILF1965interchange,
+  title={The interchange graph of a finite graph},
+  author={van Rooij, ACMM and Wilf, H},
+  journal={Acta Mathematica Hungarica},
+  volume={16},
+  number={3-4},
+  pages={263--269},
+  year={1965},
+  publisher={Akad{\'e}miai Kiad{\'o}, co-published with Springer Science+ Business Media BV, Formerly Kluwer Academic Publishers BV}
+}
+
+@article{krausz1943demonstration,
+  title={D{\'e}monstration nouvelle d’une th{\'e}or{\`e}me de Whitney sur les r{\'e}seaux},
+  author={Krausz, J},
+  journal={Mat. Fiz. Lapok},
+  volume={50},
+  number={1},
+  pages={75--85},
+  year={1943}
+}
+
+@article{beineke1968derived,
+  title={Derived graphs and digraphs},
+  author={Beineke, Lowell W},
+  journal={Beitr{\"a}ge zur Graphentheorie},
+  pages={17--33},
+  year={1968},
+  publisher={Teubner Leipzig}
+}
+
+@Article{Halldórsson2013,
+	author={Halld{\'o}rsson, Bjarni V.
+				and Blokh, Dima
+				and Sharan, Roded},
+	title = {Estimating population size via line graph reconstruction},
+	journal = {Algorithms for Molecular Biology},
+	year = {2013},
+	month = {Jul},
+	volume = { 8},
+	number = {1},
+	pages = {17},
+	abstract={We propose a novel graph theoretic method to estimate haplotype population size from genotype data. The method considers only the potential sharing of haplotypes between individuals and is based on transforming the graph of potential haplotype sharing into a line graph using a minimum number of edge and vertex deletions.},
+	issn = {1748-7188},
+	doi = {10.1186/1748-7188-8-17},
+	url = {https://doi.org/10.1186/1748-7188-8-17},
+	note = {l’article propose une m\'ethode de d\'ecouverte de la gen\'ealogie de population en se basant sur les haplotypes partag\'ees dans 	les genomes des individus. L’objectif \'etant d’identifier ses haplotypes communs \`a des individus, l’approche choisie est la notion de line graphes. L’utilisation de line-graphes est pertinente parce que ces haplotypes sont uniques et deux individus partageant les memes haplotypes sont li\'es par une ar\^ete. Ces haplotypes deviennent les sommets du line graphes et l’arbre gen\'ealogique est connu en utilisant le graphe racine du line graphe. 
+\`A partir des individus et de leurs haloptypes, on construit un graphe dont les individus sont des sommets et les haloptypes sont des ar\^etes de ce graphe dans laquelle deux individus partageant entre cette propri\'et\'e sont reli\'es par une ar\^ete. Ce graphe prend le nom de graphe Clark Consistency graph \cite{halldorsson2011clark}. Si ce graphe est correct alors il est un line-graphe. Cependant certains haloptypes sont surperfus et certaines ar\^etes du graphe n’ayant aucune signification engendrant que le graphe ne soit pas un line-graphe. 
+Ce probleme \'etant NP-Complete, la solution propos\'ee realise un algorithme de suppression de sommets et un algorithme de suppression d’ar\^etes. L’algorithme de suppression de sommets est une 6-approximation alors que celui des ar\^etes est de complexit\'e $O(n*m)$ avec $m$ le nombre de sommets et $n$ le nombre d'ar\^etes.
+Dans le cas ou il realise des suppressions, le line graphe fourni est le plus proche possible du line graphe de l’arbre genealogique.
+La particularit\'e de  la solution est l’absence d’ar\^etes ajout\'ees dans le line-graphe entrainant que cette solution est inapplicable dans notre probleme ou il existe des aretes inconnus dans notre graphe de correlation.}
+	}
+
+@article{halldorsson2011clark,
+  title={The Clark Phaseable sample size problem: long-range phasing and loss of heterozygosity in GWAS},
+  author={Halld{\'o}rsson, Bjarni V and Aguiar, Derek and Tarpine, Ryan and Istrail, Sorin},
+  journal={Journal of Computational Biology},
+  volume={18},
+  number={3},
+  pages={323--333},
+  year={2011},
+  publisher={Mary Ann Liebert, Inc. 140 Huguenot Street, 3rd Floor New Rochelle, NY 10801 USA}
+}
+
