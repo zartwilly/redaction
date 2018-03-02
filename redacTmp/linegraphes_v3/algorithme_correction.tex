@@ -1,0 +1,130 @@
+Si le graphe $G_M=(V_M, E_M)$ est un graphe de corr\'elation alors l'algorithme de couverture determine sa line-couverture $\cal C$.
+En effet, par r\'ecurrence sur l'ensemble des sommets, on montre, \`a chaque \'etape, qu'il existe un sommet non encore couvert qui :
+\begin{itemize}
+\item soit est couvert par une clique appartenant \`a $\cal C$ et son voisinage restant et lui peuvent \^etre converts par une nouvelle clique.
+\item soit n'est couvert par aucune clique de  $\cal C$ et son voisinage restant et lui peuvent \^etre couverts par une ou deux nouvelles cliques.
+\end{itemize}
+Dans le cas o\`u la line-couverture de $G_M$ ne peut \^etre fournie \`a cause des erreurs de corr\'elations, nous avons des sommets couverts par soit aucune clique ou soit par plus de deux cliques. Ces sommets, labellis\'es \`a $-1$, forment l'ensemble 
+$sommets\_1 = \{\exists z \in V, Cliq(z) = -1 \}$ 
+et sont appel\'es {\em sommets \`a corriger}.
+\newline
+
+Nous proposons l'{\em algorithme de correction} qui va modifier l'ensemble initial $E_C$ par ajout et suppression d'ar\^etes dans le but d'obtenir un {\em line-graphe}.
+Nous consid\'erons un ordre $O_z = [z_1, z_2, \cdots, z_t]$ de sommets de $sommets\_1$ qui correspond \`a l'ordre de traitement  de ceux-ci pendant la phase de correction.
+Il en suit que l'ordre a une influence sur le line-graphe fourni parce que la correction modifie le voisinage des sommets. Il est montr\'e dans la chapitre \ref{simulationsTheoriques}.
+\newline
+Soit $E_M^i$ l'ensemble des ar\^etes de $G_M$ apr\`es le traitement des $i-1$ premiers sommets dans l'ordre $O_z$. De m\^eme, on note ${\cal C}^i$ l'ensemble des cliques de $G_M$ \`a l'\'etape $i$ et donc $E_M^1 = E_M$ et ${\cal C} = {\cal C}^1$.
+\newline
+
+Soient $z_i$ le i-i\`eme sommet et ${\cal C}(z) = \{C_1, \cdots, C_k\}$ l'ensemble des cliques de ${\cal C}^i$ de taille sup\'erieure ou \'egale \`a $3$ auxquelles le sommet $z$ appartient.
+Notons que, par d\'efinition et par construction, chaque paire de cliques dans ${\cal C}(z_i)$ n'a que $z_i$ comme sommet commun et que $S(z_i)$ est l'union des voisins $v$ de $z_i$ dans des cliques $\{v,z_i\} \in {\cal C}^i$ de taille $2$ et des voisins $v$ de $z_i$ tels que l'ar\^ete $[z_i,v]$ n'est couverte par aucune clique de ${\cal C}^i$.
+\begin{equation}
+C(z_i) = \{C_i, i \in [1,k] \mid  |C_i| \ge 3 \mbox{ } \&  \mbox{ } C_i \in {\cal C}^i \} 
+\end{equation}
+\begin{equation}
+S(z_i) = \{v \in \Gamma_{G_M}(z_i) \mid \{v,z_i\} \in {\cal C}^i\} \cup  \{ v \in \Gamma_{G_M}(z_i) \mid \nexists C \in {\cal C}^{i} , [z_i,v] \in E_M(C) \}
+\end{equation}
+
+\begin{definition}
+Deux cliques $C$ et $C'$ de ${\cal C}(z_i)$ sont {\em contractables} si aucune ar\^ete $[u,v]$ de $E_C^i$ telle que $u \in C$ et $v \in C'$ n'est couverte par une clique (autre que ${u,v}$) dans $\cal C$.
+Un ensemble de cliques de $\cal C$ est contractable si tous les cliques sont deux \`a deux contractables.
+\end{definition}
+% mettre un exemple de cliques contractables et aussi ce cas C et $emptyset$ sont contractables
+
+\begin{definition}
+Une clique $C \in C_i$ est {\em voisine} de $z_i$ si $C \notin {\cal C}(z_i)$ et $card(C \cap S(z_i)) \ge 2$.
+La d\'ependance d'une clique $C$ voisine de $z_i$ est l'ensemble $D_{z_i}(C) \subset {\cal C}(z_i)$ tel que $C' \in D_{z_i}(C)$ si et seulement si  $C' \cap C \cap \Gamma_{G_M}(z_i) \ne \emptyset$.
+\newline
+Une clique $C$ est {\em augmentante} pour le sommet $z_i$ si et seulement si elle est voisine de $z_i$ et  $D_{z_i}(C)$ est vide  ou $D_{z_i}(C) \cup \{C\}$ est contractable.
+\begin{equation}
+voisine(z_i) = \{C \in {\cal C}^i \mbox{ } \mid \mbox{ } C \notin C(z_i) \mbox{ } \& \mbox{ } card(C \cap S(z_i)) \ge 2 \} \newline
+\end{equation}
+\begin{equation}
+D_{z_i}(C) = \{ C' \in C(z_i) \mbox{ } \mid  \mbox{ } C' \cap C \cap \Gamma_{G_M}(z_I) \ne \emptyset \}
+\end{equation}
+\end{definition}
+% mettre un exemple de cliques voisine et dependantes.
+
+On appelle {\em  augmentation} du sommet $z_i$ l'union d'une clique augmentante  $C$ pour $z_i$ et d'une constraction de cliques de $D_{z_i}(C)$.
+
+Un exemple de clique augmentante $C1$ pour le sommet $z_i$ est donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}, avec $D_{z_i}(C1) = \{C2\}$.
+Par contre, la clique C6 ne peut pas \^etre augmentante \`a cause de l'appartenance de l'ar\^ete $[u,v]$ \`a la clique $C7$ de $C^i$. Ce qui rend impossible toute contraction entre $C6$ et $C4$
+\begin{figure}[htb!]
+\centering
+\includegraphics[scale=0.450]{./correctionGraph.eps} \vspace{-0.5em}
+\caption{un exemple de compression de cliques}
+\label{exempleAlgoCorrectionGraphe}
+\end{figure}
+
+
+\begin{definition}
+On appelle {\em compression} du sommet $z_i$ un triplet ($\pi_1$, $\pi_2$ et $\pi_s$) d\'efini par : 
+\begin{itemize}
+	\item $\pi_1$ (resp. $\pi_2$) peut \^etre  chacun d'une des formes suivantes :
+	\begin{enumerate}
+		\item l'union de $z_i$, d'un sous-ensemble $C_1$ (resp. $C_2$) de cliques de ${\cal C}(z_i)$ tel que toute paire $C$ et $C'$ de $C_1$ (resp. $C_2$) est contractable et d'un sous-ensemble $S_1$ (resp. $S_2$) de sommets $v \in S(z_i)$ n'appartenant \`a aucune clique de $C_1$ (resp. $C_2$) tel que
+		$$ \forall v \in S_1,~\forall x \in C_1, \not\exists C' \in {\cal C}~t.q.~card(C')>2~~et~~\{v,x\} \subset C'$$
+		(ce qui fait que \{v,x\} peut etre une clique de ${\cal C}^i$).
+		\item une augmentation du sommet $z_i$
+	\end{enumerate}
+	\item $\pi_1$ et $\pi_2$ ne peuvent pas \^etre simultan\'ement r\'eduits \`a $\{z_i\}$ et $\pi_1 \cap \pi_2 = \{z_i\}$,
+	\item $\pi_S=\Gamma_{G_M}(z_i)-~((\pi_1 \cap \Gamma_{G_M}(z_i) ) \cup(\pi_2 \cap \Gamma_{G_M}(z_i) ))$ tel que l'ensemble des ar\^etes  $\{[z_i,v]\in E_{M}^{i}:~v\in \pi_S\}$ n'est pas d\'econnectant.
+	\item le triplet $\pi_{1} \cap \Gamma_{G_M}(z_i)$, $\pi_{2} \cap \Gamma_{G_M}(z_i)$, $\pi_{S} \cap \Gamma_{G_M}(z_i)$  est une 3-partition de $\Gamma_{G_M}(z_i)$
+\end{itemize}
+\end{definition}
+Il existe toujours une telle compression, ne serait-ce que 
+$\pi_1 = \{z_i\} \cup C_i \in C(z_i)$, 
+$\pi_2 =  \emptyset$,
+$\pi_s = \gamma_{G_M}(z_i) -(\gamma_{G_M}(z_i) \cup C_i) $  si ${\cal C}(z_i)$ n'est pas vide.
+Sinon, 
+$\pi_1 = \{z_i\} \cup \{ v \in \gamma_{G_M}(z_i)  \} $, 
+$\pi_2 =  \emptyset$,
+$\pi_s = \gamma_{G_M}(z_i) - \{v\} $
+est aussi une compression.
+Un exemple de compression est aussi donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}.
+Le co\^ut $c(T)$ d'une compression $\pi_{1},\pi_{2},\pi_{S}$ est d\'efini par : 
+$$c(T) = | \{\{u,v\} \in \pi_{1}:~[u,v]\not\in E_{M}^{i}\}| + |\{\{u,v\} \in \pi_2:~[u,v]\not\in E_{M}^{i}\}| +~ |\pi_S| $$
+Dans l'exemple de la figure \ref{exempleAlgoCorrectionGraphe}(a), autour d'un sommet $z_i$, l'ensemble $C(z_i)$ contient les cliques $C2$, $C3$,$C4$ et $C5$.
+Les cliques $C5$ et $C4$ ne sont pas contractables, \`a cause de l'existence de $C6$ dans ${\cal C}_i$.
+La clique $C1$ est voisine de $z_i$ et $D_{z_i}(C1) = \{C2\}$.
+L'exemple de compression qui est donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}(b) est $\pi_1 = C1 \cup C2$ (une augmentation), $\pi_2 = C3 \cup C4$ (ces deux cliques \'etant contractables), et $\pi_s = \{x\}$.
+Le co\^ut  de cette compression est $10$, $10$ \'etant le nombre d'ar\^etes en pointill\'e plus l'ar\^ete supprim\'ee $[x,z_i]$.
+\newline
+
+Soit  $c(T)$ le co\^ut minimum d'une compression $T$ de $z_i$.
+Le but est de modifier $G_M$ afin que $z_i$ puisse \^etre couvert par une ou deux cliques issues de $\pi_1$ et $\pi_2$.
+Pour cela, le co\^ut de cette modification $c(T)$ tient compte des ar\^etes \`a ajouter (li\'ees \`a $\pi_1$ et $\pi_2$) et \`a supprimer (li\'ees \`a $\pi_s$).
+\begin{equation}
+c(T) = \sum_{ \{u,v\} \subseteq \pi_1: [u,v] \notin E_M^i } \phi^{+}(u,v) + \sum_{ \{u,v\} \subseteq \pi_2: [u,v] \notin E_M^i } \phi^{-}(u,v) + \sum_{ v \in \pi_s } \phi^{-}(u,v)
+\end{equation}
+Nous \'evaluons les performances des diff\'erents couples de fonctions $\phi^{+}$ et $\phi^{-}$ dans la section \ref{simulationGraphesTheoriquesIourtes}.
+\newline
+Ainsi, {\bf appliquer une compression} $T = \pi_1, \pi_2, \pi_s$ consiste \`a ajouter dans $E_M^i$ les ar\^etes d\'efinies par les ensembles de paires $\{\{u,v\} \in \pi_1:~[u,v]\not\in E_{M}^{i}\}$ (qui seront couvertes par la clique $\pi_1$) et $\{\{u,v\} \in \pi_2:~[u,v]\not\in  E_{M}^{i}\}$ (qui seront couvertes par la clique $\pi_2$) et \`a supprimer les ar\^etes $\{[z_i,v] \in  E_{M}^{i}:~v\in \pi_S\}$. 
+\newline
+D\~es lors, le sommet $z_i$ appartient aux deux cliques $\pi_1$ et $\pi_2$.
+On proc\`ede alors aux mises \`a jour suivantes pour obtenir ${\cal C}^{i+1}$ et $E_M^{i+1}$ :
+\begin{itemize}
+\item supprimer toutes les cliques ${\cal C}_{z_i}$ couvertes par $\pi_1$ dans  ${\cal C}^{i}$.
+\item supprimer toutes les cliques ${\cal C}_{z_i}$ couvertes par $\pi_2$ dans  ${\cal C}^{i}$.
+\item supprimer toutes les cliques de cardinalit\'e $2$ couvertes par $\pi_1$ et $\pi_2$ dans  ${\cal C}^{i}$.
+\item ajouter $\pi_1$ et $\pi_2$ dans ${\cal C}^{i}$, supprimer de $E_M^{i+1}$ toutes les ar\^etes  $\{[z_i,v] \in E_M^{i}:~v\in \pi_S\}$.
+\item Affecter $Cliq(z)$ \`a $1$ (si $\pi_1$  ou $\pi_2$ est vide) ou $2$ (sinon).
+\end{itemize}
+Cette proc\'edure a les propri\'et\'es suivantes :
+\begin{property}
+Consid\'erons une application d'une compression,
+Soit ${\cal C}^{i+1}$  l'ensemble obtenu \`a partir de ${\cal C}^{i}$ apr\`es  mise \`a jour selon cette application.
+\begin{itemize}
+	\item Tout sommet de $G_M$ couvert par une ou deux cliques dans ${\cal C}^{i}$ le reste dans ${\cal C}^{i+1}$.
+	\item Toute ar\^ete couverte par une et une seule clique dans ${\cal C}^{i}$ et qui n'est pas supprim\'ee le reste dans ${\cal C}^{i+1}$.
+	\item Le sommet $z_i$ est couvert par une ou deux cliques dans ${\cal C}^{i+1}$ (le nombre de sommets ainsi couverts augmente de $1$ par rapport \`a celui dans ${\cal C}^{i}$).
+\end{itemize}
+\end{property}
+
+Ainsi, pour chaque sommet $z_i$ pris dans l'ordre $O_z$, on consid\`ere une compression de co\^ut minimum $c_m^i$ et on l'applique.
+La propri\'et\'e ci-dessus garantit qu'\`a l afin du processus, on obtient un graphe de corr\'elation $G_M^t = (V_M, E_M^t)$ dont l'ensemble $\cal C$ modifi\'e est une line-couverture.
+Consid\'erons $diff(G_M^0, G_M^t ) = | (E_M^0 \cup E_M^t)  - (E_M^0 \cap E_M^t) |$.
+La distance-line v\'erifie  
+$$DL( G_{M}^{0}, G_{M}^{t}) \le  diff(G_M^0, G_M^t ) $$
+Notons que lors d'une \'etape $j > 1$, le sommet $z_j$ et son voisinage se retrouve \^etre couvert par une ou deux cliques suite au traitement des $j-1$ sommets pr\'ec\'edents, aucune compression ne lui est appliqu\'ee (on consid\`ere la compression identit\'e) et donc 
+$c_{m}^{i} = 0$.
