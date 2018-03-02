@@ -1,0 +1,16 @@
+L'algorithme de correction traite au plus une fois chaque sommet du graphe.
+La complexit\'e de traitement de chaque sommet est exponentiel en fonction du degr\'e de chaque sommet et des cliques auxquelles il appartient, la encore en fonction  de son degr\'e en taille et en nombre.
+L'algorithme global (couverture et correction) est donc pseudo-polynomial en fonction du degr\'e du graphe.
+\newline
+
+Nous mettons une conjecture sur le comportement de l'algorithme.
+Etant donn\'e un graphe de d\'epart, une ex\'ecution de l'algorithme est un ordre dans lequel seront trait\'es les sommets dans l'algorithme de couverture, puis un ordre dans lequel seront pris les sommets $z \in sommets\_1$.
+\newline
+Consid\'erons un graphe de corr\'elation $G_M$ n'\'etant pas isomorphe \`a un graphe de la figure \ref{graphe2Couverture}. On dira que $G_M$ est non-ambigu.
+
+Deux ar\^etes $[u,v]$ et $[u',v']$ de $G_M$ seront dit {\bf clique-independantes} si et seulement si il n'existe pas de cliques $C$ dans la line-couverture  de $G_M$ telle que 
+$C \cap \{u,v\} \cap \{u',v'\} \ne \emptyset$
+
+\begin{conjecture}
+Si $G'=(V, E')$ est un graphe obtenu en supprimant un ensemble d'ar\^etes deux \`a deux clique-independantes d'un graphe de corr\'elation non-ambigu $G_M=(V,E_M)$, alors il existe une ex\'ecution de l'algorithme qui transforme $G'$ en $G_M$
+\end{conjecture}
