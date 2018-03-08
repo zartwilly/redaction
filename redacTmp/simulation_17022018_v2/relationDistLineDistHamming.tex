@@ -1,0 +1,45 @@
+Les r\'eseaux r\'eelles, dont nous poss\'edons les mesures de flots sur les arcs, sont inconnus.
+La distance de Hamming est donc impossible \`a d\'eterminer.
+\'Etant donn\'ee que nous avons le line graphe $G_{k,\alpha}$ du r\'eseau de flots dans nos simulations, nous pouvons calculer les distances de Hamming et line. 
+\newline
+La distance line est la distance de Hamming minimum entre $LG$ et $LG_{k,\alpha}$ pendant la correction des sommets. 
+Elle compare les line graphes obtenus $LG_{k,\alpha}$ apr\'es correction du graphe $G_{k,\alpha}$ pour en fournir un line graphe dont la correction des sommets est de co\^ut minimum.
+\newline
+Nous calculons la corr\'elation entre les distances line et de Hamming \`a partir de la formule \ref{correlation_line_hamming}.
+%\begin{multline}
+\begin{equation}
+	corr_{k,\alpha} =  \frac{ | moy\_DL_{k, \alpha} - moy\_DH_{k, \alpha} | }{ max(moy\_DL_{k, \alpha},  moy\_DH_{k, \alpha}) };
+	\\
+	corr_{k} = \sum_{\alpha = 1}^{5}corr_{k,\alpha} ;
+	\\
+	F_k (x) = P(corr_{k} \le x ) 
+\label{correlation_line_hamming}
+\end{equation}
+%\end{multline}
+avec $x \in [0,1]$ une valeur de corr\'elation et $k$ le nombre d'erreurs de corr\'elation. 
+\newline
+Sur la figure \ref{dh_vs_dl_p_05}, est repr\'esent\'e la fonction de repartition $F_k$ dans laquelle nous avons, en absicce, la corr\'elation entre les distances et, en ordonn\'e, le pourcentage de graphes dont la corr\'elation $corr$ est inf\'erieure \`a $x$. 
+%% ------ pas encore REPROGRAMMER ===> a revoir urgemment
+\begin{figure}[htb!] 
+\centering
+%\includegraphics[scale=0.35]{comparaison_entre_fct_cout_et_methodes_correction/correlation_dh_dl_p_05.jpeg}
+%\includegraphics[scale=0.35]{comparaison_entre_fct_cout_et_methodes_correction/correlation_dh_dl_p_05.jpeg}
+\caption{ distance line versus distance de Hamming pour $k$ erreurs de corr\'elation et $p = 0.5$ }
+\label{dh_vs_dl_p_05} 
+\end{figure}
+%% ----- pas encore REPROGRAMMER ===> a revoir urgemment
+En effet si $corr_k = 1$ alors il n'existe aucune corr\'elation entre les distances line et de Hamming. Cela signifie que le line graphe fourni $LG_{k}$ est  le veritable line graphe de $LG$ sur notre r\'eseau de flots $G$ ($LG_{k} = LG$). 
+De m\^eme, si $corr_k = 0$ alors les distances line et de Hamming sont identiques. Cela signifie que ajouter/supprimer ces ar\^etes au line graphe $LG_k$ produit le line graphe de notre r\'eseau ($LG_{k} \neq LG$) et que $LG_{k}$ et $LG$ sont differents de $k$ ar\^etes quand $k < 6$.
+\newline
+Donc si $F_k(1) \approx 0$ alors le nombre de corr\'elation $corr_k = 1$ est tr\`es \'elev\'e. Cela s'illustre sur la figure \ref{dh_vs_dl_p_05} par les courbes de $k=[2,5]$. 
+Par exemple $F_5(1) \approx 10\%$ signifie que nous avons $70-10=60\%$ line graphes $LG_k$ correspondant aux line graphes $LG$ des r\'eseaux. ($corr_5 \approx 60\%$ et $70\%$ le pourcentage de corr\'elations \'egale \`a $1$).
+\newline
+Par compte, si  $F_k(1)$ est tr\`es \'elev\'e, cela signifie que le nombre de $corr_k = 1$ est tr\`es faible entrainant une corr\'elation tr\`es forte en les distances line et de Hamming.
+C'est notre constat avec les courbes de $k = [10,20]$ dans lesquelles nous avons une  croissante continue en fonction de l'augmentation des valeurs de corr\'elations.
+\newline
+Nous subdivisons nos courbes en deux cat\'egories:
+\begin{itemize}
+	\item Celle dont on a une corr\'elation entre distances lines et de Hamming (courbes de $k = [10,20]$).
+	\item celle dont on a aucune corr\'elation entre ces distances parce que nous fournissons le line graphe du r\'eseau c'est-\`a-dire  $LG = LG_k$ (courbes de $k = [2,5]$). 
+\end{itemize}
+Nous pouvons conclure que l'utilisation de la distance line est une bonne m\'etrique pour juger de la qualit\'e de notre algorithme de correction en absence de la distance de Hamming parce que une distance line inf\'erieure \`a $5$ fournit le line graphe $LG$ du r\'eseau de flots tandis qu'une distance sup\'erieure \`a $10$ correspond au nombre de corr\'elations \`a modifier pour delivrer le line graphe $LG$. 

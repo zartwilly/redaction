@@ -28,7 +28,7 @@
 % \title{Mod\`ele de Donn\'ees}
 % \author{Willy Ehounou}
  %\date{01/06/15}
-\title{Chapitre6 : Simulations sur donn\'ees al\'eatoires}
+\title{Chapitre6 : Exp\'erimentations sur des donn\'ees al\'eatoires}
 \author{Wilfried Ehounou}
 \date{\oldstylenums{\today}} 
 
@@ -151,7 +151,7 @@ Un m\'ethode de correction est l'ordre dans lequel on traite des sommets non cou
 La fonction de co\^ut d'un sommet est le co\^ut de chaque ar\^ete ajout\'ee ou supprim\'ee \`a son voisinage lorsqu'on applique l'algorithme de correction sur ce sommet.
 \end{definition}
 
-\subsection{Objectif}
+\subsection{Objectifs}
 Le but de cette \'etude est de montrer que nos algorithmes (couverture et correction) proposent
 toujours un line-graphe connexe de distance de Hamming minimale 
 \`a condition que la matrice du graphe de corr\'elation contienne $k<6$ d'erreurs de corr\'elations
@@ -163,6 +163,7 @@ En outre, nous montrerons la relation existance entre la distance line et celle 
 %# 			(protocole de simulation)					  #
 %##########################################
 \section{G\'en\'eration d'un graphe de corr\'elation}
+\label{generationReseauxFlots}
 Pour obtenir un graphe de corr\'elation $G'$, nous allons g\'en\'erer un r\'eseau de flots et   lui associer des mesures \'electriques sur chacune des ar\^etes. Ensuite, nous produirons la matrice de  corr\'elation binaire $matE$ li\'ee \`a ce r\'eseau. Enfin nous introduirons $k$ erreurs de corr\'elations dans la matrice $matE$.
 
 \subsection{Construction d'un r\'eseau \'energ\'etique $G$}
@@ -224,7 +225,16 @@ L'utilisation de lois de probabilit\'e a pour but de montrer l'impact de seuil $
 %#               correction graphes de correlation avec erreurs          #
 %##########################################
 \section{Correction d'un graphe de corr\'elation}
-\input{ajout_a_relecture_dominique_a_effacer}
+L'initialisation de certains param\^etres est la phase primordiale dans nos algorithmes pour obtenir un line-graphe. Les valeurs de ces param\^etres sont choisies apr\`es l'exp\'erimentation sur des r\'eseaux g\'en\'er\'es, decrit dans la section \ref{generationReseauxFlots}.
+
+\subsection{Protocole d'exp\'erimentation}
+\input{protocoleExperimentation}
+\subsection{Analyses et interpr\'etations}
+\input{analysesInterpretation}
+\subsubsection{Distribution de la m\'ethode de permutation al\'eatoire}
+\input{methodePermutationAleatoire}
+\subsubsection{Relation entre la distance line et la distance de Hamming}
+\input{relationDistLineDistHamming}
 
 %#############################
 %#               correction graphes iourtes           #
