@@ -14,6 +14,7 @@ Nous consid\'erons un ordre $O_z = [z_1, z_2, \cdots, z_t]$ de sommets de $somme
 Il en suit que l'ordre a une influence sur le line-graphe fourni parce que la correction modifie le voisinage des sommets. Il est montr\'e dans la chapitre \ref{simulationsTheoriques}.
 \newline
 Soit $E_M^i$ l'ensemble des ar\^etes de $G_M$ apr\`es le traitement des $i-1$ premiers sommets dans l'ordre $O_z$. De m\^eme, on note ${\cal C}^i$ l'ensemble des cliques de $G_M$ \`a l'\'etape $i$ et donc $E_M^1 = E_M$ et ${\cal C} = {\cal C}^1$.
+La figure 
 \newline
 
 Soient $z_i$ le i-i\`eme sommet et ${\cal C}(z) = \{C_1, \cdots, C_k\}$ l'ensemble des cliques de ${\cal C}^i$ de taille sup\'erieure ou \'egale \`a $3$ auxquelles le sommet $z$ appartient.
@@ -30,9 +31,11 @@ Deux cliques $C$ et $C'$ de ${\cal C}(z_i)$ sont {\em contractables} si aucune a
 Un ensemble de cliques de $\cal C$ est contractable si tous les cliques sont deux \`a deux contractables.
 \end{definition}
 % mettre un exemple de cliques contractables et aussi ce cas C et $emptyset$ sont contractables
+Dans la figure \ref{exempleAlgoCorrectionGraphe}(a), les paires de cliques $(C3, C4)$, $(C2, C3)$ sont contractables car il n'y a aucune ar\^etes entre les sommets $5$ et $6$ dans la premi\`ere paire et dans la seconde paire, les sommets $3$ et $4$ n'ont aucune ar\^etes entre eux . 
+Cependant, la paire $(C4, C6)$ n'est pas contractable car l'ar\^ete $[z_i,10]$ est couverte par la clique $C5$. De m\^eme, la clique $C1$ n'appartenant pas \`a $C(z_i)$ entraine que les cliques $C1$ et $C2$ ne sont pas contractables.
 
 \begin{definition}
-Une clique $C \in C_i$ est {\em voisine} de $z_i$ si $C \notin {\cal C}(z_i)$ et $card(C \cap S(z_i)) \ge 2$.
+Une clique $C \in C_i$ est {\em voisine} de $z_i$ si $C \notin {\cal C}(z_i)$ et $card(C \cap S(z_i)) \ge 1$.
 La d\'ependance d'une clique $C$ voisine de $z_i$ est l'ensemble $D_{z_i}(C) \subset {\cal C}(z_i)$ tel que $C' \in D_{z_i}(C)$ si et seulement si  $C' \cap C \cap \Gamma_{G_M}(z_i) \ne \emptyset$.
 \newline
 Une clique $C$ est {\em augmentante} pour le sommet $z_i$ si et seulement si elle est voisine de $z_i$ et  $D_{z_i}(C)$ est vide  ou $D_{z_i}(C) \cup \{C\}$ est contractable.
@@ -40,19 +43,27 @@ Une clique $C$ est {\em augmentante} pour le sommet $z_i$ si et seulement si ell
 voisine(z_i) = \{C \in {\cal C}^i \mbox{ } \mid \mbox{ } C \notin C(z_i) \mbox{ } \& \mbox{ } card(C \cap S(z_i)) \ge 2 \} \newline
 \end{equation}
 \begin{equation}
-D_{z_i}(C) = \{ C' \in C(z_i) \mbox{ } \mid  \mbox{ } C' \cap C \cap \Gamma_{G_M}(z_I) \ne \emptyset \}
+D_{z_i}(C) = \{ C' \in C(z_i) \mbox{ } \mid  \mbox{ } C' \cap C \cap \Gamma_{G_M}(z_i) \ne \emptyset \}
 \end{equation}
 \end{definition}
 % mettre un exemple de cliques voisine et dependantes.
 
 On appelle {\em  augmentation} du sommet $z_i$ l'union d'une clique augmentante  $C$ pour $z_i$ et d'une constraction de cliques de $D_{z_i}(C)$.
-
-Un exemple de clique augmentante $C1$ pour le sommet $z_i$ est donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}, avec $D_{z_i}(C1) = \{C2\}$.
-Par contre, la clique C6 ne peut pas \^etre augmentante \`a cause de l'appartenance de l'ar\^ete $[u,v]$ \`a la clique $C7$ de $C^i$. Ce qui rend impossible toute contraction entre $C6$ et $C4$
+\newline
+Dans notre exemple, consid\'erons  $\overbar{C}(z_i) = \{C1, C6\}$  les cliques n'appartenant pas \`a $C(z_i)$ et $S(z_i) = \{10,1\}$.
+L'ensemble des cliques voisines \`a $z_i$ est $voisine(z_i) = \{C1, C6\}$ parce que l'intersection de $C1$ et $S(z_i)$ donne un sommet $\{1\}$ et celui de $C6$ et $S(z_i)$ donne un sommet $\{10\}$
+($C1 \cap S(z_i) = \{1,2,11\} \cap \{10,1\} = \{1\}$,
+$C6 \cap S(z_i) = \{8,9,10\} \cap \{10,1\} = \{10\}$
+).
+Par ailleurs, la dependance de la clique $C1$ est $D_{z_i}(C1) = C2$ ($C1 \cap C2 \cap \Gamma_{G_M}(z_i) = \{2\}$) et celle de $C6$ est $D_{z_i}(C6) = C4$ ($C6 \cap C4 \cap \Gamma_{G_M}(z_i) = \{8\}$). 
+Nous en deduisons que la clique $C1$ est {\em augmentante} car  $C1$ est contractable avec $C2$ et est voisine de $z_i$. De m\^eme, la clique $C6$ est {\em augmentante} car $C6$ est voisine de $z_i$ et puisque l'ar\^ete $[z_i,10]$ forme la clique $C5$, la paire $(C6,C4)$ est contractable.
+Une {\em augmentation} de $z_i$ est soit $\{z_i\} \cup C1 \cup C2$ ou soit $\{z_i\} \cup C4 \cup C6$.
+%Un exemple de clique augmentante $C1$ pour le sommet $z_i$ est donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}, avec $D_{z_i}(C1) = \{C2\}$.
+%Par contre, la clique C6 ne peut pas \^etre augmentante \`a cause de l'appartenance de l'ar\^ete $[u,v]$ \`a la clique $C7$ de $C^i$. Ce qui rend impossible toute contraction entre $C6$ et $C4$
 \begin{figure}[htb!]
 \centering
 \includegraphics[scale=0.450]{./correctionGraph.eps} \vspace{-0.5em}
-\caption{un exemple de compression de cliques}
+\caption{(a) Le sommet $z$ et son voisinage avec les cliques qui le couvrent , (b) un exemple de compression de cliques:  les sommets \`a l'interieur des rectangles rouges et verts forment les nouvelles cliques couvrant $z$.}
 \label{exempleAlgoCorrectionGraphe}
 \end{figure}
 
@@ -75,19 +86,20 @@ On appelle {\em compression} du sommet $z_i$ un triplet ($\pi_1$, $\pi_2$ et $\p
 Il existe toujours une telle compression, ne serait-ce que 
 $\pi_1 = \{z_i\} \cup C_i \in C(z_i)$, 
 $\pi_2 =  \emptyset$,
-$\pi_s = \gamma_{G_M}(z_i) -(\gamma_{G_M}(z_i) \cup C_i) $  si ${\cal C}(z_i)$ n'est pas vide.
+$\pi_s = \Gamma_{G_M}(z_i) -(\Gamma_{G_M}(z_i) \cup C_i) $  si ${\cal C}(z_i)$ n'est pas vide.
 Sinon, 
-$\pi_1 = \{z_i\} \cup \{ v \in \gamma_{G_M}(z_i)  \} $, 
+$\pi_1 = \{z_i\} \cup \{ v \in \Gamma_{G_M}(z_i)  \} $, 
 $\pi_2 =  \emptyset$,
-$\pi_s = \gamma_{G_M}(z_i) - \{v\} $
+$\pi_s = \Gamma_{G_M}(z_i) - \{v\} $
 est aussi une compression.
 Un exemple de compression est aussi donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}.
 Le co\^ut $c(T)$ d'une compression $\pi_{1},\pi_{2},\pi_{S}$ est d\'efini par : 
 $$c(T) = | \{\{u,v\} \in \pi_{1}:~[u,v]\not\in E_{M}^{i}\}| + |\{\{u,v\} \in \pi_2:~[u,v]\not\in E_{M}^{i}\}| +~ |\pi_S| $$
-Dans l'exemple de la figure \ref{exempleAlgoCorrectionGraphe}(a), autour d'un sommet $z_i$, l'ensemble $C(z_i)$ contient les cliques $C2$, $C3$,$C4$ et $C5$.
-Les cliques $C5$ et $C4$ ne sont pas contractables, \`a cause de l'existence de $C6$ dans ${\cal C}_i$.
-La clique $C1$ est voisine de $z_i$ et $D_{z_i}(C1) = \{C2\}$.
+%Dans l'exemple de la figure \ref{exempleAlgoCorrectionGraphe}(b), autour d'un sommet $z_i$, l'ensemble $C(z_i)$ contient les cliques $C2$, $C3$,$C4$ et $C5$.
+%Les cliques $C5$ et $C4$ ne sont pas contractables, \`a cause de l'existence de $C6$ dans ${\cal C}_i$.
+%La clique $C1$ est voisine de $z_i$ et $D_{z_i}(C1) = \{C2\}$.
 L'exemple de compression qui est donn\'e dans la figure \ref{exempleAlgoCorrectionGraphe}(b) est $\pi_1 = C1 \cup C2$ (une augmentation), $\pi_2 = C3 \cup C4$ (ces deux cliques \'etant contractables), et $\pi_s = \{x\}$.
+Les cliques C1 et C2 sont compress\'ees en ajoutant les ar\^etes $[1,3]$ et $[z_i,11]$. De m\^eme, les cliques C3 et C4 sont compress\'ees en ajoutant les ar\^etes  $[4,8]$, $[5,8]$, $[7,4]$, $[7,5]$, $[6,4]$ et $[6,5]$. La clique C5 est supprim\'ee afin que $z_i$ ne soit pas couvert par trois cliques.
 Le co\^ut  de cette compression est $10$, $10$ \'etant le nombre d'ar\^etes en pointill\'e plus l'ar\^ete supprim\'ee $[x,z_i]$.
 \newline
 
@@ -101,7 +113,7 @@ Nous \'evaluons les performances des diff\'erents couples de fonctions $\phi^{+}
 \newline
 Ainsi, {\bf appliquer une compression} $T = \pi_1, \pi_2, \pi_s$ consiste \`a ajouter dans $E_M^i$ les ar\^etes d\'efinies par les ensembles de paires $\{\{u,v\} \in \pi_1:~[u,v]\not\in E_{M}^{i}\}$ (qui seront couvertes par la clique $\pi_1$) et $\{\{u,v\} \in \pi_2:~[u,v]\not\in  E_{M}^{i}\}$ (qui seront couvertes par la clique $\pi_2$) et \`a supprimer les ar\^etes $\{[z_i,v] \in  E_{M}^{i}:~v\in \pi_S\}$. 
 \newline
-D\~es lors, le sommet $z_i$ appartient aux deux cliques $\pi_1$ et $\pi_2$.
+D\`es lors, le sommet $z_i$ appartient aux deux cliques $\pi_1$ et $\pi_2$.
 On proc\`ede alors aux mises \`a jour suivantes pour obtenir ${\cal C}^{i+1}$ et $E_M^{i+1}$ :
 \begin{itemize}
 \item supprimer toutes les cliques ${\cal C}_{z_i}$ couvertes par $\pi_1$ dans  ${\cal C}^{i}$.

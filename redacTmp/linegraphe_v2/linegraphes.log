@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.23)  7 JAN 2018 16:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.23)  8 MAR 2018 11:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -282,6 +282,9 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/03/03 v2.15a AMS math features
 \@mathmargin=\skip46
@@ -376,18 +379,18 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (./linegraphes.aux)
 \openout1 = `linegraphes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -440,22 +443,22 @@ LaTeX Font Info:    ... okay on input line 56.
 \c@lstlisting=\count169
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 57.
+LaTeX Font Info:    Try loading font information for U+msa on input line 58.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 57.
+LaTeX Font Info:    Try loading font information for U+msb on input line 58.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 57.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 58.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <14.4> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 57.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 58.
  [1
 
 
@@ -642,18 +645,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--4
 
  []
 
-
-LaTeX Warning: File `typeSommetsEnCommun.eps' not found on input line 9.
-
-Package epstopdf Info: Source file: <typeSommetsEnCommun.eps>
+Package epstopdf Info: Source file: </home/willy/Documents/latexDoc/redactionTh
+ese/fusion_fichiers/images_fusionChapitres/typeSommetsEnCommun.eps>
+(epstopdf)                    date: 2017-09-09 10:30:54
+(epstopdf)                    size: 58853 bytes
 (epstopdf)             Output file: </home/willy/Documents/latexDoc/redactionTh
 ese/fusion_fichiers/images_fusionChapitres/typeSommetsEnCommun-eps-converted-to
 .pdf>
-(epstopdf)                    date: 2017-10-30 16:49:36
+(epstopdf)                    date: 2017-09-09 10:31:21
 (epstopdf)                    size: 9432 bytes
 (epstopdf)             Command: <repstopdf --outfile=/home/willy/Documents/late
 xDoc/redactionThese/fusion_fichiers/images_fusionChapitres/typeSommetsEnCommun-
-eps-converted-to.pdf typeSommetsEnCommun.eps>
+eps-converted-to.pdf /home/willy/Documents/latexDoc/redactionThese/fusion_fichi
+ers/images_fusionChapitres/typeSommetsEnCommun.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
 
@@ -748,17 +752,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--60
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 62--64
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 65--70
+[10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 63--65
 
  []
 
-[10] [11] [12]
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
+
+ []
+
+[12]
 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionCha
 pitres/courbe_similarite_selon_EJ_pour_epsilon_075.png, id=77, 578.16pt x 433.6
 2pt>
@@ -770,7 +774,7 @@ png)
 nChapitres/courbe_similarite_selon_EJ_pour_epsilon_075.png>
 Package pdftex.def Info: /home/willy/Documents/latexDoc/redactionThese/fusion_f
 ichiers/images_fusionChapitres/courbe_similarite_selon_EJ_pour_epsilon_075.png 
-used on input line 112.
+used on input line 113.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionCha
@@ -784,20 +788,20 @@ e png)
 nChapitres/courbe_epsilon_selon_nbreEJ_pour_similarite_1.png>
 Package pdftex.def Info: /home/willy/Documents/latexDoc/redactionThese/fusion_f
 ichiers/images_fusionChapitres/courbe_epsilon_selon_nbreEJ_pour_similarite_1.pn
-g used on input line 118.
+g used on input line 119.
 (pdftex.def)             Requested size: 281.84966pt x 187.89977pt.
 
 
 LaTeX Warning: Citation `decompositionEnCliques' on page 13 undefined on input 
-line 131.
+line 132.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--134
+Underfull \hbox (badness 10000) in paragraph at lines 131--135
 
  []
 
-) [13 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fus
-ionChapitres/courbe_similarite_selon_EJ_pour_epsilon_075.png>]
+[13 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusio
+nChapitres/courbe_similarite_selon_EJ_pour_epsilon_075.png>])
 (./algorithme_correction.tex
 Underfull \hbox (badness 10000) in paragraph at lines 61--65
 
@@ -847,28 +851,29 @@ Overfull \hbox (12.17659pt too wide) in paragraph at lines 106--107
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 115.
-[15 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusio
-nChapitres/correctionGraph-eps-converted-to.pdf>]
+[15]
 Underfull \hbox (badness 10000) in paragraph at lines 138--145
 
  []
 
-[16]) (./complexite_algorithme.tex
+[16 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusio
+nChapitres/correctionGraph-eps-converted-to.pdf>]) (./complexite_algorithme.tex
+
 Underfull \hbox (badness 10000) in paragraph at lines 55--59
 
  []
 
-) (./topologie_dag.tex [17]
+) (./topologie_dag.tex [17] [18]
 Underfull \hbox (badness 10000) in paragraph at lines 73--132
 
  []
 
-[18] [19]
+[19] [20]
 Underfull \hbox (badness 10000) in paragraph at lines 138--140
 
  []
 
-[20]) (./graphe_iourte.tex
+[21]) (./graphe_iourte.tex
 Package epstopdf Info: Source file: </home/willy/Documents/latexDoc/redactionTh
 ese/fusion_fichiers/images_fusionChapitres/grapheIourteG0.eps>
 (epstopdf)                    date: 2017-12-27 14:39:21
@@ -886,7 +891,7 @@ mages_fusionChapitres/grapheIourteG0.eps>
 Package epstopdf Info: Output file is already uptodate.
 
 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionCha
-pitres/grapheIourteG0-eps-converted-to.pdf, id=112, 376.40625pt x 382.42876pt>
+pitres/grapheIourteG0-eps-converted-to.pdf, id=115, 376.40625pt x 382.42876pt>
 File: /home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusi
 onChapitres/grapheIourteG0-eps-converted-to.pdf Graphic file (type pdf)
 
@@ -913,7 +918,7 @@ _fichiers/images_fusionChapitres/grapheIourteG01eExecution.eps>
 Package epstopdf Info: Output file is already uptodate.
 
 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusionCha
-pitres/grapheIourteG01eExecution-eps-converted-to.pdf, id=113, 870.25125pt x 48
+pitres/grapheIourteG01eExecution-eps-converted-to.pdf, id=116, 870.25125pt x 48
 7.8225pt>
 File: /home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusi
 onChapitres/grapheIourteG01eExecution-eps-converted-to.pdf Graphic file (type p
@@ -925,26 +930,29 @@ Package pdftex.def Info: /home/willy/Documents/latexDoc/redactionThese/fusion_f
 ichiers/images_fusionChapitres/grapheIourteG01eExecution-eps-converted-to.pdf u
 sed on input line 43.
 (pdftex.def)             Requested size: 496.04837pt x 278.0617pt.
-) [21]
+) [22]
 
-LaTeX Warning: Text page 22 contains only floats.
+LaTeX Warning: Text page 23 contains only floats.
 
-[22 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusio
+[23 </home/willy/Documents/latexDoc/redactionThese/fusion_fichiers/images_fusio
 nChapitres/grapheIourteG0-eps-converted-to.pdf> </home/willy/Documents/latexDoc
 /redactionThese/fusion_fichiers/images_fusionChapitres/grapheIourteG01eExecutio
 n-eps-converted-to.pdf>] (./linegraphes.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 6337 strings out of 494910
- 98341 string characters out of 6179836
- 173565 words of memory out of 5000000
- 9466 multiletter control sequences out of 15000+600000
+ 6351 strings out of 494910
+ 98645 string characters out of 6179836
+ 169646 words of memory out of 5000000
+ 9476 multiletter control sequences out of 15000+600000
  14380 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 42i,8n,39p,629b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,8n,39p,629b,348s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/te
@@ -960,10 +968,10 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on linegraphes.pdf (22 pages, 399368 bytes).
+Output written on linegraphes.pdf (23 pages, 399885 bytes).
 PDF statistics:
- 176 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
+ 179 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

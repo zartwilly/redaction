@@ -1,4 +1,4 @@
-Nous souhaitons non seulement v\'erifier if $G_M$ est un line-graphe mais aussi trouver le graphe racine de $G_M$, un DAG modelis\'e par un r\'eseau \'electrique sans ambiguit\'e.
+Nous souhaitons non seulement v\'erifier if $G_M$ est un line-graphe mais aussi trouver le graphe racine de $G_M$, un DAG modelis\'e par un r\'eseau \'electrique sans ambigu\"{i}t\'e.
 \newline 
 \begin{definition}
 	Le graphe $G_M$ est un graphe de corr\'elation ssi il est le line graphe d'un DAG.
@@ -17,14 +17,14 @@ Une ambigu\"{i}t\'e est un graphe isomorphe \`a l'un des graphes de la figure \r
 \end{figure}
 
 \begin{lemma}
-	Si un graphe de corr\'elation $G_M$ admet deux couvertures de corr\'elation, alors il existe au moins un sommet $u$ de $G_C$ tel que $G_{C}[\{u\} \cup \Gamma_{G_C}(u)]$ est une ambiguit\'e dont $u$ est le point.
+	Si un graphe de corr\'elation $G_M$ admet deux couvertures de corr\'elation, alors il existe au moins un sommet $u$ de $G_M$ tel que $G_{M}[\{u\} \cup \Gamma_{G_M}(u)]$ est une ambiguit\'e dont $u$ est le point.
 \end{lemma}
 	
 \begin{proof} 
 	Consid\'erons deux line-couvertures $C$ et $C'$ de $G_C$. 
-	Il existe au moins un sommet $v \in G_C[V]$ qui n'est pas couvert par la (ou les) m\^eme(s) clique(s) dans $C$ et $C'$.
-	Soient deux cliques $c_1$ et $c_2$ (potentiellement vide) partitionant $\{v\} \cup \Gamma_{G_C}(v)$ dans $\cal C$.
-	Consid\'erons deux autres cliques $c_3$ et $c_4$ diff\'erentes de $c_1$ et $c_2$ partitionant \'egalement $\{v\} \cup \Gamma_{G_C}(v)$ dans $\cal C$. \newline
+	Il existe au moins un sommet $v \in G_M[V]$ qui n'est pas couvert par la (ou les) m\^eme(s) clique(s) dans $C$ et $C'$.
+	Soient deux cliques $c_1$ et $c_2$ (potentiellement vide) partitionant $\{v\} \cup \Gamma_{G_M}(v)$ dans $\cal C$.
+	Consid\'erons deux autres cliques $c_3$ et $c_4$ diff\'erentes de $c_1$ et $c_2$ partitionant \'egalement $\{v\} \cup \Gamma_{G_M}(v)$ dans $\cal C$. \newline
 	Notons $c_{i,j}$ l'intersection de $c_{i}$ et $c_j$ pour tout $i \in \{1,2\}$ et $j \in \{3,4\}$. 
 	Chaque sommet $w \in c_{i,j}$ est couvert par au plus deux cliques de $G$ dans $\cal C$, dont la clique $c_i$.
 	Puisque $c_j$ est une clique alors ce sommet $w$ est voisin de tous les sommets de  $c_{i',j}$, pour $i' \ne i$.
@@ -34,7 +34,7 @@ Une ambigu\"{i}t\'e est un graphe isomorphe \`a l'un des graphes de la figure \r
 	Il est possible d'avoir $v_{1,3} = v_{1,4}$ ou $v_{2,3} = v_{2,4}$.
 	Si les deux \'egalit\'es sont v\'erifi\'ees, le sommet $v$ est alors couvert non pas par deux cliques mais par une seule de cardinalit\'e $3$.
 	Ainsi, les seuls cas possibles sont alors r\'esum\'es par la figure  \ref{graphe2Couverture}.
-	Le sommet $v$ est bien le point d'une ambigu\"{i}t\'e isomorphe \`a $G_C[\{u\} \cup \Gamma_{G_C}(u)]$.
+	Le sommet $v$ est bien le point d'une ambigu\"{i}t\'e isomorphe \`a $G_M[\{u\} \cup \Gamma_{G_M}(u)]$.
 \end{proof}
 
 Nous d\'eduisons le corollaire suivant :
