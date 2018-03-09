@@ -1,0 +1,16 @@
+% comparer les differentes methodes selon la description sur la methode aleatoire
+Nous recherchons la meilleure m\'ethode de correction parmi les cinq m\'ethodes \'enumer\'ees plus haut. 
+Pour ce faire, on dispose des distributions de distances line et de Hamming, des histogrammes, des fonctions de repartitions de ces distributions et aussi des moyennes de distances line/Hamming associ\'ees \`a $k$ corr\'elations \'erron\'ees pour chacune des m\'ethodes regroup\'ees dans les figures \ref{permut_distanceMoyenDLDH_k_0_5_aleatoire_p_05} et \ref{permut_distanceMoyenDLDH_k_5_9_aleatoire_p_05}.  
+Nous utilisons la moyenne des distances de Hamming pour la comparaison de m\'ethodes parce que la distance de Hamming permet d'\'evaluer la diff\'erence entre le graphe de base $LG$ et celui pr\'edit $LG_k$ par nos algorithmes et aussi nous connaissons les line-graphes associ\'es aux r\'eseaux \'electriques.\newline
+Rappelons que nous avons la probabilit\'e $p\_correl=0.5$ et la fonction de co\^ut est normal ($F_1$).
+La figure \ref{compareDifferentesMethodesCorrectionSommets_fct_cout_normal_p05} affiche les courbes  des diff\'erentes m\'ethodes pour des distances de Hamming moyenn\'ees en fonction des $k$ erreurs de corr\'elations.
+\newline
+Nous constatons  que la pire des m\'ethodes est celle de degr\'e minimum avec remise (en bleu avec un carr\'e) car elle est au dessus des autres et la meilleure est celle de {\em de permutation al\'eatoire} (en rouge avec un rond) car elle propose des line-graphes ayant  le nombre minimum d'ar\^etes diff\'erentes pour $ \forall k$.\newline
+\begin{figure}[htb!] 
+\centering
+% a changer par des chemins relatifs
+\includegraphics[scale=0.25]{simulation_comparaisonDifferentesMethodes_by_FonctDeCout_normal_500G_p_correl_05.jpeg}
+\caption{ Comparaison des diff\'erentes m\'ethodes de correction de sommets pour $k \in [1,9]$ corr\'elations modifi\'ees. Les courbes en bleu carr\'e, rouge carr\'ee, rouge rond, vert rond et jaune triangle sont associ\'ees respectivement aux m\'ethodes 1, 2, 3, 5, 4 }
+\label{compareDifferentesMethodesCorrectionSommets_fct_cout_normal_p05} 
+\end{figure}
+Nous retenons, pour la suite, la m\'ethode de {\bf permutation al\'eatoire} comme m\'ethode de correction des sommets n'appartenant \`a aucune couverture (sommets $\in sommets\_1$).
