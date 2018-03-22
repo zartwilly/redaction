@@ -21,7 +21,7 @@ Nous d\'efinissons quatre fonctions de co\^ut: unitaire (n=0), normal (n=1), qua
 ou $prob[(a_i,a_j)]^n$, la corr\'elation entre les ar\^etes $a_i$ et $a_j$, correspondant au co\^ut d'ajout de corr\'elations fausses n\'egatives, 
 $(1-prob[(a_i,a_j)])^n$ au co\^ut d'ajout de corr\'elations fausses positives.
 \newline
-\'Etant donn\'ee que nous avons utilis\'e des matrices binaires dans la g\'en\'eration de line graphes, nous assignons des probabilit\'es pour chaque type de corr\'elation tel que:
+\'Etant donn\'ee que nous avons utilis\'e des matrices binaires dans la g\'en\'eration de line-graphes, nous assignons des probabilit\'es pour chaque type de corr\'elation tel que:
 \begin{itemize}
 \item $prob[(a_i,a_j)] = [0, 0.5[ $ : corr\'elation vrai n\'egative i.e $0 \rightarrow 0$
 \item $prob[(a_i,a_j)] = [0.5, 0.79[ $: corr\'elation fausse n\'egative i.e $1 \rightarrow 0$
@@ -30,8 +30,8 @@ $(1-prob[(a_i,a_j)])^n$ au co\^ut d'ajout de corr\'elations fausses positives.
 \end{itemize}
 La figure \ref{compareDifferentesFonctionDeCout_p05} affiche les courbes des diff\'erentes fonctions de co\^ut selon les $k$ corr\'elations modifi\'ees pour $p\_correl = 0.5$.
 \newline
-Les $4$ courbes sont superpos\'ees pour $k\le5$ et au d\'el\`a de $k>5$, les courbes carr\'ee (n=2) et normal (n=1) ont les plus petites distances moyenn\'ees de Hamming.
-Pour $k>9$, la courbe unitaire (n=0) \'evolue de mani\`ere exponentielle tandis que les courbes quadratique (n=2) et normal (n=1) ont un rapport de $2$ entre les distances de Hamming et le nombre $k$ de corr\'elations modifi\'ees.
+Les $4$ courbes sont superpos\'ees pour $k<5$ et au d\'el\`a de $k\ge5$, les courbes carr\'ee (n=2) et normal (n=1) ont les plus petites distances moyenn\'ees de Hamming.
+Pour $k\ge9$, la courbe unitaire (n=0) \'evolue de mani\`ere exponentielle tandis que les courbes quadratique (n=2) et normal (n=1) ont un rapport de $2$ entre les distances de Hamming et le nombre $k$ de corr\'elations modifi\'ees.
 On en d\'eduit que la pire fonction de co\^ut est la fonction unitaire (n=0 en jaune).
 \newline
 Cependant, nous ne pouvons pas choisir la meilleure fonction de co\^ut car les fonctions des courbes {\em normal} et {\em quadratique} \'evoluent identiquement.
@@ -51,12 +51,12 @@ Afin de prioriser la modification des corr\'elations fausses, nous definisons un
 % definir la fonction de cloche et sa particularite
 La fonction {\em cloche} se d\'efinit ainsi:
 \begin{equation}
-	F_c = | 4\cdot((p-s) - (s-0.5))^2 |^{1.5}  
+	F_c = | 4\cdot((prob-s) - (s-0.5))^2 |^{1.5}  
 \end{equation}
 La fonction de co\^ut cloche est une fonction polynomiale de degr\'e $2$ qui applique des poids aux ar\^etes de sorte que les ar\^etes, dont les corr\'elations tendent vers le seuil, sont moins p\'enalis\'ees et les ar\^etes, dont les corr\'elations sont \'eloign\'ees du seuil, ne sont quasi jamais utilis\'ees pendant la phase de correction. 
 Les poids minimaux sont appliqu\'es pour les corr\'elations fausses tandis que les poids maximaux (= $1$) sont appliqu\'es aux bonnes corr\'elations
 %La fonction de co\^ut cloche est une fonction polynomiale de degr\'e $2$ qui applique les co\^uts les plus \'elev\'es aux corr\'elations exactes (c'est-\`a-dire $1$) et les co\^uts les plus faibles aux corr\'elations fausses.
-Cette fonction depend de la valeur de corr\'elation $p$ entre deux ar\^etes et du seuil $s$ \`a partir duquel on introduit des corr\'elations erron\'ees.
+Cette fonction depend de la valeur de corr\'elation $prob$ entre deux ar\^etes et du seuil $s$ \`a partir duquel on introduit des corr\'elations erron\'ees.
 \newline
 % comparaison entre les fonctions de cout unitaire, lineaire et en cloche
 
@@ -67,9 +67,9 @@ En effet, pour $10$ et $20$ erreurs de corr\'elation, l'algorithme de correction
 Nous en deduisons que le co\^ut de la fonction $F_1$ est  inf\'erieur \`a celui de la fonction en cloche. 
 La figure \ref{comparaison_fct_cloche_unitaire_normal_p05}  est une bonne illustration par la position de la courbe rouge ($F_1$) en dessous de celle en jaune ($cloche$).
 \newline
-Ce resultat provient de l'utilisation des ar\^etes fausses n\'egatives parce que le co\^ut de ces ar\^etes est faible par rapport au co\^ut des ar\^etes de corr\'elations fausses positives.
+Ce r\'esultat provient de l'utilisation des ar\^etes fausses n\'egatives parce que le co\^ut de ces ar\^etes est faible par rapport au co\^ut des ar\^etes de corr\'elations fausses positives.
 En effet les corr\'elations fausses n\'egatives et fausses positives appartiennent aux intervalles $[0,s[$ et $]s,1]$ respectivement. 
-Alors qu'on a une d\'ecroissance faible de $0$ \`a $s$ et une croissance forte de $s$ \`a $1$ dans la courbe de $F_c$. 
+Alors que nous avons une d\'ecroissance faible de $0$ \`a $s$ et une croissance forte de $s$ \`a $1$ dans la courbe de $F_c$. 
 Ce qui explique le co\^ut faible des fausses n\'egatives et celui \'elev\'e des fausses positives. 
 Par ailleurs, la courbe en bleu (fonction unitaire $F_0$) est au dessus des deux autres courbes ($F_1$ et cloche) indiquant que son co\^ut est le plus \'elev\'e des trois fonctions.
 \newline

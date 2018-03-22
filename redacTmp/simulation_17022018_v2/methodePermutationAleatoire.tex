@@ -35,13 +35,13 @@
 %\label{permut_distanceMoyenDLDH_k_5_9_aleatoire_p_05} 
 %\end{figure}
 
-La figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05} repr\'esente les distributions des distances line, de Hamming, des fonctions de r\'epartition de la corr\'elation entre distances line et Hamming pour $k \in [1,2,5,9]$ erreurs. 
+La figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05} repr\'esente les distributions des distances line, de Hamming, des fonctions de r\'epartition de la corr\'elation entre les distances line et  de Hamming pour $k \in [1,2,5,9]$ erreurs. 
 \newline
-Pour $k=0$ erreur (figure \ref{permut_distanceMoyenDLDH_k_0_aleatoire_p_05}), nous avons un batonnet sur les histogrammes de distances line et de Hamming. Ce batonnet est le pourcentage d'ar\^etes identiques entre les graphes $G_k$ et $LG_k$ (distance line) et aussi entre les graphes  $LG$ et $LG_k$ (distance de Hamming). Nous remarquons que le pourcentage d'ar\^etes identiques est de $100\%$ et cela signifie que les graphes $LG_k$ et $LG$ sont isomorphes en ar\^etes c'est-\`a-dire que les  les ar\^etes des graphes $LG_k$ et $LG$ sont identiques. Ce qui est normal parce que nous n'avons ajout\'e aucune erreur dans le line-graphe $LG$. 
-Par ailleurs, nous avons deux fonctions de r\'epartition. La premi\`ere fonction $y_{correlDLDH}$ calcule la corr\'elation entre les distances line et de Hamming. Elle est d\'efinie par l'\'equation \ref{eqCorrelMoyDLDH} et se localise dans la troisi\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}. La deuxi\`eme fonction $y_{cumulDH}$, d\'efinie par l'\'equation \ref{eqCumulMoyDH}, calcule les corr\'elations cumul\'ees des distances de Hamming et occupe la quatri\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}.
+Pour $k=0$ erreur (figure \ref{permut_distanceMoyenDLDH_k_0_aleatoire_p_05}), nous avons un batonnet sur les histogrammes de distances line et de Hamming. Ce batonnet est le pourcentage d'ar\^etes identiques entre les graphes $G_k$ et $LG_k$ (distance line) et aussi entre les graphes  $LG$ et $LG_k$ (distance de Hamming). Nous remarquons que le pourcentage d'ar\^etes identiques est de $100\%$ et cela signifie que les graphes $LG_k$ et $LG$ sont isomorphes en ar\^etes c'est-\`a-dire que les ar\^etes des graphes $LG_k$ et $LG$ sont identiques. Ce qui est normal parce que nous n'avons ajout\'e aucune erreur dans le line-graphe $LG$. 
+Par ailleurs, nous avons deux fonctions de r\'epartition. La premi\`ere fonction $y_{correlDLDH}^{0}$ calcule la corr\'elation entre les distances line et de Hamming. Elle est d\'efinie par l'\'equation \ref{eqCorrelMoyDLDH} et se localise dans la troisi\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}. La deuxi\`eme fonction $y_{cumulDH}^{0}$, d\'efinie par l'\'equation \ref{eqCumulMoyDH}, calcule les corr\'elations cumul\'ees des distances de Hamming et occupe la quatri\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}.
 \begin{equation}
 \label{eqCorrelMoyDLDH}
-y_{correlDLDH} = \left\{
+y_{correlDLDH}^{0} = \left\{
 	\begin{aligned}
 	0 \hspace{1 em} si \hspace{1 em} x < 1 \\
 	100  \hspace{1 em}  si  \hspace{1 em}  x = 1
@@ -50,35 +50,35 @@ y_{correlDLDH} = \left\{
 \end{equation}
 \begin{equation}
 \label{eqCumulMoyDH}
-y_{cumulDH} = 1  \hspace{1 em}  si  \hspace{1 em}   x \in [0,1]
+y_{cumulDH}^{0} = 1  \hspace{1 em}  si  \hspace{1 em}   x \in [0,1]
 \end{equation}
-La variable $x$ est la corr\'elation entre la distance line et celle de Hamming.
-En effet,  $x = 1$ implique que $DL = k$ et $DH = 0$ et  $x = 0$ implique que $DL = k$ et $DH = k$.
-L'\'equation  \ref{eqCorrelMoyDLDH} s'interpr\`ete comme suit : $y_{correlDLDH} = 100\%$ des line-graphes ont leur distance line et de Hamming correl\'ees ($x = 1$).
+La variable $x$ est la corr\'elation entre la distance line et la distance de Hamming.
+En effet,  $x = 1$ implique que $DL = k$ et $DH = 0$ tandis que  $x = 0$ implique que $DL = k$ et $DH = k$.
+L'\'equation  \ref{eqCorrelMoyDLDH} s'interpr\`ete comme suit : $y_{correlDLDH}^{0} = 100\%$ des line-graphes ont leur distance line et de Hamming correl\'ees ($x = 1$).
 Le cas de $k=0$ erreur servira de r\'ef\'erence pour la meilleure performance de nos algorithmes.
 \newline
 %-- pour k \in [1,2]
 Pour $k \in [1,2]$, dans la premi\`ere et seconde colonne, le batonnet de pic maximal est \`a gauche de la droite $y = k$ (droite en rouge) de chaque histogramme et  son pourcentage est sup\'erieur \`a $50 \%$. Les autres batonnets sont regroup\'es \`a droite de $y = k$ et le pic maximal du pourcentage de ces batonnets est inf\'erieur \`a $10\%$. La droite $y = k$ d\'esigne le nombre d'erreurs ajout\'ees dans le graphe de corr\'elation $G_k$.
-Dans la seconde colonne, le pic correspond \`a $0$ ar\^ete indiquant qu'il n'y a aucune diff\'erence d'ar\^etes entre les  graphes $G_k$ et $LG_k$. Dans la premi\`ere colonne, le pic correspond \`a $k$ erreurs et son pourcentage est identique \`a celui de $k=0$ dans la seconde colonne. Cela signifie que les $k$ erreurs ajout\'ees dans $G_k$ ont \'et\'e supprim\'ees. Ainsi, nous retrouvons le line-graphe initial dans un cas sur deux lorsque nous ajoutons $k \le 2$ erreurs.
+Dans la seconde colonne, le pic correspond \`a $moy\_DH = 0$ ar\^ete indiquant qu'il n'y a aucune diff\'erence d'ar\^etes entre les  graphes $G_k$ et $LG_k$. Dans la premi\`ere colonne, le pic correspond \`a $k$ erreurs et son pourcentage est identique \`a celui de $k=0$ dans la seconde colonne. Cela signifie que les $k$ erreurs ajout\'ees dans $G_k$ ont \'et\'e supprim\'ees. Ainsi, nous retrouvons le line-graphe initial dans un cas sur deux lorsque nous ajoutons $k \le 2$ erreurs.
 % par ailleurs comment se comporte les algos lorsque les k erreurs ne sont pas corrigees
 Cependant, on observe que les distances line et de Hamming  ont approximativement les m\^emes valeurs lorsque les $k$ erreurs n'ont pas \'et\'e corrig\'ees. 
-En effet, pour $x > 0.3$, $y_{correlDLDH} > 60\%$ et  pour $x \le 0.3$, $y_{correlDLDH} < 5\%$ (voir troisi\`eme colonne figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}). Or $y_{correlDLDH} \rightarrow 0\%$ signifie que $DL$ est \'egale \`a $k$ ($DL = k$) et $DH$ tend vers $k$ ($DH \rightarrow k$). Donc $y_{correlDLDH} < 5\%$ implique que $DL = k$ et $DH \approx k$.
-Ainsi, les distances line et de hamming sont corr\'el\'ees dans $5\%$ des line-graphes et le line-graphe $LG_k$, d\'ecouvert par les algorithmes, conduit  au line-graphe initial $LG$ si nous lui retirons les $k$ erreurs du graphe.
+En effet, pour $x > 0.3$, $y_{correlDLDH}^{k} > 60\%$ et  pour $x \le 0.3$, $y_{correlDLDH}^{k} < 5\%$ (voir troisi\`eme colonne figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}). Or $y_{correlDLDH}^{k} \rightarrow 0\%$ signifie que $DL$ est \'egale \`a $k$ ($DL = k$) et $DH$ tend vers $k$ ($DH \rightarrow k$). Donc $y_{correlDLDH}^{k} < 5\%$ implique que $DL = k$ et $DH \approx k$.
+Ainsi, les distances line et de hamming sont corr\'el\'ees dans $5\%$ des line-graphes et le line-graphe $LG_k$, d\'ecouvert par les algorithmes, devient  au line-graphe initial $LG$ si nous retirons/ajout\'ons les $DL$ ar\^etes du graphe $LG_k$.
 \newline
 %-- pour k \in [5,9] 
 Pour $k  = 5$ erreurs,  le pic de chaque histogramme baisse significativement $nombre\_graphe \approx 12 \%$ et se localise toujours $moy\_distance\_line = k$, \`a la gauche de la droite $y = k$ (voir colonnes 1 et 2 dans la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}). 
-Toutefois, la distribution \`a la droite de la droite  $y = k$ est plus \'elev\'e par rapport \`a celle de la gauche de la droite.
-Les $12\%$ des line-graphes $LG_k$ isomorphes \`a $LG$ s'expliquent  par le type d'erreurs et par l'emplacement des erreurs dans le graphe $G_k$. En effet, ces erreurs sont des corr\'elations {\em fausses n\'egatives} et ces ar\^etes supprim\'ees n'appartiennent pas \`a des cliques voisines.
+Toutefois, la distribution \`a la droite de la droite  $y = k$ est plus \'elev\'ee par rapport \`a celle \`a la gauche de la droite.
+Les $12\%$ des line-graphes $LG_k$ isomorphes en ar\^etes \`a $LG$ s'expliquent  par le type d'erreurs et par l'emplacement des erreurs dans le graphe $G_k$. En effet, ces erreurs sont des corr\'elations {\em fausses n\'egatives} et ces ar\^etes supprim\'ees n'appartiennent pas \`a des cliques voisines.
 Cependant, quelque soit le type d'erreurs, nos algorithmes ajoutent beaucoup ar\^etes pour obtenir le line-graphe $LG_k$ lorsque les erreurs sont h\'et\'erog\`enes. Par exemple, nous avons $10$, $20$ ar\^etes diff\'erentes  pour $5$ erreurs ajout\'ees.
 \newline
 %-- pour k \in [9]
 De m\^eme, le ph\'enom\`ene est identique pour $k  = 9$ erreurs et la particularit\'e de la distribution est l'absence de batonnets \`a la gauche de la droite $y = k$ (voir colonnes 1, derni\`ere ligne dans la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}).
 Le pic est \`a $moy\_distance\_line = 23$ avec une valeur de $nombre\_graphe \approx 6 \%$.
-Nous remarquons que moins de $3\%$ des line-graphes $LG_k$ sont isomorphes \`a $LG$ c'est-\`a-dire la corr\'elation entre les distances line et de hamming est de $1$ (voir la troisi\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}). 
-Les autres line-graphes $LG_k$ ont leur corr\'elation entre distances line et de Hamming qui tend vers $0$.  C'est pourquoi la courbe de la fonction de r\'epartition  pour $k=9$  a cette forme enrob\'ee proche de la fonction  XXX  et est diff\'erente de celle de $k=0$, notre fonction de r\'ef\'erence.
-Les erreurs de corr\'elations $k \in [0,9]$ sont pr\'esent\'ees dans les figures \ref{permut_distanceMoyenDLDH_k_0_5_aleatoire_p_05} et  \ref{permut_distanceMoyenDLDH_k_5_9_aleatoire_p_05}) de l'annexe \ref{annexe_distribution_0_9}
+Nous remarquons que moins de $3\%$ des line-graphes $LG_k$ sont isomorphes  en ar\^etes \`a $LG$ c'est-\`a-dire la corr\'elation entre les distances line et de hamming est de $1$ (voir la troisi\`eme colonne de la figure \ref{permut_distanceMoyenDLDH_k_1_2_5_9_aleatoire_p_05}). 
+Les autres line-graphes $LG_k$ ont leur corr\'elation entre les distances line et de Hamming qui tend vers $0$.  C'est pourquoi la courbe de la fonction de r\'epartition  pour $k=9$  a cette forme enrob\'ee proche de la fonction  XXX  et est diff\'erente de celle de $k=0$, notre fonction de r\'ef\'erence.
+Les erreurs de corr\'elations $k \in [1,9]$ sont pr\'esent\'ees dans les figures \ref{permut_distanceMoyenDLDH_k_0_5_aleatoire_p_05} et  \ref{permut_distanceMoyenDLDH_k_5_9_aleatoire_p_05}) de l'annexe \ref{annexe_distribution_0_9}.
 \newline
-Bien que les distributions de distance line et de Hamming soient asym\'etriques (pour $k < 5$) soient sym\'etriques (pour $k>6$), toutes les deux, et que certaines distances line et de Hamming soient identiques, nous interrogent sur l'\'evolution des distributions des distances line par rapport \`a celles de Hamming. 
+Bien que les distributions de distance line et de Hamming soient asym\'etriques (pour $k < 5$), sym\'etriques (pour $k>6$) et que certaines distances line et de Hamming soient identiques, nous interrogent sur l'\'evolution des distributions des distances line par rapport \`a celles de Hamming. 
 
 
 %Pour $k \in [1,4]$, l'ensemble des batonnets, regroup\'es avant la droite $y = k$ (droite en rouge) de chaque histogramme, a un pourcentage sup\'erieure \`a $50 \%$. La pr\'esence de cette droite nous indique que, dans le majorit\'e des cas,  qu'il existe une diff\'erence de $k$ ar\^etes entre les graphes $G_k$ et $LG_k$ (voir distance line figure \ref{permut_distanceMoyenDLDH_k_0_5_aleatoire_p_05}) et ces $k$ ar\^etes correspondent aux erreurs ajout\'ees dans la matrice d'adjacence $matE$ du line-graphe $LG$. Cela explique 

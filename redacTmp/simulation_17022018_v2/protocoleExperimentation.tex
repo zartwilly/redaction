@@ -4,14 +4,14 @@ Nous introduisons trois param\`etres $k, p\_correl, prob$:
 \item $k$ d\'esigne le nombre de corr\'elations erron\'ees \`a ajouter dans la matrice $matE$. Dans notre \'etude, $k \in [1,9]$.
 \item $p\_correl$ d\'esigne la probabilit\'e d'ajouter des erreurs de corr\'elations, soit corr\'elation {\em fausses positives} (ajout d'ar\^etes) soit corr\'elation {\em fausses n\'egatives} (suppression d'ar\^etes) soit les deux. Cette variable $p\_correl \in [0,1]$ varie par pas de $0.1$. Ainsi,
 	\begin{itemize}
-	\item si $p\_correl=0$ $\rightarrow$ on a que des corr\'elations {\em fausses positives} dans la matrice $matE'$ car on supprime uniquement des ar\^etes dans le line-graphe de matrice d'adjacence $matE$.
+	\item si $p\_correl=0$ $\rightarrow$ la matrice $matE'$ ne contient que des  corr\'elations {\em fausses positives} car on supprime uniquement des ar\^etes dans le line-graphe de matrice d'adjacence $matE$.
 	\item si $p\_correl=0.5$ $\rightarrow$ le nombre de corr\'elations {\em fausses n\'egatives} et  {\em fausses positives} est approximativement identique  dans la matrice $matE'$ car on ajoute et supprime \'equiprobablement des ar\^etes dans la matrice $matE$.
 	\item si $p\_correl=1.0$ $\rightarrow$ la matrice $matE'$ ne contient que des corr\'elations {\em fausses n\'egatives} car on ajoute des ar\^etes dans le line-graphe de matrice $matE$.
 	\end{itemize}
 \item $prob$ d\'esigne la probabilit\'e associ\'ee \`a une corr\'elation selon le type d'erreurs rencontr\'e dans $matE'$. En un mot, $prob$ est la valeur de corr\'elation entre ar\^etes.
 Ce param\`etre est important car les valeurs de corr\'elations calcul\'ees  ne sont pas binaires mais dependent d'une loi de probabilit\'e. Nous en reparlerons \'egalement dans la section \ref{fonctionDeCout}.
 \end{enumerate}
-Pour ajouter des erreurs de corr\'elation \`a la matrice $matE$ correcte, on tire al\'eatoirement $k$ cases non encore modifi\'ees. Nous mettons chaque case et sa case sym\'etrique \`a $1$ si la probabilit\'e de la case est inf\'erieure ou \'egale \`a $p\_correl$. Si cette case est d\'ej\`a \`a $1$, on choisit une autre case. Selon le type d'erreurs de chaque case (vrai n\'egatives, vrai positives), on lui attribue une valeur de corr\'elation selon des distributions pr\'ed\'efinies.
+Pour ajouter des erreurs de corr\'elation \`a la matrice $matE$ correcte, on tire al\'eatoirement $k$ cases non encore modifi\'ees. Nous mettons chaque case et sa case sym\'etrique \`a $1$ si la probabilit\'e de la case est inf\'erieure ou \'egale \`a $p\_correl$. Si cette case est d\'ej\`a \`a $1$, on choisit une autre case. Selon le type d'erreurs de chaque case (vrai n\'egatives, vrai positives), on lui attribue une valeur de corr\'elation selon les distributions pr\'ed\'efinies.
 \newline
 
 Consid\'erons le graphe $G_k$ de matrice d'adjacence $matE_k$ dans laquelle on ajoute $k \in [1,9]$ erreurs de corr\'elation selon $p\_correl=0.5$, la probabilit\'e d'ajouter autant d'erreurs {\em fausses n\'egatives } que d'erreurs {\em fausses positives}. 
@@ -38,7 +38,7 @@ Consid\'erons
 En comparant
 \begin{enumerate}
 \item  $LG$ et $LG_{k, \alpha}$, on obtient la distance de Hamming not\'ee $DH_{k,\alpha}$.
-\item $G_{k,\alpha}$ et $LG_{k,\alpha}$, on a la distance line not\'ee $DL_{k,\alpha}$.
+\item $G_{k,\alpha}$ et $LG_{k,\alpha}$, on obtient la distance line not\'ee $DL_{k,\alpha}$.
 \end{enumerate}
 On d\'efinit par les variables $moy\_DH$ et $moy\_DL$, les moyennes respectives des distances de Hamming (not\'ee $DH_{k,\alpha}$) et des distances line (not\'ee $DL_{k,\alpha}$) pour une valeur donn\'ee de $k$ et pour tout $\alpha \in [1, 5]$.
 \begin{equation}
@@ -47,11 +47,11 @@ moy\_DL_k = \sum_{\alpha = 1}^{5} DL_{k, \alpha}
 \end{equation}
 
 Le protocole d'exp\'erimentation est r\'esum\'e dans la figure \ref{recap_protocole_etude}. Le r\'eseau de flots $G$ g\'en\'er\'e est transform\'e en un line-graphe $LG$, puis $k$ erreurs de corr\'elations  sont ajout\'ees $\alpha$ fois dans $LG$ pour obtenir $G_{k,\alpha}$. Nous appliquons les algorithmes (couverture et correction) pour d\'eterminer la line-couverture (ou la plus proche possible) du graphe $G_{k,\alpha}$ car ce graphe n'est pas n\'ecessairement un line-graphe. Cette line-couverture forme un line-graphe $LG_{k, \alpha}$ proche ou identique au line-graphe $LG$. Le line-graphe $LG_{k, \alpha}$ est utilis\'e pour calculer les distances line ($DL_{k, \alpha}$) et de Hamming ($DH_{k, \alpha}$).
-Les valeurs moyennes ($moy\_DL$, $moy\_DH$) des distances line et de Hamming sont calcul\'ees pour chaque erreur $k$ et leurs distributions sont pr\'esent\'ees dans la section suivante afin de monter les performances des algorithmes en pr\'esence d'erreurs de corr\'elations de diff\'erentes lois de probabilit\'es.
+Les valeurs moyennes ($moy\_DL$, $moy\_DH$) des distances line et de Hamming sont calcul\'ees pour chaque erreur $k$ et leurs distributions sont pr\'esent\'ees dans la section suivante afin de montrer les performances des algorithmes en pr\'esence d'erreurs de corr\'elations de diff\'erentes lois de probabilit\'es.
 \begin{figure}[htb!] 
 \centering
 \includegraphics[scale=0.70]{recapProtocoleEtude.eps}
-\caption{ Diff\'erentes \'etapes du processus de simulation de nos algorithmes (traits en noir), calcul de distances entre \'etapes}
+\caption{ Diff\'erentes \'etapes du processus d'exp\'erimentation de nos algorithmes (fl\`eches en noir), calcul de distances entre \'etapes (fl\`eches pointill\'ees en rouge).}
 \label{recap_protocole_etude} 
 \end{figure}
 %---- decription protocole d'etude --> fin
